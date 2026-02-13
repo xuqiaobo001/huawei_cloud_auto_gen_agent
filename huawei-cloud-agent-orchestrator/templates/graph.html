@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <title>服务依赖图 - 华为云Agent编排系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { overflow: hidden; }
+        #graph-container {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 56px);
+            background: #f8f9fa;
+        }
+        #graph-svg {
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+        }
+        #graph-svg:active { cursor: grabbing; }
+
+        /* 左侧控制面板 */
+        #control-panel {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 260px;
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
+            z-index: 10;
+            background: rgba(255,255,255,0.97);
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+            padding: 14px;
+            font-size: 0.85rem;
+        }
+        #control-panel::-webkit-scrollbar { width: 4px; }
+        #control-panel::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+        #search-input {
+            font-size: 0.82rem;
+            padding: 6px 10px;
+        }
+
+        .category-filter { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+        .cat-btn {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .cat-btn:hover { border-color: #999; }
+        .cat-btn.active { color: #fff; border-color: transparent; }
+
+        .stats-row { display: flex; gap: 8px; margin-top: 10px; }
+        .stat-card {
+            flex: 1;
+            text-align: center;
+            background: #f0f4ff;
+            border-radius: 8px;
+            padding: 8px 4px;
+        }
+        .stat-card .num { font-size: 1.3rem; font-weight: 700; color: #0d6efd; }
+        .stat-card .lbl { font-size: 0.68rem; color: #666; }
+
+        /* 图例 */
+        .legend-section { margin-top: 12px; }
+        .legend-title { font-size: 0.75rem; font-weight: 600; color: #555; margin-bottom: 4px; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #555; margin-bottom: 2px; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .legend-line { width: 24px; height: 0; border-top: 2px solid; flex-shrink: 0; }
+
+        /* 右侧详情面板 */
+        #detail-panel {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 300px;
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
+            z-index: 10;
+            background: rgba(255,255,255,0.97);
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+            padding: 16px;
+            font-size: 0.83rem;
+            display: none;
+        }
+        #detail-panel::-webkit-scrollbar { width: 4px; }
+        #detail-panel::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+        #detail-panel .close-btn {
+            position: absolute; top: 8px; right: 10px;
+            background: none; border: none; font-size: 1.1rem; color: #999; cursor: pointer;
+        }
+        #detail-panel .close-btn:hover { color: #333; }
+        .detail-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .detail-header .svc-icon {
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: 700; font-size: 0.75rem;
+        }
+        .dep-list { list-style: none; padding: 0; margin: 0; }
+        .dep-list li {
+            padding: 5px 8px; border-radius: 6px; margin-bottom: 3px;
+            background: #f8f9fa; font-size: 0.78rem;
+            display: flex; align-items: center; gap: 6px; cursor: pointer;
+        }
+        .dep-list li:hover { background: #e9ecef; }
+        .dep-badge {
+            font-size: 0.62rem; padding: 1px 5px; border-radius: 8px;
+            color: #fff; flex-shrink: 0;
+        }
+
+        /* 工具栏 */
+        #toolbar {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 6px;
+            background: rgba(255,255,255,0.95);
+            padding: 6px 12px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+        #toolbar button {
+            border: none; background: #f0f0f0; border-radius: 50%;
+            width: 32px; height: 32px; font-size: 0.8rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background 0.15s;
+        }
+        #toolbar button:hover { background: #ddd; }
+
+        /* 节点 tooltip */
+        .node-tooltip {
+            position: absolute;
+            pointer-events: none;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 20;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-cloud"></i>
+                华为云编排系统
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" id="nav-home">
+                            <i class="fas fa-home"></i> 首页
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auto" id="nav-auto">
+                            <i class="fas fa-robot"></i> AI自动生成
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history" id="nav-history">
+                            <i class="fas fa-history"></i> 历史记录
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/designer" id="nav-designer">
+                            <i class="fas fa-project-diagram"></i> 工作流设计器
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/monitor" id="nav-monitor">
+                            <i class="fas fa-chart-line"></i> 监控中心
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services" id="nav-services">
+                            <i class="fas fa-cogs"></i> 服务管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/graph" id="nav-graph">
+                            <i class="fas fa-share-alt"></i> 服务依赖图
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/settings" id="nav-settings">
+                            <i class="fas fa-sliders-h"></i> 设置
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <span class="badge {{ 'bg-success' if llm_available else 'bg-warning text-dark' }}">
+                            <i class="fas fa-brain"></i> LLM: {{ '已启用' if llm_available else '未配置' }}
+                        </span>
+                    </li>
+                    <li class="nav-item ms-3 border-start border-light ps-3">
+                        <span class="navbar-text text-white"><i class="fas fa-user-circle"></i> {{ username }}</span>
+                        <a class="text-white-50 ms-2 text-decoration-none small" href="/logout"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="graph-container">
+        <svg id="graph-svg"></svg>
+
+        <!-- 左侧控制面板 -->
+        <div id="control-panel">
+            <div class="mb-2" style="font-weight:600;font-size:0.95rem;">
+                <i class="fas fa-share-alt text-primary"></i> 服务依赖图
+            </div>
+            <input type="text" id="search-input" class="form-control form-control-sm" placeholder="搜索服务...">
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="num" id="stat-nodes">0</div>
+                    <div class="lbl">服务</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num" id="stat-edges">0</div>
+                    <div class="lbl">依赖</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num" id="stat-categories">0</div>
+                    <div class="lbl">类别</div>
+                </div>
+            </div>
+            <div style="margin-top:10px;font-size:0.75rem;font-weight:600;color:#555;">按类别筛选</div>
+            <div class="category-filter" id="category-filter"></div>
+
+            <div class="legend-section">
+                <div class="legend-title">依赖类型</div>
+                <div class="legend-item"><span class="legend-line" style="border-color:#0d6efd;"></span> 强依赖 (requires)</div>
+                <div class="legend-item"><span class="legend-line" style="border-color:#6c757d;border-style:dashed;"></span> 可选 (optional)</div>
+                <div class="legend-item"><span class="legend-line" style="border-color:#198754;"></span> 监控 (monitors)</div>
+                <div class="legend-item"><span class="legend-line" style="border-color:#6f42c1;border-style:dotted;"></span> 集成 (integrates)</div>
+            </div>
+            <div class="legend-section">
+                <div class="legend-title">服务类别</div>
+                <div id="category-legend"></div>
+            </div>
+
+            <button class="btn btn-sm btn-outline-primary w-100 mt-2" id="btn-refresh">
+                <i class="fas fa-sync-alt"></i> 刷新数据
+            </button>
+        </div>
+
+        <!-- 右侧详情面板 -->
+        <div id="detail-panel">
+            <button class="close-btn" id="detail-close">&times;</button>
+            <div class="detail-header">
+                <div class="svc-icon" id="detail-icon"></div>
+                <div>
+                    <div style="font-weight:700;font-size:1rem;" id="detail-name"></div>
+                    <div style="color:#888;font-size:0.75rem;" id="detail-category"></div>
+                </div>
+            </div>
+            <div id="detail-id" style="font-size:0.72rem;color:#aaa;margin-bottom:10px;"></div>
+
+            <div style="font-weight:600;font-size:0.8rem;margin-bottom:4px;">
+                <i class="fas fa-arrow-right text-primary"></i> 依赖的服务 (<span id="dep-on-count">0</span>)
+            </div>
+            <ul class="dep-list" id="dep-on-list"></ul>
+
+            <div style="font-weight:600;font-size:0.8rem;margin-top:10px;margin-bottom:4px;">
+                <i class="fas fa-arrow-left text-success"></i> 被依赖 (<span id="dep-by-count">0</span>)
+            </div>
+            <ul class="dep-list" id="dep-by-list"></ul>
+        </div>
+
+        <!-- 底部工具栏 -->
+        <div id="toolbar">
+            <button id="btn-zoom-in" title="放大"><i class="fas fa-plus"></i></button>
+            <button id="btn-zoom-out" title="缩小"><i class="fas fa-minus"></i></button>
+            <button id="btn-zoom-reset" title="重置视图"><i class="fas fa-expand"></i></button>
+        </div>
+
+        <!-- Tooltip -->
+        <div class="node-tooltip" id="node-tooltip"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="/static/js/graph.js"></script>
+</body>
+</html>

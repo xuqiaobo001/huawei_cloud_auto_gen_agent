@@ -23,6 +23,8 @@ from utils.logger import setup_logger
 from utils.config_manager import get_config
 from utils.vector_store import get_vector_store
 from utils.auth import init_default_user, authenticate, get_current_user, AuthMiddleware
+from utils.graph_store import get_graph_store
+from services.service_dependency_analyzer import get_analyzer
 
 # 初始化配置
 config = get_config()
@@ -55,6 +57,22 @@ async def lifespan(app: FastAPI):
     init_db()
     init_default_user()
     logger.info(f"已注册 {len(service_registry.services)} 个云服务")
+
+    # 初始化服务依赖图
+    try:
+        graph_store = get_graph_store()
+        if graph_store.is_connected:
+            if graph_store.node_count() == 0:
+                analyzer = get_analyzer()
+                graph_store.populate_from_analyzer(analyzer)
+                logger.info("服务依赖图数据已填充到Neo4j")
+            else:
+                logger.info("Neo4j中已有图数据，跳过填充")
+        else:
+            logger.warning("Neo4j不可用，将使用Analyzer直接提供图数据")
+    except Exception as e:
+        logger.warning(f"图数据库初始化失败，降级运行: {e}")
+
     logger.info("系统启动完成")
 
     yield
@@ -174,6 +192,19 @@ async def monitor(request: Request):
 async def service_list(request: Request):
     """服务列表页面"""
     return templates.TemplateResponse("service_list.html", {"request": request, "username": request.session.get("username", "")})
+
+
+@app.get("/graph", response_class=HTMLResponse)
+async def graph_page(request: Request):
+    """服务依赖图页面"""
+    return templates.TemplateResponse(
+        "graph.html",
+        {
+            "request": request,
+            "llm_available": agent.is_llm_available(),
+            "username": request.session.get("username", ""),
+        }
+    )
 
 
 # ===== API路由 =====
@@ -703,6 +734,93 @@ async def validate_workflow(workflow_data: dict):
             "success": False,
             "error": str(e)
         }, status_code=500)
+
+
+# ===== 服务依赖图API =====
+
+@app.get("/api/graph/services")
+async def get_graph_services():
+    """获取完整图数据（节点+边）供D3.js渲染"""
+    try:
+        graph_store = get_graph_store()
+        if graph_store.is_connected:
+            data = graph_store.get_all_nodes_and_edges()
+            if data["nodes"]:
+                return JSONResponse({"success": True, "data": data})
+
+        # 降级到Analyzer
+        analyzer = get_analyzer()
+        return JSONResponse({
+            "success": True,
+            "data": {
+                "nodes": analyzer.get_all_nodes(),
+                "edges": analyzer.get_all_edges(),
+            },
+            "source": "analyzer",
+        })
+    except Exception as e:
+        logger.error(f"获取图数据失败: {e}")
+        return JSONResponse({"success": False, "error": str(e)}, status_code=500)
+
+
+@app.get("/api/graph/service/{name}/dependencies")
+async def get_service_graph_dependencies(name: str):
+    """获取单个服务的上下游依赖"""
+    try:
+        graph_store = get_graph_store()
+        if graph_store.is_connected:
+            data = graph_store.get_service_dependencies(name)
+            if data and "error" not in data:
+                return JSONResponse({"success": True, "data": data})
+
+        # 降级到Analyzer
+        analyzer = get_analyzer()
+        data = analyzer.get_service_dependencies(name)
+        if "error" in data:
+            return JSONResponse({"success": False, "error": data["error"]}, status_code=404)
+        return JSONResponse({"success": True, "data": data, "source": "analyzer"})
+    except Exception as e:
+        logger.error(f"获取服务依赖失败: {e}")
+        return JSONResponse({"success": False, "error": str(e)}, status_code=500)
+
+
+@app.get("/api/graph/stats")
+async def get_graph_stats():
+    """获取图统计信息"""
+    try:
+        graph_store = get_graph_store()
+        analyzer = get_analyzer()
+        analyzer_stats = analyzer.get_stats()
+
+        if graph_store.is_connected:
+            neo4j_stats = graph_store.get_stats()
+            analyzer_stats["neo4j_connected"] = True
+            analyzer_stats["neo4j_stats"] = neo4j_stats
+        else:
+            analyzer_stats["neo4j_connected"] = False
+
+        return JSONResponse({"success": True, "data": analyzer_stats})
+    except Exception as e:
+        logger.error(f"获取图统计失败: {e}")
+        return JSONResponse({"success": False, "error": str(e)}, status_code=500)
+
+
+@app.post("/api/graph/refresh")
+async def refresh_graph():
+    """重新分析并刷新图数据"""
+    try:
+        analyzer = get_analyzer()
+        graph_store = get_graph_store()
+
+        if graph_store.is_connected:
+            graph_store.clear_all()
+            graph_store.populate_from_analyzer(analyzer)
+            return JSONResponse({"success": True, "message": "图数据已刷新（Neo4j）"})
+        else:
+            return JSONResponse({"success": True, "message": "图数据已刷新（Analyzer内存模式）"})
+    except Exception as e:
+        logger.error(f"刷新图数据失败: {e}")
+        return JSONResponse({"success": False, "error": str(e)}, status_code=500)
 
 
 # ===== 设置页面 =====

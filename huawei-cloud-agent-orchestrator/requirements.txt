@@ -32,6 +32,9 @@ itsdangerous>=2.0.0
 python-dotenv>=1.0.0
 pyyaml>=6.0
 
+# 图数据库
+neo4j>=5.0.0
+
 # 向量数据库
 chromadb>=0.4.0
 sentence-transformers>=2.2.0

@@ -55,6 +55,13 @@ services:
     - nat          # NAT网关
     - dns          # 云解析
 
+# Neo4j图数据库配置
+neo4j:
+  uri: "bolt://localhost:7687"
+  username: "neo4j"
+  password: "your_password_here"
+  database: "neo4j"
+
 # 工作流配置
 workflow:
   max_concurrent_tasks: 10       # 最大并发任务数
