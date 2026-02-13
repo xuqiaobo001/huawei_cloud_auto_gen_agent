@@ -77,7 +77,10 @@ python main.py
 bash start.sh
 ```
 
-访问 `http://localhost:8000` 进入 Web 界面。
+访问 `http://localhost:8000` 进入 Web 界面。默认账号密码：
+
+- 用户名：`admin`
+- 密码：`robo@123`
 
 ## 使用示例
 
