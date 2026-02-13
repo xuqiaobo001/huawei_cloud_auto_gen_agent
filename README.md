@@ -53,6 +53,8 @@ cd huawei-cloud-agent-orchestrator
 pip install -r requirements.txt
 ```
 
+> 项目使用的 SQLite（通过 SQLAlchemy + aiosqlite）和 Chromadb 均为嵌入式数据库，无需额外安装或部署数据库服务。数据文件会在首次运行时自动生成于 `data/` 目录下。
+
 ### 配置
 
 编辑 `config.yaml` 或通过 Web 界面配置：
