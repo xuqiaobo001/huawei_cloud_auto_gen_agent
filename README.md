@@ -133,4 +133,4 @@ huawei-cloud-agent-orchestrator/
 
 ## License
 
-MIT
+Apache License 2.0 — 详见 [LICENSE](LICENSE) 文件。
