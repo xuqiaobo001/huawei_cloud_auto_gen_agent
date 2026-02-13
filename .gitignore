@@ -1,3 +1,5 @@
 huaweicloud-sdk-python-v3
 __pycache__/
 logs/
+*.log
+=2.0.0
