@@ -3,3 +3,4 @@ __pycache__/
 logs/
 *.log
 =2.0.0
+data/
