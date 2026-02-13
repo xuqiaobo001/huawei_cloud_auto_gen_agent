@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <title>LLM & 云认证配置 - 华为云Agent编排系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-cloud"></i>
+                华为云编排系统
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/" id="nav-home"><i class="fas fa-home"></i> 首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/auto" id="nav-auto"><i class="fas fa-robot"></i> AI自动生成</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/history" id="nav-history"><i class="fas fa-history"></i> 历史记录</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/designer" id="nav-designer"><i class="fas fa-project-diagram"></i> 工作流设计器</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/monitor" id="nav-monitor"><i class="fas fa-chart-line"></i> 监控中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/services" id="nav-services"><i class="fas fa-cogs"></i> 服务管理</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/settings" id="nav-settings"><i class="fas fa-sliders-h"></i> 设置</a></li>
+                </ul>
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <span class="badge {{ 'bg-success' if llm_available else 'bg-warning text-dark' }}">
+                            <i class="fas fa-brain"></i> LLM: {{ '已启用' if llm_available else '未配置' }}
+                        </span>
+                    </li>
+                    <li class="nav-item ms-3 border-start border-light ps-3">
+                        <span class="navbar-text text-white"><i class="fas fa-user-circle"></i> {{ username }}</span>
+                        <a class="text-white-50 ms-2 text-decoration-none small" href="/logout"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        <!-- 面包屑 -->
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/settings">设置</a></li>
+                <li class="breadcrumb-item active">LLM & 云认证配置</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+
+                <!-- ===== LLM 配置 ===== -->
+                <h4 class="mb-4"><i class="fas fa-brain"></i> LLM 配置</h4>
+
+                <div id="statusCard" class="alert alert-{{ 'success' if llm_available else 'warning' }} d-flex align-items-center mb-4">
+                    <i class="fas fa-{{ 'check-circle' if llm_available else 'exclamation-triangle' }} me-2"></i>
+                    <span id="statusText">
+                        {% if llm_available %}
+                        LLM 已连接 ({{ llm_config.get('provider', '') }} / {{ llm_config.get('model', '') }})
+                        {% else %}
+                        LLM 未配置或连接失败，请填写以下配置
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-body">
+                        <form id="llmConfigForm">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">提供商</label>
+                                <select id="provider" class="form-select">
+                                    <option value="custom" {{ 'selected' if llm_config.get('provider') == 'custom' }}>Custom (兼容OpenAI接口)</option>
+                                    <option value="openai" {{ 'selected' if llm_config.get('provider') == 'openai' }}>OpenAI</option>
+                                    <option value="anthropic" {{ 'selected' if llm_config.get('provider') == 'anthropic' }}>Anthropic</option>
+                                </select>
+                                <div class="form-text">custom 适用于华为ModelArts、DeepSeek等兼容OpenAI接口的服务</div>
+                            </div>
+
+                            <div class="mb-3" id="endpointGroup">
+                                <label class="form-label fw-bold">API Endpoint</label>
+                                <input type="text" id="endpoint" class="form-control"
+                                       value="{{ llm_config.get('endpoint', '') }}"
+                                       placeholder="https://api.modelarts-maas.com/v1">
+                                <div class="form-text">自定义API地址，选择 custom 提供商时必填</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">API Key</label>
+                                <div class="input-group">
+                                    <input type="password" id="apiKey" class="form-control"
+                                           placeholder="输入新的API Key（留空则保持不变）">
+                                    <button class="btn btn-outline-secondary" type="button" id="toggleKeyBtn">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="form-text" id="currentKeyHint">
+                                    {% if llm_config.get('api_key') %}
+                                    当前已配置 ({{ llm_config.get('api_key', '')[:8] }}***)
+                                    {% else %}
+                                    尚未配置
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">模型名称</label>
+                                <input type="text" id="model" class="form-control"
+                                       value="{{ llm_config.get('model', '') }}"
+                                       placeholder="deepseek-v3.2-exp">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Max Tokens</label>
+                                    <input type="number" id="maxTokens" class="form-control"
+                                           value="{{ llm_config.get('max_tokens', 4096) }}"
+                                           min="1" max="128000">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Temperature</label>
+                                    <input type="number" id="temperature" class="form-control"
+                                           value="{{ llm_config.get('temperature', 0.1) }}"
+                                           min="0" max="2" step="0.05">
+                                    <div class="form-text">0 = 确定性输出，1 = 较高随机性</div>
+                                </div>
+                            </div>
+
+                            <hr>
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary" id="saveBtn">
+                                    <i class="fas fa-save"></i> 保存LLM配置
+                                </button>
+                                <button type="button" class="btn btn-outline-success" id="testBtn">
+                                    <i class="fas fa-plug"></i> 测试连接
+                                </button>
+                            </div>
+                        </form>
+                        <div id="testResult" class="mt-3" style="display:none;"></div>
+                    </div>
+                </div>
+
+                <!-- ===== 华为云认证配置 ===== -->
+                <h4 class="mb-4"><i class="fas fa-key"></i> 华为云认证配置</h4>
+
+                <div id="hwStatusCard" class="alert alert-{{ 'success' if hw_config.get('ak') else 'warning' }} d-flex align-items-center mb-4">
+                    <i class="fas fa-{{ 'check-circle' if hw_config.get('ak') else 'exclamation-triangle' }} me-2"></i>
+                    <span id="hwStatusText">
+                        {% if hw_config.get('ak') %}
+                        华为云认证已配置 (区域: {{ hw_config.get('region', 'cn-north-4') }})
+                        {% else %}
+                        华为云认证未配置，工作流执行将无法调用华为云API
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form id="hwConfigForm">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Access Key (AK)</label>
+                                <div class="input-group">
+                                    <input type="password" id="hwAk" class="form-control"
+                                           placeholder="输入新的Access Key（留空则保持不变）">
+                                    <button class="btn btn-outline-secondary" type="button" id="toggleAkBtn">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="form-text" id="currentAkHint">
+                                    {% if hw_config.get('ak') %}
+                                    当前已配置 ({{ hw_config.get('ak', '')[:6] }}***)
+                                    {% else %}
+                                    尚未配置
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Secret Key (SK)</label>
+                                <div class="input-group">
+                                    <input type="password" id="hwSk" class="form-control"
+                                           placeholder="输入新的Secret Key（留空则保持不变）">
+                                    <button class="btn btn-outline-secondary" type="button" id="toggleSkBtn">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="form-text" id="currentSkHint">
+                                    {% if hw_config.get('sk') %}
+                                    当前已配置 ({{ hw_config.get('sk', '')[:6] }}***)
+                                    {% else %}
+                                    尚未配置
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">区域 (Region)</label>
+                                    <input type="text" id="hwRegion" class="form-control"
+                                           value="{{ hw_config.get('region', 'cn-north-4') }}"
+                                           placeholder="cn-north-4">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">项目ID (可选)</label>
+                                    <input type="text" id="hwProjectId" class="form-control"
+                                           value="{{ hw_config.get('project_id', '') }}"
+                                           placeholder="留空则自动获取">
+                                </div>
+                            </div>
+
+                            <hr>
+                            <button type="submit" class="btn btn-primary" id="saveHwBtn">
+                                <i class="fas fa-save"></i> 保存华为云配置
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // ===== 通用工具 =====
+    function showAlert(containerId, type, msg) {
+        const container = document.getElementById(containerId);
+        const div = document.createElement('div');
+        div.className = 'alert alert-' + type + ' alert-dismissible fade show mt-3';
+        div.innerHTML = msg + '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
+        container.appendChild(div);
+        setTimeout(() => div.remove(), 5000);
+    }
+
+    function togglePasswordField(btnId, inputId) {
+        document.getElementById(btnId).addEventListener('click', function() {
+            const input = document.getElementById(inputId);
+            const icon = this.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        });
+    }
+
+    // ===== LLM 配置 =====
+    const providerSelect = document.getElementById('provider');
+    const endpointGroup = document.getElementById('endpointGroup');
+
+    function toggleEndpoint() {
+        endpointGroup.style.display = providerSelect.value === 'anthropic' ? 'none' : '';
+    }
+    providerSelect.addEventListener('change', toggleEndpoint);
+    toggleEndpoint();
+
+    togglePasswordField('toggleKeyBtn', 'apiKey');
+
+    document.getElementById('llmConfigForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const saveBtn = document.getElementById('saveBtn');
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 保存中...';
+
+        const payload = {
+            provider: document.getElementById('provider').value,
+            endpoint: document.getElementById('endpoint').value,
+            model: document.getElementById('model').value,
+            max_tokens: parseInt(document.getElementById('maxTokens').value),
+            temperature: parseFloat(document.getElementById('temperature').value)
+        };
+        const apiKey = document.getElementById('apiKey').value.trim();
+        if (apiKey) payload.api_key = apiKey;
+
+        try {
+            const resp = await fetch('/api/settings/llm', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+            const result = await resp.json();
+            if (result.success) {
+                updateLLMStatus(result.is_available, payload.provider, payload.model);
+                showAlert('llmConfigForm', 'success', '配置已保存并生效');
+                if (apiKey) {
+                    document.getElementById('apiKey').value = '';
+                    document.getElementById('currentKeyHint').textContent = '当前已配置 (' + apiKey.substring(0, 8) + '***)';
+                }
+            } else {
+                showAlert('llmConfigForm', 'danger', '保存失败: ' + result.error);
+            }
+        } catch (err) {
+            showAlert('llmConfigForm', 'danger', '请求失败: ' + err.message);
+        } finally {
+            saveBtn.disabled = false;
+            saveBtn.innerHTML = '<i class="fas fa-save"></i> 保存LLM配置';
+        }
+    });
+
+    document.getElementById('testBtn').addEventListener('click', async function() {
+        const btn = this;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 测试中...';
+        const resultDiv = document.getElementById('testResult');
+        resultDiv.style.display = 'none';
+
+        try {
+            const resp = await fetch('/api/settings/llm/test', {method: 'POST'});
+            const result = await resp.json();
+            resultDiv.style.display = 'block';
+            if (result.success) {
+                resultDiv.className = 'mt-3 alert alert-success';
+                resultDiv.innerHTML = '<i class="fas fa-check-circle"></i> ' + result.message +
+                    '<br><small class="text-muted">模型回复: ' + result.reply + '</small>';
+            } else {
+                resultDiv.className = 'mt-3 alert alert-danger';
+                resultDiv.innerHTML = '<i class="fas fa-times-circle"></i> 连接失败: ' + result.error;
+            }
+        } catch (err) {
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'mt-3 alert alert-danger';
+            resultDiv.innerHTML = '<i class="fas fa-times-circle"></i> 请求失败: ' + err.message;
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-plug"></i> 测试连接';
+        }
+    });
+
+    function updateLLMStatus(available, provider, model) {
+        const card = document.getElementById('statusCard');
+        const text = document.getElementById('statusText');
+        if (available) {
+            card.className = 'alert alert-success d-flex align-items-center mb-4';
+            card.querySelector('i').className = 'fas fa-check-circle me-2';
+            text.textContent = 'LLM 已连接 (' + provider + ' / ' + model + ')';
+        } else {
+            card.className = 'alert alert-warning d-flex align-items-center mb-4';
+            card.querySelector('i').className = 'fas fa-exclamation-triangle me-2';
+            text.textContent = 'LLM 未连接，请检查配置';
+        }
+    }
+
+    // ===== 华为云认证配置 =====
+    togglePasswordField('toggleAkBtn', 'hwAk');
+    togglePasswordField('toggleSkBtn', 'hwSk');
+
+    document.getElementById('hwConfigForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const saveBtn = document.getElementById('saveHwBtn');
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 保存中...';
+
+        const payload = {
+            region: document.getElementById('hwRegion').value,
+            project_id: document.getElementById('hwProjectId').value
+        };
+        const ak = document.getElementById('hwAk').value.trim();
+        const sk = document.getElementById('hwSk').value.trim();
+        if (ak) payload.ak = ak;
+        if (sk) payload.sk = sk;
+
+        try {
+            const resp = await fetch('/api/settings/huaweicloud', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+            const result = await resp.json();
+            if (result.success) {
+                showAlert('hwConfigForm', 'success', '华为云配置已保存');
+                const card = document.getElementById('hwStatusCard');
+                const text = document.getElementById('hwStatusText');
+                card.className = 'alert alert-success d-flex align-items-center mb-4';
+                card.querySelector('i').className = 'fas fa-check-circle me-2';
+                text.textContent = '华为云认证已配置 (区域: ' + payload.region + ')';
+                if (ak) {
+                    document.getElementById('hwAk').value = '';
+                    document.getElementById('currentAkHint').textContent = '当前已配置 (' + ak.substring(0, 6) + '***)';
+                }
+                if (sk) {
+                    document.getElementById('hwSk').value = '';
+                    document.getElementById('currentSkHint').textContent = '当前已配置 (' + sk.substring(0, 6) + '***)';
+                }
+            } else {
+                showAlert('hwConfigForm', 'danger', '保存失败: ' + result.error);
+            }
+        } catch (err) {
+            showAlert('hwConfigForm', 'danger', '请求失败: ' + err.message);
+        } finally {
+            saveBtn.disabled = false;
+            saveBtn.innerHTML = '<i class="fas fa-save"></i> 保存华为云配置';
+        }
+    });
+    </script>
+</body>
+</html>

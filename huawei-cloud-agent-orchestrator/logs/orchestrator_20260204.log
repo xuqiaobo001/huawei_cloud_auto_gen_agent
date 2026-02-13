@@ -1,0 +1,219 @@
+2026-02-04 06:10:17,079 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-04 06:10:17,079 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-04 06:10:17,079 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-04 06:10:17,135 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,135 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,135 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,135 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,172 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,172 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,172 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,172 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,172 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,207 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-04 06:10:17,207 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-04 06:10:17,207 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-04 06:10:17,207 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-04 06:10:17,207 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-04 06:10:17,207 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-04 06:10:17,207 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-04 06:10:17,207 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-04 06:10:17,242 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,242 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,242 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,242 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,242 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,242 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,242 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,242 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,242 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,276 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,276 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,276 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,276 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,276 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,276 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,276 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,276 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,276 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,276 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-04 06:10:17,285 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-04 06:10:17,285 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-04 06:10:17,285 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-04 06:10:17,285 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-04 06:10:17,285 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-04 06:10:17,285 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-04 06:10:17,285 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-04 06:10:17,285 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-04 06:10:17,285 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,285 - orchestrator - INFO - ============================================================
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM提供商: custom
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM提供商: custom
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM提供商: custom
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM提供商: custom
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM提供商: custom
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM提供商: custom
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM提供商: custom
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM提供商: custom
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM提供商: custom
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM提供商: custom
+2026-02-04 06:10:17,286 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-04 06:10:17,286 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-04 06:10:17,286 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-04 06:10:17,286 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-04 06:10:17,286 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-04 06:10:17,286 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-04 06:10:17,286 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-04 06:10:17,286 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-04 06:10:17,286 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-04 06:10:17,286 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM可用: True
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM可用: True
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM可用: True
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM可用: True
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM可用: True
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM可用: True
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM可用: True
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM可用: True
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM可用: True
+2026-02-04 06:10:17,286 - orchestrator - INFO - LLM可用: True
+2026-02-04 06:10:17,286 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-04 06:10:17,286 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-04 06:10:17,286 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-04 06:10:17,286 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-04 06:10:17,286 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-04 06:10:17,286 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-04 06:10:17,286 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-04 06:10:17,286 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-04 06:10:17,286 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-04 06:10:17,286 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-04 06:10:17,286 - orchestrator - INFO - AK已配置: 是
+2026-02-04 06:10:17,286 - orchestrator - INFO - AK已配置: 是
+2026-02-04 06:10:17,286 - orchestrator - INFO - AK已配置: 是
+2026-02-04 06:10:17,286 - orchestrator - INFO - AK已配置: 是
+2026-02-04 06:10:17,286 - orchestrator - INFO - AK已配置: 是
+2026-02-04 06:10:17,286 - orchestrator - INFO - AK已配置: 是
+2026-02-04 06:10:17,286 - orchestrator - INFO - AK已配置: 是
+2026-02-04 06:10:17,286 - orchestrator - INFO - AK已配置: 是
+2026-02-04 06:10:17,286 - orchestrator - INFO - AK已配置: 是
+2026-02-04 06:10:17,286 - orchestrator - INFO - AK已配置: 是
+2026-02-04 06:10:17,287 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-04 06:10:17,287 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-04 06:10:17,287 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-04 06:10:17,287 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-04 06:10:17,287 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-04 06:10:17,287 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-04 06:10:17,287 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-04 06:10:17,287 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-04 06:10:17,287 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-04 06:10:17,287 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-04 06:10:17,287 - orchestrator - INFO - 系统启动完成
+2026-02-04 06:10:17,287 - orchestrator - INFO - 系统启动完成
+2026-02-04 06:10:17,287 - orchestrator - INFO - 系统启动完成
+2026-02-04 06:10:17,287 - orchestrator - INFO - 系统启动完成
+2026-02-04 06:10:17,287 - orchestrator - INFO - 系统启动完成
+2026-02-04 06:10:17,287 - orchestrator - INFO - 系统启动完成
+2026-02-04 06:10:17,287 - orchestrator - INFO - 系统启动完成
+2026-02-04 06:10:17,287 - orchestrator - INFO - 系统启动完成
+2026-02-04 06:10:17,287 - orchestrator - INFO - 系统启动完成
+2026-02-04 06:10:17,287 - orchestrator - INFO - 系统启动完成
+2026-02-04 06:10:26,901 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:10:26,901 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:10:26,901 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:10:26,901 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:10:26,901 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:10:26,901 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:10:26,901 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:10:26,901 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:10:26,901 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:10:26,901 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:10:35,409 - orchestrator - WARNING - 向量数据库中未找到服务 bms，使用服务注册表作为后备
+2026-02-04 06:10:35,409 - orchestrator - WARNING - 向量数据库中未找到服务 bms，使用服务注册表作为后备
+2026-02-04 06:10:35,409 - orchestrator - WARNING - 向量数据库中未找到服务 bms，使用服务注册表作为后备
+2026-02-04 06:10:35,409 - orchestrator - WARNING - 向量数据库中未找到服务 bms，使用服务注册表作为后备
+2026-02-04 06:10:35,409 - orchestrator - WARNING - 向量数据库中未找到服务 bms，使用服务注册表作为后备
+2026-02-04 06:10:35,409 - orchestrator - WARNING - 向量数据库中未找到服务 bms，使用服务注册表作为后备
+2026-02-04 06:10:35,409 - orchestrator - WARNING - 向量数据库中未找到服务 bms，使用服务注册表作为后备
+2026-02-04 06:10:35,409 - orchestrator - WARNING - 向量数据库中未找到服务 bms，使用服务注册表作为后备
+2026-02-04 06:10:35,409 - orchestrator - WARNING - 向量数据库中未找到服务 bms，使用服务注册表作为后备
+2026-02-04 06:10:35,409 - orchestrator - WARNING - 向量数据库中未找到服务 bms，使用服务注册表作为后备
+2026-02-04 06:16:04,305 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-04 06:16:04,305 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-04 06:16:04,305 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-04 06:16:04,305 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-04 06:16:04,305 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-04 06:16:04,305 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-04 06:16:04,305 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-04 06:16:04,305 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-04 06:16:04,305 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-04 06:16:04,305 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-04 06:16:21,577 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-02-04 06:16:21,577 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-02-04 06:16:21,577 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-02-04 06:16:21,577 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-02-04 06:16:21,577 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-02-04 06:16:21,577 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-02-04 06:16:21,577 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-02-04 06:16:21,577 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-02-04 06:16:21,577 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-02-04 06:16:21,577 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-02-04 06:16:49,870 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:16:49,870 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:16:49,870 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:16:49,870 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:16:49,870 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:16:49,870 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:16:49,870 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:16:49,870 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:16:49,870 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-04 06:16:49,870 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 06:39:05,056 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 06:39:05,056 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 06:39:05,056 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 06:39:05,056 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 06:39:05,056 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 06:39:05,056 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 06:39:05,056 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 06:39:05,056 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 06:39:05,056 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 06:39:05,056 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:27,345 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:27,345 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:27,345 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:27,345 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:27,345 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:27,345 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:27,345 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:27,345 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:27,345 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:27,345 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:32,998 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:32,998 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:32,998 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:32,998 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:32,998 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:32,998 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:32,998 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:32,998 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:32,998 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源
+2026-02-06 07:19:32,998 - orchestrator - WARNING - 向量数据库为空，使用服务注册表作为数据源

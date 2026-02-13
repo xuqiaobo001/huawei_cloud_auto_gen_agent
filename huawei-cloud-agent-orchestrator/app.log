@@ -1,0 +1,161 @@
+✓ 配置文件加载成功
+2026-01-30 02:20:21,702 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-30 02:20:21,702 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-30 02:20:21,702 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-30 02:20:21,753 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,753 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,753 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,753 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,786 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,786 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,786 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,786 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,786 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,868 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-30 02:20:21,868 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-30 02:20:21,868 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-30 02:20:21,868 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-30 02:20:21,868 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-30 02:20:21,868 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-30 02:20:21,868 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-30 02:20:21,868 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-30 02:20:21,905 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,905 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,905 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,905 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,905 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,905 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,905 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,905 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,905 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,938 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,938 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,938 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,938 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,938 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,938 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,938 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,938 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,938 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-30 02:20:21,938 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+INFO:     Started server process [29626]
+INFO:     Waiting for application startup.
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-30 02:20:21,946 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-30 02:20:21,946 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-30 02:20:21,946 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-30 02:20:21,946 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-30 02:20:21,946 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-30 02:20:21,946 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-30 02:20:21,946 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-30 02:20:21,946 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-30 02:20:21,946 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - ============================================================
+2026-01-30 02:20:21,946 - orchestrator - INFO - LLM提供商: custom
+2026-01-30 02:20:21,946 - orchestrator - INFO - LLM提供商: custom
+2026-01-30 02:20:21,946 - orchestrator - INFO - LLM提供商: custom
+2026-01-30 02:20:21,946 - orchestrator - INFO - LLM提供商: custom
+2026-01-30 02:20:21,946 - orchestrator - INFO - LLM提供商: custom
+2026-01-30 02:20:21,946 - orchestrator - INFO - LLM提供商: custom
+2026-01-30 02:20:21,946 - orchestrator - INFO - LLM提供商: custom
+2026-01-30 02:20:21,946 - orchestrator - INFO - LLM提供商: custom
+2026-01-30 02:20:21,946 - orchestrator - INFO - LLM提供商: custom
+2026-01-30 02:20:21,946 - orchestrator - INFO - LLM提供商: custom
+2026-01-30 02:20:21,946 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-30 02:20:21,946 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-30 02:20:21,946 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-30 02:20:21,946 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-30 02:20:21,946 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-30 02:20:21,946 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-30 02:20:21,946 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-30 02:20:21,946 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-30 02:20:21,946 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-30 02:20:21,946 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-30 02:20:21,947 - orchestrator - INFO - LLM可用: True
+2026-01-30 02:20:21,947 - orchestrator - INFO - LLM可用: True
+2026-01-30 02:20:21,947 - orchestrator - INFO - LLM可用: True
+2026-01-30 02:20:21,947 - orchestrator - INFO - LLM可用: True
+2026-01-30 02:20:21,947 - orchestrator - INFO - LLM可用: True
+2026-01-30 02:20:21,947 - orchestrator - INFO - LLM可用: True
+2026-01-30 02:20:21,947 - orchestrator - INFO - LLM可用: True
+2026-01-30 02:20:21,947 - orchestrator - INFO - LLM可用: True
+2026-01-30 02:20:21,947 - orchestrator - INFO - LLM可用: True
+2026-01-30 02:20:21,947 - orchestrator - INFO - LLM可用: True
+2026-01-30 02:20:21,947 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-30 02:20:21,947 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-30 02:20:21,947 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-30 02:20:21,947 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-30 02:20:21,947 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-30 02:20:21,947 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-30 02:20:21,947 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-30 02:20:21,947 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-30 02:20:21,947 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-30 02:20:21,947 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-30 02:20:21,947 - orchestrator - INFO - AK已配置: 是
+2026-01-30 02:20:21,947 - orchestrator - INFO - AK已配置: 是
+2026-01-30 02:20:21,947 - orchestrator - INFO - AK已配置: 是
+2026-01-30 02:20:21,947 - orchestrator - INFO - AK已配置: 是
+2026-01-30 02:20:21,947 - orchestrator - INFO - AK已配置: 是
+2026-01-30 02:20:21,947 - orchestrator - INFO - AK已配置: 是
+2026-01-30 02:20:21,947 - orchestrator - INFO - AK已配置: 是
+2026-01-30 02:20:21,947 - orchestrator - INFO - AK已配置: 是
+2026-01-30 02:20:21,947 - orchestrator - INFO - AK已配置: 是
+2026-01-30 02:20:21,947 - orchestrator - INFO - AK已配置: 是
+数据库初始化完成（使用内存存储）
+2026-01-30 02:20:21,947 - orchestrator - INFO - 已注册 49 个云服务
+2026-01-30 02:20:21,947 - orchestrator - INFO - 已注册 49 个云服务
+2026-01-30 02:20:21,947 - orchestrator - INFO - 已注册 49 个云服务
+2026-01-30 02:20:21,947 - orchestrator - INFO - 已注册 49 个云服务
+2026-01-30 02:20:21,947 - orchestrator - INFO - 已注册 49 个云服务
+2026-01-30 02:20:21,947 - orchestrator - INFO - 已注册 49 个云服务
+2026-01-30 02:20:21,947 - orchestrator - INFO - 已注册 49 个云服务
+2026-01-30 02:20:21,947 - orchestrator - INFO - 已注册 49 个云服务
+2026-01-30 02:20:21,947 - orchestrator - INFO - 已注册 49 个云服务
+2026-01-30 02:20:21,947 - orchestrator - INFO - 已注册 49 个云服务
+2026-01-30 02:20:21,947 - orchestrator - INFO - 系统启动完成
+2026-01-30 02:20:21,947 - orchestrator - INFO - 系统启动完成
+2026-01-30 02:20:21,947 - orchestrator - INFO - 系统启动完成
+2026-01-30 02:20:21,947 - orchestrator - INFO - 系统启动完成
+2026-01-30 02:20:21,947 - orchestrator - INFO - 系统启动完成
+2026-01-30 02:20:21,947 - orchestrator - INFO - 系统启动完成
+2026-01-30 02:20:21,947 - orchestrator - INFO - 系统启动完成
+2026-01-30 02:20:21,947 - orchestrator - INFO - 系统启动完成
+2026-01-30 02:20:21,947 - orchestrator - INFO - 系统启动完成
+2026-01-30 02:20:21,947 - orchestrator - INFO - 系统启动完成
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55922 - "GET /api/services/list HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35624 - "GET /api/services/ecs/operations HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54522 - "GET /api/services/ecs/operations HTTP/1.1" 200 OK
+INFO:     192.168.0.101:57010 - "GET /services HTTP/1.1" 200 OK
+INFO:     192.168.0.101:57010 - "GET /api/services/list HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+ERROR:    Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 694, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/usr/lib/python3.11/contextlib.py", line 215, in __aexit__
+    raise RuntimeError("generator didn't stop")
+RuntimeError: generator didn't stop
+
+ERROR:    Application shutdown failed. Exiting.
+INFO:     Finished server process [29626]

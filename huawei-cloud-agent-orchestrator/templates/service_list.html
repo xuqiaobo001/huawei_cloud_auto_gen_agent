@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <title>服务管理 - 华为云Agent编排系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-cloud"></i>
+                华为云编排系统
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" id="nav-home">
+                            <i class="fas fa-home"></i> 首页
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auto" id="nav-auto">
+                            <i class="fas fa-robot"></i> AI自动生成
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history" id="nav-history">
+                            <i class="fas fa-history"></i> 历史记录
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/designer" id="nav-designer">
+                            <i class="fas fa-project-diagram"></i> 工作流设计器
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/monitor" id="nav-monitor">
+                            <i class="fas fa-chart-line"></i> 监控中心
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/services" id="nav-services">
+                            <i class="fas fa-cogs"></i> 服务管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/settings" id="nav-settings">
+                            <i class="fas fa-sliders-h"></i> 设置
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <span class="badge bg-info text-white">
+                            <i class="fas fa-cogs"></i> 服务管理
+                        </span>
+                    </li>
+                    <li class="nav-item ms-3 border-start border-light ps-3">
+                        <span class="navbar-text text-white"><i class="fas fa-user-circle"></i> {{ username }}</span>
+                        <a class="text-white-50 ms-2 text-decoration-none small" href="/logout"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- 页面标题 -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h4 class="mb-0"><i class="fas fa-cogs text-primary"></i> 云服务列表</h4>
+                <p class="text-muted small mb-0 mt-1">浏览和管理已注册的华为云服务及其API操作</p>
+            </div>
+            <button class="btn btn-sm btn-outline-primary" onclick="loadServices()">
+                <i class="fas fa-sync"></i> 刷新
+            </button>
+        </div>
+
+        <!-- 搜索工具栏 -->
+        <div class="svc-search-toolbar" id="searchToolbar" style="display:none;">
+            <div class="d-flex gap-2 align-items-center flex-wrap">
+                <div class="input-group" style="max-width:320px;">
+                    <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                    <input type="text" id="svcSearch" class="form-control" placeholder="搜索服务名称、描述...">
+                    <button class="btn btn-outline-secondary d-none" id="clearSearchBtn" type="button"><i class="fas fa-times"></i></button>
+                </div>
+                <select class="form-select form-select-sm" id="opsFilter" style="max-width:170px;">
+                    <option value="">全部操作数</option>
+                    <option value="1-10">1-10 个操作</option>
+                    <option value="11-30">11-30 个操作</option>
+                    <option value="31+">30+ 个操作</option>
+                </select>
+                <div class="ms-auto d-flex align-items-center gap-2">
+                    <span class="text-muted small" id="svcStats"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 加载状态 -->
+        <div id="loading" class="text-center text-muted py-5">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p class="mt-3">加载中...</p>
+        </div>
+
+        <!-- 卡片网格 -->
+        <div class="row g-3" id="svcCardGrid" style="display:none;"></div>
+
+        <!-- 分页栏 -->
+        <div class="svc-pagination-bar" id="svcPaginationWrap" style="display:none;">
+            <div class="page-info" id="svcPageInfo"></div>
+            <ul class="pagination mb-0" id="svcPagination"></ul>
+            <div class="d-flex align-items-center gap-2">
+                <label class="text-muted small mb-0">每页</label>
+                <select class="form-select form-select-sm" id="svcPageSizeSelect" style="width:70px;">
+                    <option value="9">9</option>
+                    <option value="12" selected>12</option>
+                    <option value="24">24</option>
+                    <option value="48">48</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- 操作详情模态框 -->
+    <div class="modal fade" id="operationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="operationModalTitle">操作详情</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="operationModalBody">
+                    <!-- 操作详情内容 -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var allServices = [];
+        var filteredServices = [];
+        var svcCurrentPage = 1;
+        var svcPageSize = 12;
+
+        // HTML转义
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 加载服务列表
+        async function loadServices() {
+            var loading = document.getElementById('loading');
+            loading.classList.remove('d-none');
+            loading.style.display = '';
+            document.getElementById('svcCardGrid').style.display = 'none';
+            document.getElementById('searchToolbar').style.display = 'none';
+            document.getElementById('svcPaginationWrap').style.display = 'none';
+
+            try {
+                var response = await fetch('/api/services/list');
+                var result = await response.json();
+                loading.style.display = 'none';
+
+                if (result.success) {
+                    allServices = result.data || [];
+                    filteredServices = allServices.slice();
+                    document.getElementById('searchToolbar').style.display = '';
+                    document.getElementById('svcCardGrid').style.display = '';
+                    document.getElementById('svcPaginationWrap').style.display = '';
+                    svcCurrentPage = 1;
+                    renderSvcCards();
+                } else {
+                    showError('加载服务列表失败: ' + result.error);
+                }
+            } catch (error) {
+                loading.style.display = 'none';
+                showError('网络错误: ' + error.message);
+            }
+        }
+
+        // 渲染服务卡片
+        function renderSvcCards() {
+            var grid = document.getElementById('svcCardGrid');
+            var start = (svcCurrentPage - 1) * svcPageSize;
+            var pageItems = filteredServices.slice(start, start + svcPageSize);
+
+            if (pageItems.length === 0) {
+                grid.innerHTML = '<div class="col-12 text-center text-muted py-5">' +
+                    '<i class="fas fa-inbox fa-3x mb-3 d-block" style="opacity:.3;"></i>没有匹配的服务</div>';
+                renderSvcPagination();
+                return;
+            }
+
+            grid.innerHTML = pageItems.map(function(svc, i) {
+                var opsCount = svc.operations || 0;
+                var opsColor = opsCount > 30 ? 'danger' : (opsCount > 10 ? 'warning' : 'success');
+                return '<div class="col-md-6 col-lg-4" style="animation-delay:' + (i * 0.04) + 's;">' +
+                    '<div class="card h-100 service-card card-anim">' +
+                    '<div class="svc-strip"></div>' +
+                    '<div class="card-body d-flex flex-column">' +
+                    '<div class="d-flex align-items-start justify-content-between mb-2">' +
+                    '<h6 class="card-title mb-0"><i class="fas fa-cube text-primary me-2"></i>' +
+                    '<span class="service-name">' + escapeHtml(svc.name.toUpperCase()) + '</span></h6>' +
+                    '<span class="badge bg-' + opsColor + ' ops-badge">' + opsCount + ' ops</span></div>' +
+                    '<p class="svc-desc text-muted small mb-1">' + escapeHtml(svc.description || '') + '</p>' +
+                    '<p class="svc-usage text-muted small mb-0">' + escapeHtml(svc.usage || '暂无描述') + '</p>' +
+                    '</div>' +
+                    '<div class="svc-footer">' +
+                    '<span class="text-muted small"><i class="fas fa-list me-1"></i>' + opsCount + ' 个操作</span>' +
+                    '<button class="btn btn-sm btn-outline-primary svc-view-btn" data-name="' + escapeHtml(svc.name) + '">' +
+                    '<i class="fas fa-eye me-1"></i>查看操作</button>' +
+                    '</div></div></div>';
+            }).join('');
+
+            renderSvcPagination();
+        }
+
+        // 查看服务操作详情
+        async function viewOperations(serviceName) {
+            try {
+                const response = await fetch(`/api/services/${serviceName}/operations`);
+                const result = await response.json();
+
+                if (result.success && result.data.length > 0) {
+                    displayOperationsModal(serviceName, result.data);
+                } else {
+                    alert(`服务 ${serviceName} 暂无操作`);
+                }
+            } catch (error) {
+                alert('网络错误: ' + error.message);
+            }
+        }
+
+        // 显示操作详情模态框
+        function displayOperationsModal(serviceName, operations) {
+            const modalTitle = document.getElementById('operationModalTitle');
+            const modalBody = document.getElementById('operationModalBody');
+
+            modalTitle.textContent = `${serviceName.toUpperCase()} - 操作列表`;
+
+            let html = `<div class="operations-list">`;
+            operations.forEach(op => {
+                html += `
+                    <div class="card mb-3 operation-item">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <i class="fas fa-cog text-primary"></i>
+                                ${op.name}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">${op.description || '暂无描述'}</p>
+
+                            ${op.document ? `
+                                <div class="operation-document mt-3">
+                                    <h6>详细文档:</h6>
+                                    <pre class="bg-light p-2 rounded">${escapeHtml(op.document)}</pre>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+
+            modalBody.innerHTML = html;
+
+            // 显示模态框
+            const modal = new bootstrap.Modal(document.getElementById('operationModal'));
+            modal.show();
+        }
+
+        // HTML转义
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 分页渲染
+        function renderSvcPagination() {
+            var total = filteredServices.length;
+            var totalPages = Math.ceil(total / svcPageSize);
+            var nav = document.getElementById('svcPagination');
+            var stats = document.getElementById('svcStats');
+            var pageInfo = document.getElementById('svcPageInfo');
+
+            stats.textContent = '共 ' + allServices.length + ' 个服务' +
+                (filteredServices.length < allServices.length ? '，匹配 ' + filteredServices.length + ' 个' : '');
+
+            var start = (svcCurrentPage - 1) * svcPageSize + 1;
+            var end = Math.min(svcCurrentPage * svcPageSize, total);
+            pageInfo.textContent = total > 0 ? ('显示 ' + start + '-' + end + ' / 共 ' + total + ' 个') : '';
+
+            if (totalPages <= 1) { nav.innerHTML = ''; return; }
+
+            var html = '<li class="page-item ' + (svcCurrentPage===1?'disabled':'') + '">' +
+                '<a class="page-link" href="#" data-p="' + (svcCurrentPage-1) + '">&laquo;</a></li>';
+            var pages = [1];
+            for (var p = svcCurrentPage - 2; p <= svcCurrentPage + 2; p++) {
+                if (p > 1 && p < totalPages) pages.push(p);
+            }
+            pages.push(totalPages);
+            var prev = 0;
+            pages.forEach(function(p) {
+                if (p - prev > 1) html += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                html += '<li class="page-item ' + (p===svcCurrentPage?'active':'') + '">' +
+                    '<a class="page-link" href="#" data-p="' + p + '">' + p + '</a></li>';
+                prev = p;
+            });
+            html += '<li class="page-item ' + (svcCurrentPage===totalPages?'disabled':'') + '">' +
+                '<a class="page-link" href="#" data-p="' + (svcCurrentPage+1) + '">&raquo;</a></li>';
+            nav.innerHTML = html;
+        }
+
+        // 搜索过滤
+        function applySvcFilter() {
+            var q = document.getElementById('svcSearch').value.trim().toLowerCase();
+            var opsRange = document.getElementById('opsFilter').value;
+            document.getElementById('clearSearchBtn').classList.toggle('d-none', !q);
+
+            filteredServices = allServices.filter(function(svc) {
+                if (q) {
+                    var text = (svc.name||'') + ' ' + (svc.description||'') + ' ' + (svc.usage||'');
+                    if (text.toLowerCase().indexOf(q) < 0) return false;
+                }
+                if (opsRange) {
+                    var ops = svc.operations || 0;
+                    if (opsRange === '1-10' && (ops < 1 || ops > 10)) return false;
+                    if (opsRange === '11-30' && (ops < 11 || ops > 30)) return false;
+                    if (opsRange === '31+' && ops < 31) return false;
+                }
+                return true;
+            });
+            svcCurrentPage = 1;
+            renderSvcCards();
+        }
+
+        // 显示错误
+        function showError(message) {
+            var grid = document.getElementById('svcCardGrid');
+            grid.style.display = '';
+            grid.innerHTML = '<div class="col-12"><div class="alert alert-danger">' +
+                '<i class="fas fa-exclamation-triangle me-2"></i>' + escapeHtml(message) + '</div></div>';
+        }
+
+        // ===== 事件绑定 =====
+        var svcSearchTimer = null;
+        document.getElementById('svcSearch').addEventListener('input', function() {
+            clearTimeout(svcSearchTimer);
+            svcSearchTimer = setTimeout(applySvcFilter, 200);
+        });
+        document.getElementById('clearSearchBtn').addEventListener('click', function() {
+            document.getElementById('svcSearch').value = '';
+            applySvcFilter();
+        });
+        document.getElementById('opsFilter').addEventListener('change', applySvcFilter);
+        document.getElementById('svcPageSizeSelect').addEventListener('change', function() {
+            svcPageSize = parseInt(this.value);
+            svcCurrentPage = 1;
+            renderSvcCards();
+        });
+        document.getElementById('svcPagination').addEventListener('click', function(e) {
+            e.preventDefault();
+            var link = e.target.closest('[data-p]');
+            if (!link) return;
+            var p = parseInt(link.dataset.p);
+            var totalPages = Math.ceil(filteredServices.length / svcPageSize);
+            if (p < 1 || p > totalPages) return;
+            svcCurrentPage = p;
+            renderSvcCards();
+            document.getElementById('searchToolbar').scrollIntoView({behavior:'smooth', block:'start'});
+        });
+        document.getElementById('svcCardGrid').addEventListener('click', function(e) {
+            var btn = e.target.closest('.svc-view-btn');
+            if (btn) viewOperations(btn.dataset.name);
+        });
+
+        // 页面加载时自动加载服务列表
+        document.addEventListener('DOMContentLoaded', function() {
+            loadServices();
+        });
+    </script>
+
+    <style>
+        .service-card {
+            transition: transform .2s ease, box-shadow .2s ease;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,.12) !important;
+        }
+        .svc-strip {
+            height: 4px;
+            background: linear-gradient(90deg, #0d6efd, #6610f2, #0dcaf0);
+        }
+        .service-name {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .ops-badge {
+            font-size: 0.72rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+        }
+        .svc-desc {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .svc-usage {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: #888 !important;
+        }
+        .svc-footer {
+            background: #f8f9fa;
+            padding: 0.6rem 1.25rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .operation-item {
+            border-left: 4px solid #0d6efd;
+        }
+        .operation-document pre {
+            font-size: 0.85rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        /* Search toolbar */
+        .svc-search-toolbar {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+        }
+        /* Pagination bar */
+        .svc-pagination-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+            padding: 10px 0;
+        }
+        .svc-pagination-bar .page-info {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        .pagination .page-link {
+            border-radius: 6px;
+            margin: 0 2px;
+            font-size: 0.875rem;
+        }
+        /* Fade-in */
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .card-anim { animation: cardFadeIn .3s ease forwards; }
+    </style>
+</body>
+</html>

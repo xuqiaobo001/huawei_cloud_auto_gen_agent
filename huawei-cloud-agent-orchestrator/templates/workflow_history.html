@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <title>工作流历史 - 华为云Agent编排系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .record-row { cursor: pointer; transition: background .15s; }
+        .record-row:hover { background: #f0f4ff; }
+        .svc-badge { font-size: 0.72rem; }
+        .json-viewer { max-height: 500px; overflow-y: auto; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; padding: 15px; font-size: 0.82rem; }
+        /* Flow diagram styles */
+        .flow-canvas-wrapper { overflow:auto; max-height:60vh; border-radius:8px; border:1px solid #eee; }
+        .flow-canvas { position:relative; min-height:200px; min-width:min-content; padding:24px 16px;
+            background:radial-gradient(circle,#e0e0e0 1px,transparent 1px); background-size:20px 20px; }
+        .flow-canvas svg.flow-lines { position:absolute; top:0; left:0; pointer-events:none; z-index:1; }
+        .flow-node { position:absolute; z-index:2; width:210px; background:#fff; border:2px solid #0d6efd;
+            border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,.08); transition:box-shadow .2s,transform .2s; cursor:grab; }
+        .flow-node:hover { box-shadow:0 6px 20px rgba(13,110,253,.18); transform:translateY(-2px); }
+        .flow-node-head { background:linear-gradient(135deg,#0d6efd,#6610f2); color:#fff; padding:8px 12px;
+            border-radius:8px 8px 0 0; font-size:.78rem; font-weight:600; display:flex; align-items:center; gap:6px; }
+        .flow-node-head .step-badge { background:rgba(255,255,255,.25); border-radius:50%; width:22px; height:22px;
+            display:inline-flex; align-items:center; justify-content:center; font-size:.7rem; flex-shrink:0; }
+        .flow-node-body { padding:10px 12px; }
+        .flow-node-body .fn-name { font-size:.82rem; font-weight:600; color:#1a1a2e; margin-bottom:4px; word-break:break-all; }
+        .flow-node-body .fn-svc { font-size:.72rem; color:#6c757d; }
+        .flow-node-body .fn-desc { font-size:.7rem; color:#999; margin-top:4px; display:-webkit-box;
+            -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+        .flow-marker { position:absolute; z-index:2; width:72px; height:36px; border-radius:18px;
+            display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:600; color:#fff; }
+        .flow-marker.start { background:#198754; }
+        .flow-marker.end { background:#dc3545; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-cloud"></i> 华为云编排系统</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i> 首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/auto"><i class="fas fa-robot"></i> AI自动生成</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/history"><i class="fas fa-history"></i> 历史记录</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/designer"><i class="fas fa-project-diagram"></i> 工作流设计器</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/monitor"><i class="fas fa-chart-line"></i> 监控中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/services"><i class="fas fa-cogs"></i> 服务管理</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/settings"><i class="fas fa-sliders-h"></i> 设置</a></li>
+                </ul>
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <span class="badge {{ 'bg-success' if llm_available else 'bg-warning text-dark' }}">
+                            <i class="fas fa-brain"></i> LLM: {{ '已启用' if llm_available else '未配置' }}
+                        </span>
+                    </li>
+                    <li class="nav-item ms-3 border-start border-light ps-3">
+                        <span class="navbar-text text-white"><i class="fas fa-user-circle"></i> {{ username }}</span>
+                        <a class="text-white-50 ms-2 text-decoration-none small" href="/logout"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0"><i class="fas fa-history text-primary me-2"></i>工作流历史记录</h4>
+            <span class="text-muted" id="totalCount"></span>
+        </div>
+
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width:5%">#</th>
+                            <th style="width:20%">工作流名称</th>
+                            <th style="width:28%">需求描述</th>
+                            <th style="width:18%">涉及服务</th>
+                            <th style="width:7%">任务数</th>
+                            <th style="width:14%">创建时间</th>
+                            <th style="width:8%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recordsBody">
+                        <tr id="loadingRow">
+                            <td colspan="7" class="text-center py-4 text-muted">
+                                <i class="fas fa-spinner fa-spin me-1"></i> 加载中...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="emptyState" class="text-center text-muted py-5 d-none">
+            <i class="fas fa-inbox fa-3x mb-3"></i>
+            <h5>暂无历史记录</h5>
+            <p>前往 <a href="/auto">AI自动生成</a> 创建您的第一个工作流</p>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailTitle">工作流详情</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <span class="fw-bold">需求：</span>
+                        <span id="detailRequirement"></span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold">描述：</span>
+                        <span id="detailDesc"></span>
+                    </div>
+                    <ul class="nav nav-tabs mb-3" id="detailTabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-tab="flow" onclick="switchDetailTab('flow',event)">
+                                <i class="fas fa-project-diagram me-1"></i>流程图
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-tab="json" onclick="switchDetailTab('json',event)">
+                                <i class="fas fa-code me-1"></i>JSON
+                            </a>
+                        </li>
+                    </ul>
+                    <div id="detailFlowTab">
+                        <div class="flow-canvas-wrapper">
+                            <div class="flow-canvas" id="detailFlowCanvas"></div>
+                        </div>
+                    </div>
+                    <div id="detailJsonTab" style="display:none">
+                        <pre id="detailJson" class="json-viewer"></pre>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-primary btn-sm" onclick="exportDetail()">
+                        <i class="fas fa-download me-1"></i>导出JSON
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/flow_renderer.js?v={{ cache_version | default('1.0') }}"></script>
+    <script src="/static/js/workflow_history.js?v={{ cache_version | default('1.0') }}"></script>
+</body>
+</html>

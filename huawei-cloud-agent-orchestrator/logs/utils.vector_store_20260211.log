@@ -1,0 +1,16 @@
+2026-02-11 01:37:05,827 - utils.vector_store - INFO - 已存在集合，当前文档数: 3685
+2026-02-11 01:37:05,828 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db
+2026-02-11 01:45:50,511 - utils.vector_store - INFO - 已存在集合，当前文档数: 3685
+2026-02-11 01:45:50,511 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db
+2026-02-11 01:49:13,364 - utils.vector_store - INFO - 已存在集合，当前文档数: 3685
+2026-02-11 01:49:13,364 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db
+2026-02-11 01:59:02,089 - utils.vector_store - INFO - 已存在集合，当前文档数: 3685
+2026-02-11 01:59:02,089 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db
+2026-02-11 02:03:02,950 - utils.vector_store - INFO - 已存在集合，当前文档数: 3685
+2026-02-11 02:03:02,950 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db
+2026-02-11 02:19:33,770 - utils.vector_store - INFO - 已存在集合，当前文档数: 3685
+2026-02-11 02:19:33,770 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db
+2026-02-11 02:23:04,090 - utils.vector_store - INFO - 已存在集合，当前文档数: 3685
+2026-02-11 02:23:04,091 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db
+2026-02-11 07:09:27,047 - utils.vector_store - INFO - 已存在集合，当前文档数: 3685
+2026-02-11 07:09:27,047 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db

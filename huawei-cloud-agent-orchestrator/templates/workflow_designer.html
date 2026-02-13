@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <title>工作流设计器 - 华为云Agent编排系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <style>
+        .workflow-container {
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .sidebar-left {
+            min-width: 280px;
+            max-width: 350px;
+            background: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            height: calc(100vh - 56px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar-right {
+            min-width: 320px;
+            max-width: 380px;
+            background: #f8f9fa;
+            border-left: 1px solid #dee2e6;
+            height: calc(100vh - 56px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-canvas {
+            flex: 1;
+            min-width: 600px;
+            height: calc(100vh - 56px);
+            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .workflow-canvas {
+            width: 100%;
+            height: calc(100% - 60px);
+            position: relative;
+            background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .workflow-container {
+                flex-direction: column;
+            }
+
+            .sidebar-left,
+            .sidebar-right {
+                width: 100%;
+                max-width: none;
+                height: auto;
+                min-height: 200px;
+            }
+
+            .main-canvas {
+                height: 60vh;
+                min-width: auto;
+            }
+        }
+
+        .task-template {
+            cursor: move;
+            transition: all 0.2s;
+        }
+
+        .task-template:hover {
+            background-color: #e3f2fd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .operation-item {
+            cursor: move;
+            font-size: 0.875rem;
+        }
+
+        .operation-item:hover {
+            background-color: #e8f5e8;
+        }
+
+        .task-node {
+            position: absolute;
+            background: white;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            padding: 12px 16px;
+            cursor: move;
+            min-width: 180px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .task-node:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+
+        .task-node .node-delete-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #dc3545;
+            color: white;
+            border: 2px solid white;
+            font-size: 12px;
+            line-height: 1;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 11;
+            padding: 0;
+        }
+
+        .task-node:hover .node-delete-btn,
+        .task-node.selected .node-delete-btn {
+            display: flex;
+        }
+
+        .task-node .node-delete-btn:hover {
+            background: #a71d2a;
+            transform: scale(1.15);
+        }
+
+        .task-node.selected {
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
+        }
+
+        .task-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        .task-service {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .canvas-header {
+            height: 60px;
+            background: white;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .resize-handle {
+            position: absolute;
+            top: 50%;
+            right: -5px;
+            width: 10px;
+            height: 100px;
+            background: #dee2e6;
+            cursor: col-resize;
+            border-radius: 4px;
+            transform: translateY(-50%);
+        }
+
+        .resize-handle:hover {
+            background: #007bff;
+        }
+
+        body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-cloud"></i>
+                华为云编排系统
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" id="nav-home">
+                            <i class="fas fa-home"></i> 首页
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auto" id="nav-auto">
+                            <i class="fas fa-robot"></i> AI自动生成
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history" id="nav-history">
+                            <i class="fas fa-history"></i> 历史记录
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/designer" id="nav-designer">
+                            <i class="fas fa-project-diagram"></i> 工作流设计器
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/monitor" id="nav-monitor">
+                            <i class="fas fa-chart-line"></i> 监控中心
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services" id="nav-services">
+                            <i class="fas fa-cogs"></i> 服务管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/settings" id="nav-settings">
+                            <i class="fas fa-sliders-h"></i> 设置
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <span class="badge {{ 'bg-success' if llm_available else 'bg-warning text-dark' }}">
+                            <i class="fas fa-brain"></i> LLM: {{ '已启用' if llm_available else '未配置' }}
+                        </span>
+                    </li>
+                    <li class="nav-item ms-3 border-start border-light ps-3">
+                        <span class="navbar-text text-white"><i class="fas fa-user-circle"></i> {{ username }}</span>
+                        <a class="text-white-50 ms-2 text-decoration-none small" href="/logout"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex workflow-container">
+        <!-- 左侧服务面板 -->
+        <div class="sidebar-left p-3">
+            <h5 class="mb-3">
+                <i class="fas fa-cogs"></i>
+                云服务
+            </h5>
+
+            <div class="mb-4">
+                <input type="text" id="serviceSearch" class="form-control form-control-sm mb-2"
+                       placeholder="搜索服务...">
+                <select id="serviceSelect" class="form-select form-select-sm">
+                    <option value="">选择服务...</option>
+                    {% for service in services %}
+                    <option value="{{ service.name }}" data-description="{{ service.description }}">{{ service.name }} - {{ service.description }} ({{ service.operations_count }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div id="operationsPanel" class="mb-4" style="display: none;">
+                <h6 class="mb-3">
+                    <i class="fas fa-list"></i>
+                    操作列表
+                    <small id="operationsCount" class="text-muted ms-1"></small>
+                </h6>
+                <input type="text" id="operationSearch" class="form-control form-control-sm mb-2"
+                       placeholder="搜索操作...">
+                <div id="operationsList" class="list-group list-group-flush">
+                    <!-- 动态加载操作 -->
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h6 class="mb-3">
+                    <i class="fas fa-tasks"></i>
+                    快速任务
+                </h6>
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item task-template" draggable="true" data-type="ecs">
+                        <i class="fas fa-server text-primary"></i>
+                        <span class="ms-2">ECS实例</span>
+                    </div>
+                    <div class="list-group-item task-template" draggable="true" data-type="vpc">
+                        <i class="fas fa-network-wired text-success"></i>
+                        <span class="ms-2">VPC网络</span>
+                    </div>
+                    <div class="list-group-item task-template" draggable="true" data-type="rds">
+                        <i class="fas fa-database text-info"></i>
+                        <span class="ms-2">RDS数据库</span>
+                    </div>
+                    <div class="list-group-item task-template" draggable="true" data-type="obs">
+                        <i class="fas fa-hdd text-warning"></i>
+                        <span class="ms-2">OBS存储</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- 工作流信息 -->
+            <div id="workflowInfo">
+                <h6 class="mb-3">
+                    <i class="fas fa-info-circle"></i>
+                    工作流信息
+                </h6>
+                <div class="mb-3">
+                    <label class="form-label fw-bold small">名称</label>
+                    <input type="text" id="workflowName" class="form-control form-control-sm" placeholder="输入工作流名称">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold small">描述</label>
+                    <textarea id="workflowDescription" class="form-control form-control-sm" rows="2" placeholder="工作流描述"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- 中间设计区域 -->
+        <div class="main-canvas">
+            <div class="canvas-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-project-diagram"></i>
+                    设计画布
+                </h5>
+                <div>
+                    <button class="btn btn-sm btn-outline-secondary me-2" onclick="clearCanvas()">
+                        <i class="fas fa-trash"></i>
+                        清空
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="centerCanvas()">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                        居中
+                    </button>
+                </div>
+            </div>
+
+            <div id="workflowCanvas" class="workflow-canvas">
+                <div class="canvas-placeholder text-center text-muted">
+                    <i class="fas fa-mouse-pointer fa-3x mb-3"></i>
+                    <h5>开始设计您的工作流</h5>
+                    <p class="text-muted">从左侧拖拽任务节点到此处</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧属性面板 -->
+        <div class="sidebar-right p-3">
+            <div id="noSelectionPanel">
+                <div class="text-center text-muted py-5">
+                    <i class="fas fa-hand-pointer fa-3x mb-3"></i>
+                    <h6>选择一个节点</h6>
+                    <p class="small">点击画布上的任务节点来编辑属性</p>
+                </div>
+            </div>
+
+            <div id="nodePropertiesPanel" style="display: none;">
+                <h5 class="mb-3">
+                    <i class="fas fa-cog"></i>
+                    节点属性
+                </h5>
+
+                <div id="nodeProperties">
+                    <!-- 动态加载属性表单 -->
+                </div>
+            </div>
+
+            <div class="mt-auto pt-4">
+                <hr>
+                <h6 class="mb-3">
+                    <i class="fas fa-play"></i>
+                    执行操作
+                </h6>
+                <button class="btn btn-success w-100 mb-2 btn-sm" onclick="executeWorkflow()">
+                    <i class="fas fa-play"></i>
+                    执行工作流
+                </button>
+                <button class="btn btn-primary w-100 mb-2 btn-sm" onclick="validateWorkflow()">
+                    <i class="fas fa-check"></i>
+                    验证工作流
+                </button>
+                <button class="btn btn-secondary w-100 btn-sm" onclick="saveWorkflow()">
+                    <i class="fas fa-save"></i>
+                    保存工作流
+                </button>
+            </div>
+
+            <div class="mt-4">
+                <hr>
+                <h6 class="mb-3">
+                    <i class="fas fa-code"></i>
+                    输出选项
+                </h6>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-primary btn-sm" onclick="showWorkflowJson()">
+                        <i class="fas fa-file-code"></i>
+                        查看JSON
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="showDependencies()">
+                        <i class="fas fa-sitemap"></i>
+                        依赖关系
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框 -->
+    <div class="modal fade" id="messageModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalTitle">提示</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 参数编辑模态框 -->
+    <div class="modal fade" id="paramsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">编辑参数</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">
+                            参数 JSON
+                            <small class="text-muted d-block">请确保JSON格式正确</small>
+                        </label>
+                        <textarea id="paramsEditor" class="form-control" rows="15" placeholder='{
+  "key": "value",
+  "nested": {
+    "key": "value"
+  }
+}'></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="saveParameters()">
+                        <i class="fas fa-save"></i>
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/workflow_designer.js"></script>
+    <script>
+        // 初始化画布居中
+        function centerCanvas() {
+            const canvas = document.getElementById('workflowCanvas');
+            canvas.scrollLeft = 0;
+            canvas.scrollTop = 0;
+        }
+
+        // 页面加载完成后居中
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(centerCanvas, 500);
+        });
+    </script>
+</body>
+</html>

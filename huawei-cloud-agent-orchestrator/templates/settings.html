@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <title>设置 - 华为云Agent编排系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-cloud"></i>
+                华为云编排系统
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" id="nav-home">
+                            <i class="fas fa-home"></i> 首页
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auto" id="nav-auto">
+                            <i class="fas fa-robot"></i> AI自动生成
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history" id="nav-history">
+                            <i class="fas fa-history"></i> 历史记录
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/designer" id="nav-designer">
+                            <i class="fas fa-project-diagram"></i> 工作流设计器
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/monitor" id="nav-monitor">
+                            <i class="fas fa-chart-line"></i> 监控中心
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services" id="nav-services">
+                            <i class="fas fa-cogs"></i> 服务管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/settings" id="nav-settings">
+                            <i class="fas fa-sliders-h"></i> 设置
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <span class="badge {{ 'bg-success' if llm_available else 'bg-warning text-dark' }}">
+                            <i class="fas fa-brain"></i> LLM: {{ '已启用' if llm_available else '未配置' }}
+                        </span>
+                    </li>
+                    <li class="nav-item ms-3 border-start border-light ps-3">
+                        <span class="navbar-text text-white"><i class="fas fa-user-circle"></i> {{ username }}</span>
+                        <a class="text-white-50 ms-2 text-decoration-none small" href="/logout"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        <h4 class="mb-4"><i class="fas fa-sliders-h"></i> 系统设置</h4>
+
+        <div class="row g-4">
+            <!-- LLM & 云认证配置 -->
+            <div class="col-md-6">
+                <a href="/settings/llm" class="text-decoration-none">
+                    <div class="card h-100 border-primary shadow-sm settings-card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
+                                    <i class="fas fa-brain fa-2x text-primary"></i>
+                                </div>
+                                <div>
+                                    <h5 class="card-title mb-1">LLM & 云认证配置</h5>
+                                    <span class="badge bg-{{ 'success' if llm_available else 'warning' }}">
+                                        LLM {{ '已连接' if llm_available else '未配置' }}
+                                    </span>
+                                    <span class="badge bg-{{ 'success' if hw_ak_configured else 'warning' }} ms-1">
+                                        AK/SK {{ '已配置' if hw_ak_configured else '未配置' }}
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted">
+                                配置LLM提供商、API Key、模型参数，以及华为云Access Key / Secret Key认证信息。
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 text-end">
+                            <span class="text-primary">进入配置 <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Prompt 模板配置 -->
+            <div class="col-md-6">
+                <a href="/settings/prompt" class="text-decoration-none">
+                    <div class="card h-100 border-info shadow-sm settings-card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3">
+                                    <i class="fas fa-file-alt fa-2x text-info"></i>
+                                </div>
+                                <div>
+                                    <h5 class="card-title mb-1">Prompt 模板配置</h5>
+                                    <span class="badge bg-info">{{ examples_count }} 个示例</span>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted">
+                                管理System Prompt模板和Few-shot示例工作流，预览发送给LLM的完整Prompt内容。
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 text-end">
+                            <span class="text-info">进入配置 <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <style>
+    .settings-card { transition: transform 0.15s, box-shadow 0.15s; cursor: pointer; }
+    .settings-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

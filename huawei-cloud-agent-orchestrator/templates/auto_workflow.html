@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <title>AI工作流生成器 - 华为云Agent编排系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .requirement-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* ===== Flow Diagram ===== */
+        .flow-canvas-wrapper {
+            overflow-x: auto;
+            overflow-y: auto;
+            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            -webkit-overflow-scrolling: touch;
+        }
+        .flow-canvas {
+            position: relative;
+            min-height: 200px;
+            min-width: min-content;
+            padding: 24px 16px;
+            background:
+                radial-gradient(circle, #e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .flow-canvas svg.flow-lines {
+            position: absolute;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .flow-node {
+            position: absolute;
+            z-index: 2;
+            width: 210px;
+            background: #fff;
+            border: 2px solid #0d6efd;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            transition: box-shadow .2s, transform .2s;
+            cursor: grab;
+        }
+        .flow-node:hover {
+            box-shadow: 0 6px 20px rgba(13,110,253,.18);
+            transform: translateY(-2px);
+        }
+        .flow-node-head {
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .flow-node-head .step-badge {
+            background: rgba(255,255,255,.25);
+            border-radius: 50%;
+            width: 22px; height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+        .flow-node-body {
+            padding: 10px 12px;
+        }
+        .flow-node-body .fn-name {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+            word-break: break-all;
+        }
+        .flow-node-body .fn-svc {
+            font-size: 0.72rem;
+            color: #6c757d;
+        }
+        .flow-node-body .fn-desc {
+            font-size: 0.7rem;
+            color: #999;
+            margin-top: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        /* Start / End markers */
+        .flow-marker {
+            position: absolute;
+            z-index: 2;
+            width: 72px; height: 36px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .flow-marker.start { background: #198754; }
+        .flow-marker.end   { background: #dc3545; }
+
+        .json-viewer {
+            max-height: 500px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .loading-content { text-align: center; }
+        .loading-content i { font-size: 48px; color: #007bff; }
+        .loading-content h4 { margin: 20px 0; color: #007bff; }
+        .loading-content .progress { width: 300px; height: 4px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-cloud"></i>
+                华为云编排系统
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" id="nav-home">
+                            <i class="fas fa-home"></i> 首页
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/auto" id="nav-auto">
+                            <i class="fas fa-robot"></i> AI自动生成
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history" id="nav-history">
+                            <i class="fas fa-history"></i> 历史记录
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/designer" id="nav-designer">
+                            <i class="fas fa-project-diagram"></i> 工作流设计器
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/monitor" id="nav-monitor">
+                            <i class="fas fa-chart-line"></i> 监控中心
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services" id="nav-services">
+                            <i class="fas fa-cogs"></i> 服务管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/settings" id="nav-settings">
+                            <i class="fas fa-sliders-h"></i> 设置
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <span class="badge {{ 'bg-success' if llm_available else 'bg-warning text-dark' }}">
+                            <i class="fas fa-brain"></i> LLM: {{ '已启用' if llm_available else '未配置' }}
+                        </span>
+                    </li>
+                    <li class="nav-item ms-3 border-start border-light ps-3">
+                        <span class="navbar-text text-white"><i class="fas fa-user-circle"></i> {{ username }}</span>
+                        <a class="text-white-50 ms-2 text-decoration-none small" href="/logout"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-comment-dots"></i>
+                            输入需求
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">用自然语言描述您的部署需求</label>
+                            <textarea id="requirementInput" class="form-control requirement-input" placeholder="例如：创建3台ECS服务器部署高可用Web应用，包含负载均衡和RDS数据库"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">快速示例</label>
+                            <select id="quickExamples" class="form-select">
+                                <option value="">选择示例...</option>
+                                <optgroup label="基础架构">
+                                <option value="创建一个简单的Web服务器，包含VPC、子网、安全组（放通80/443端口）、1台ECS云服务器和弹性公网IP">简单Web服务器</option>
+                                <option value="部署一个高可用的Web应用，包含VPC、子网、安全组（放通80/443端口）、2台ECS云服务器、ELB负载均衡器（含监听器和后端服务器组）、弹性公网IP绑定到ELB、以及RDS MySQL数据库">高可用Web应用</option>
+                                <option value="创建一个完整的开发环境，包含VPC、子网、安全组（放通22/3306/8080端口）、1台ECS开发服务器、RDS MySQL数据库、OBS对象存储桶和弹性公网IP">开发环境</option>
+                                <option value="创建容器化应用环境，包含VPC、子网、安全组、CCE Kubernetes集群（含节点池）、ELB负载均衡和弹性公网IP">容器化应用</option>
+                                </optgroup>
+                                <optgroup label="AI / Agent">
+                                <option value="部署一个AI Agent应用平台，包含VPC、子网、安全组、CCE容器集群（运行Agent服务）、DCS Redis（会话缓存和消息队列）、RDS MySQL（存储Agent配置和对话历史）、OBS（存储模型文件和知识文档）、APIG API网关（对外暴露Agent API）、ELB负载均衡和弹性公网IP">AI Agent标准部署</option>
+                                <option value="部署一个RAG知识库系统，包含VPC、子网、安全组、ECS应用服务器（运行Embedding和检索服务）、GaussDB数据库（存储向量索引和结构化数据）、SFS弹性文件服务（共享知识文档存储）、OBS对象存储（原始文档归档）、ELB负载均衡和弹性公网IP">RAG知识库系统</option>
+                                <option value="部署一个Serverless架构的AI Agent，包含VPC、子网、FGS函数工作流（运行Agent推理逻辑，按调用付费）、APIG API网关（对外暴露RESTful接口，含流控和认证）、DCS Redis（缓存会话上下文）、OBS对象存储（存储Prompt模板和日志）、SMN消息通知（异步任务回调通知）">Serverless Agent</option>
+                                <option value="部署一个AI模型推理服务，包含VPC、子网、安全组、CCE容器集群（运行推理服务Pod）、ModelArts（模型管理和训练）、SFS Turbo（高性能共享模型文件存储）、OBS（训练数据和模型版本归档）、APIG API网关（推理API入口）、ELB负载均衡和弹性公网IP">AI模型推理服务</option>
+                                </optgroup>
+                                <optgroup label="数据处理">
+                                <option value="部署一个实时数据处理管道，包含VPC、子网、安全组、Kafka消息队列（数据接入和缓冲）、FGS函数工作流（实时数据清洗和转换）、RDS MySQL（结构化数据存储）、DCS Redis（实时计算中间状态缓存）、OBS对象存储（原始数据归档）、SMN消息通知（异常告警通知）">实时数据管道</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <button id="generateBtn" class="btn btn-primary w-100" onclick="generateWorkflow()">
+                            <i class="fas fa-magic"></i>
+                            AI生成工作流
+                        </button>
+
+                        <hr>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="autoExecute">
+                            <label class="form-check-label" for="autoExecute">
+                                生成后立即执行
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="explainWorkflow">
+                            <label class="form-check-label" for="explainWorkflow">
+                                生成解释说明
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-project-diagram"></i>
+                            生成的工作流
+                        </h5>
+                        <span class="badge bg-light text-dark d-none" id="taskCountBadge"></span>
+                    </div>
+                    <div class="card-body">
+                        <div id="workflowContainer" class="d-none">
+                            <div class="mb-3 d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="mb-1"><i class="fas fa-tag text-primary me-1"></i> <span id="workflowName"></span></h6>
+                                    <p class="text-muted small mb-0" id="workflowDescription"></p>
+                                </div>
+                            </div>
+
+                            <!-- Flow Diagram Canvas -->
+                            <div class="flow-canvas-wrapper">
+                                <div class="flow-canvas" id="flowCanvas"></div>
+                            </div>
+
+                            <div id="workflowExplanation" class="alert alert-info d-none mt-3">
+                                <h6><i class="fas fa-info-circle"></i> 工作流说明</h6>
+                                <div id="explanationContent"></div>
+                            </div>
+
+                            <div class="d-flex gap-2 mt-3">
+                                <button class="btn btn-primary" onclick="executeWorkflow()">
+                                    <i class="fas fa-play"></i>
+                                    执行工作流
+                                </button>
+                                <button class="btn btn-secondary" onclick="showJson()">
+                                    <i class="fas fa-code"></i>
+                                    查看JSON
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="exportWorkflow()">
+                                    <i class="fas fa-download"></i>
+                                    导出
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="emptyState" class="text-center text-muted py-5">
+                            <i class="fas fa-magic fa-3x mb-3"></i>
+                            <h5>AI工作流生成器</h5>
+                            <p>在左侧输入您的部署需求，AI将自动生成完整的工作流</p>
+                        </div>
+
+                        <div id="errorState" class="alert alert-danger d-none">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span id="errorMessage"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loadingOverlay" class="loading-overlay d-none">
+        <div class="loading-content">
+            <i class="fas fa-cog fa-spin"></i>
+            <h4>AI正在生成工作流...</h4>
+            <div class="progress mt-3">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+            </div>
+            <p class="mt-2 text-muted">请稍候</p>
+        </div>
+    </div>
+
+    <!-- JSON Modal -->
+    <div class="modal fade" id="jsonModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">工作流JSON</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <pre id="jsonContent" class="json-viewer"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/auto_workflow.js?v={{ cache_version | default('1.0') }}"></script>
+</body>
+</html>

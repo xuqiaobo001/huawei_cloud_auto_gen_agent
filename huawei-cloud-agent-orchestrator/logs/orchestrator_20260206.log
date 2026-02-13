@@ -1,0 +1,488 @@
+2026-02-06 07:29:25,557 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 07:29:25,557 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 07:29:25,557 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 07:29:25,606 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,606 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,606 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,606 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,638 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,638 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,638 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,638 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,638 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,668 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 07:29:25,668 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 07:29:25,668 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 07:29:25,668 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 07:29:25,668 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 07:29:25,668 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 07:29:25,668 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 07:29:25,668 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 07:29:25,700 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,700 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,700 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,700 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,700 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,700 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,700 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,700 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,700 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,732 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,732 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,732 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,732 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,732 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,732 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,732 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,732 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,732 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,732 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 07:29:25,740 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,740 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,740 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,740 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,740 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,740 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,740 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,740 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,740 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,740 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,740 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 07:29:25,740 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 07:29:25,740 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 07:29:25,740 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 07:29:25,740 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 07:29:25,740 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 07:29:25,740 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 07:29:25,740 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 07:29:25,740 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 07:29:25,740 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 07:29:25,741 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,741 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,741 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,741 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,741 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,741 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,741 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,741 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,741 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,741 - orchestrator - INFO - ============================================================
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 07:29:25,741 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 07:29:25,741 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 07:29:25,741 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 07:29:25,741 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 07:29:25,741 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 07:29:25,741 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 07:29:25,741 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 07:29:25,741 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 07:29:25,741 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 07:29:25,741 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM可用: True
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM可用: True
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM可用: True
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM可用: True
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM可用: True
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM可用: True
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM可用: True
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM可用: True
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM可用: True
+2026-02-06 07:29:25,741 - orchestrator - INFO - LLM可用: True
+2026-02-06 07:29:25,741 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 07:29:25,741 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 07:29:25,741 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 07:29:25,741 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 07:29:25,741 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 07:29:25,741 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 07:29:25,741 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 07:29:25,741 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 07:29:25,741 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 07:29:25,741 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 07:29:25,741 - orchestrator - INFO - AK已配置: 是
+2026-02-06 07:29:25,741 - orchestrator - INFO - AK已配置: 是
+2026-02-06 07:29:25,741 - orchestrator - INFO - AK已配置: 是
+2026-02-06 07:29:25,741 - orchestrator - INFO - AK已配置: 是
+2026-02-06 07:29:25,741 - orchestrator - INFO - AK已配置: 是
+2026-02-06 07:29:25,741 - orchestrator - INFO - AK已配置: 是
+2026-02-06 07:29:25,741 - orchestrator - INFO - AK已配置: 是
+2026-02-06 07:29:25,741 - orchestrator - INFO - AK已配置: 是
+2026-02-06 07:29:25,741 - orchestrator - INFO - AK已配置: 是
+2026-02-06 07:29:25,741 - orchestrator - INFO - AK已配置: 是
+2026-02-06 07:29:25,742 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 07:29:25,742 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 07:29:25,742 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 07:29:25,742 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 07:29:25,742 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 07:29:25,742 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 07:29:25,742 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 07:29:25,742 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 07:29:25,742 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 07:29:25,742 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 07:29:25,742 - orchestrator - INFO - 系统启动完成
+2026-02-06 07:29:25,742 - orchestrator - INFO - 系统启动完成
+2026-02-06 07:29:25,742 - orchestrator - INFO - 系统启动完成
+2026-02-06 07:29:25,742 - orchestrator - INFO - 系统启动完成
+2026-02-06 07:29:25,742 - orchestrator - INFO - 系统启动完成
+2026-02-06 07:29:25,742 - orchestrator - INFO - 系统启动完成
+2026-02-06 07:29:25,742 - orchestrator - INFO - 系统启动完成
+2026-02-06 07:29:25,742 - orchestrator - INFO - 系统启动完成
+2026-02-06 07:29:25,742 - orchestrator - INFO - 系统启动完成
+2026-02-06 07:29:25,742 - orchestrator - INFO - 系统启动完成
+2026-02-06 08:00:14,381 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 08:00:14,381 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 08:00:14,381 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 08:00:14,432 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,432 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,432 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,432 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,466 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,466 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,466 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,466 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,466 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,501 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 08:00:14,501 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 08:00:14,501 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 08:00:14,501 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 08:00:14,501 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 08:00:14,501 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 08:00:14,501 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 08:00:14,501 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-02-06 08:00:14,539 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,539 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,539 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,539 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,539 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,539 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,539 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,539 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,539 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,572 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,572 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,572 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,572 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,572 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,572 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,572 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,572 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,572 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,572 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 08:00:14,580 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 08:00:14,580 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 08:00:14,580 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 08:00:14,580 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 08:00:14,580 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 08:00:14,580 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 08:00:14,580 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 08:00:14,580 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 08:00:14,580 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,580 - orchestrator - INFO - ============================================================
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM提供商: custom
+2026-02-06 08:00:14,581 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 08:00:14,581 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 08:00:14,581 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 08:00:14,581 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 08:00:14,581 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 08:00:14,581 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 08:00:14,581 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 08:00:14,581 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 08:00:14,581 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 08:00:14,581 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM可用: True
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM可用: True
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM可用: True
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM可用: True
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM可用: True
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM可用: True
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM可用: True
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM可用: True
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM可用: True
+2026-02-06 08:00:14,581 - orchestrator - INFO - LLM可用: True
+2026-02-06 08:00:14,581 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 08:00:14,581 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 08:00:14,581 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 08:00:14,581 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 08:00:14,581 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 08:00:14,581 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 08:00:14,581 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 08:00:14,581 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 08:00:14,581 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 08:00:14,581 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-02-06 08:00:14,581 - orchestrator - INFO - AK已配置: 是
+2026-02-06 08:00:14,581 - orchestrator - INFO - AK已配置: 是
+2026-02-06 08:00:14,581 - orchestrator - INFO - AK已配置: 是
+2026-02-06 08:00:14,581 - orchestrator - INFO - AK已配置: 是
+2026-02-06 08:00:14,581 - orchestrator - INFO - AK已配置: 是
+2026-02-06 08:00:14,581 - orchestrator - INFO - AK已配置: 是
+2026-02-06 08:00:14,581 - orchestrator - INFO - AK已配置: 是
+2026-02-06 08:00:14,581 - orchestrator - INFO - AK已配置: 是
+2026-02-06 08:00:14,581 - orchestrator - INFO - AK已配置: 是
+2026-02-06 08:00:14,581 - orchestrator - INFO - AK已配置: 是
+2026-02-06 08:00:14,581 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 08:00:14,581 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 08:00:14,581 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 08:00:14,581 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 08:00:14,581 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 08:00:14,581 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 08:00:14,581 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 08:00:14,581 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 08:00:14,581 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 08:00:14,581 - orchestrator - INFO - 已注册 49 个云服务
+2026-02-06 08:00:14,582 - orchestrator - INFO - 系统启动完成
+2026-02-06 08:00:14,582 - orchestrator - INFO - 系统启动完成
+2026-02-06 08:00:14,582 - orchestrator - INFO - 系统启动完成
+2026-02-06 08:00:14,582 - orchestrator - INFO - 系统启动完成
+2026-02-06 08:00:14,582 - orchestrator - INFO - 系统启动完成
+2026-02-06 08:00:14,582 - orchestrator - INFO - 系统启动完成
+2026-02-06 08:00:14,582 - orchestrator - INFO - 系统启动完成
+2026-02-06 08:00:14,582 - orchestrator - INFO - 系统启动完成
+2026-02-06 08:00:14,582 - orchestrator - INFO - 系统启动完成
+2026-02-06 08:00:14,582 - orchestrator - INFO - 系统启动完成
+2026-02-07 03:04:47,416 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-07 03:04:47,416 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-07 03:04:47,416 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-07 03:04:47,416 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-07 03:04:47,416 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-07 03:04:47,416 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-07 03:04:47,416 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-07 03:04:47,416 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-07 03:04:47,416 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-07 03:04:47,416 - orchestrator - INFO - AI自动生成工作流: 创建一个简单的Web服务器
+2026-02-07 03:05:20,798 - orchestrator - ERROR - 解析LLM响应的JSON失败: Expecting ',' delimiter: line 152 column 3 (char 4155)
+2026-02-07 03:05:20,798 - orchestrator - ERROR - 解析LLM响应的JSON失败: Expecting ',' delimiter: line 152 column 3 (char 4155)
+2026-02-07 03:05:20,798 - orchestrator - ERROR - 解析LLM响应的JSON失败: Expecting ',' delimiter: line 152 column 3 (char 4155)
+2026-02-07 03:05:20,798 - orchestrator - ERROR - 解析LLM响应的JSON失败: Expecting ',' delimiter: line 152 column 3 (char 4155)
+2026-02-07 03:05:20,798 - orchestrator - ERROR - 解析LLM响应的JSON失败: Expecting ',' delimiter: line 152 column 3 (char 4155)
+2026-02-07 03:05:20,798 - orchestrator - ERROR - 解析LLM响应的JSON失败: Expecting ',' delimiter: line 152 column 3 (char 4155)
+2026-02-07 03:05:20,798 - orchestrator - ERROR - 解析LLM响应的JSON失败: Expecting ',' delimiter: line 152 column 3 (char 4155)
+2026-02-07 03:05:20,798 - orchestrator - ERROR - 解析LLM响应的JSON失败: Expecting ',' delimiter: line 152 column 3 (char 4155)
+2026-02-07 03:05:20,798 - orchestrator - ERROR - 解析LLM响应的JSON失败: Expecting ',' delimiter: line 152 column 3 (char 4155)
+2026-02-07 03:05:20,798 - orchestrator - ERROR - 解析LLM响应的JSON失败: Expecting ',' delimiter: line 152 column 3 (char 4155)
+2026-02-07 03:05:20,798 - orchestrator - DEBUG - 原始响应: {
+  "name": "部署简单Web服务器",
+  "description": "创建一个基本的Web服务器，包括VPC网络和ECS实例",
+  "variables": {
+    "vpc_name": "web-server-vpc",
+    "vpc_cidr": "192.168.0.0/16",
+    "subnet_name": "web-server-subnet",
+    "subnet_cidr": "192.168.1.0/24",
+    "ecs_name": "web-server",
+    "ecs_flavor": "s6.large.2",
+    "image_ref": "Standard_CentOS_7_latest"
+  },
+  "tasks": [
+    {
+      "name": "create_vpc",
+      "type": "huaweicloud_api",
+      "service": "vpc",
+      "operation": "create_vpc",
+      "parameter...
+2026-02-07 03:05:20,798 - orchestrator - DEBUG - 原始响应: {
+  "name": "部署简单Web服务器",
+  "description": "创建一个基本的Web服务器，包括VPC网络和ECS实例",
+  "variables": {
+    "vpc_name": "web-server-vpc",
+    "vpc_cidr": "192.168.0.0/16",
+    "subnet_name": "web-server-subnet",
+    "subnet_cidr": "192.168.1.0/24",
+    "ecs_name": "web-server",
+    "ecs_flavor": "s6.large.2",
+    "image_ref": "Standard_CentOS_7_latest"
+  },
+  "tasks": [
+    {
+      "name": "create_vpc",
+      "type": "huaweicloud_api",
+      "service": "vpc",
+      "operation": "create_vpc",
+      "parameter...
+2026-02-07 03:05:20,798 - orchestrator - DEBUG - 原始响应: {
+  "name": "部署简单Web服务器",
+  "description": "创建一个基本的Web服务器，包括VPC网络和ECS实例",
+  "variables": {
+    "vpc_name": "web-server-vpc",
+    "vpc_cidr": "192.168.0.0/16",
+    "subnet_name": "web-server-subnet",
+    "subnet_cidr": "192.168.1.0/24",
+    "ecs_name": "web-server",
+    "ecs_flavor": "s6.large.2",
+    "image_ref": "Standard_CentOS_7_latest"
+  },
+  "tasks": [
+    {
+      "name": "create_vpc",
+      "type": "huaweicloud_api",
+      "service": "vpc",
+      "operation": "create_vpc",
+      "parameter...
+2026-02-07 03:05:20,798 - orchestrator - DEBUG - 原始响应: {
+  "name": "部署简单Web服务器",
+  "description": "创建一个基本的Web服务器，包括VPC网络和ECS实例",
+  "variables": {
+    "vpc_name": "web-server-vpc",
+    "vpc_cidr": "192.168.0.0/16",
+    "subnet_name": "web-server-subnet",
+    "subnet_cidr": "192.168.1.0/24",
+    "ecs_name": "web-server",
+    "ecs_flavor": "s6.large.2",
+    "image_ref": "Standard_CentOS_7_latest"
+  },
+  "tasks": [
+    {
+      "name": "create_vpc",
+      "type": "huaweicloud_api",
+      "service": "vpc",
+      "operation": "create_vpc",
+      "parameter...
+2026-02-07 03:05:20,798 - orchestrator - DEBUG - 原始响应: {
+  "name": "部署简单Web服务器",
+  "description": "创建一个基本的Web服务器，包括VPC网络和ECS实例",
+  "variables": {
+    "vpc_name": "web-server-vpc",
+    "vpc_cidr": "192.168.0.0/16",
+    "subnet_name": "web-server-subnet",
+    "subnet_cidr": "192.168.1.0/24",
+    "ecs_name": "web-server",
+    "ecs_flavor": "s6.large.2",
+    "image_ref": "Standard_CentOS_7_latest"
+  },
+  "tasks": [
+    {
+      "name": "create_vpc",
+      "type": "huaweicloud_api",
+      "service": "vpc",
+      "operation": "create_vpc",
+      "parameter...
+2026-02-07 03:05:20,798 - orchestrator - DEBUG - 原始响应: {
+  "name": "部署简单Web服务器",
+  "description": "创建一个基本的Web服务器，包括VPC网络和ECS实例",
+  "variables": {
+    "vpc_name": "web-server-vpc",
+    "vpc_cidr": "192.168.0.0/16",
+    "subnet_name": "web-server-subnet",
+    "subnet_cidr": "192.168.1.0/24",
+    "ecs_name": "web-server",
+    "ecs_flavor": "s6.large.2",
+    "image_ref": "Standard_CentOS_7_latest"
+  },
+  "tasks": [
+    {
+      "name": "create_vpc",
+      "type": "huaweicloud_api",
+      "service": "vpc",
+      "operation": "create_vpc",
+      "parameter...
+2026-02-07 03:05:20,798 - orchestrator - DEBUG - 原始响应: {
+  "name": "部署简单Web服务器",
+  "description": "创建一个基本的Web服务器，包括VPC网络和ECS实例",
+  "variables": {
+    "vpc_name": "web-server-vpc",
+    "vpc_cidr": "192.168.0.0/16",
+    "subnet_name": "web-server-subnet",
+    "subnet_cidr": "192.168.1.0/24",
+    "ecs_name": "web-server",
+    "ecs_flavor": "s6.large.2",
+    "image_ref": "Standard_CentOS_7_latest"
+  },
+  "tasks": [
+    {
+      "name": "create_vpc",
+      "type": "huaweicloud_api",
+      "service": "vpc",
+      "operation": "create_vpc",
+      "parameter...
+2026-02-07 03:05:20,798 - orchestrator - DEBUG - 原始响应: {
+  "name": "部署简单Web服务器",
+  "description": "创建一个基本的Web服务器，包括VPC网络和ECS实例",
+  "variables": {
+    "vpc_name": "web-server-vpc",
+    "vpc_cidr": "192.168.0.0/16",
+    "subnet_name": "web-server-subnet",
+    "subnet_cidr": "192.168.1.0/24",
+    "ecs_name": "web-server",
+    "ecs_flavor": "s6.large.2",
+    "image_ref": "Standard_CentOS_7_latest"
+  },
+  "tasks": [
+    {
+      "name": "create_vpc",
+      "type": "huaweicloud_api",
+      "service": "vpc",
+      "operation": "create_vpc",
+      "parameter...
+2026-02-07 03:05:20,798 - orchestrator - DEBUG - 原始响应: {
+  "name": "部署简单Web服务器",
+  "description": "创建一个基本的Web服务器，包括VPC网络和ECS实例",
+  "variables": {
+    "vpc_name": "web-server-vpc",
+    "vpc_cidr": "192.168.0.0/16",
+    "subnet_name": "web-server-subnet",
+    "subnet_cidr": "192.168.1.0/24",
+    "ecs_name": "web-server",
+    "ecs_flavor": "s6.large.2",
+    "image_ref": "Standard_CentOS_7_latest"
+  },
+  "tasks": [
+    {
+      "name": "create_vpc",
+      "type": "huaweicloud_api",
+      "service": "vpc",
+      "operation": "create_vpc",
+      "parameter...
+2026-02-07 03:05:20,798 - orchestrator - DEBUG - 原始响应: {
+  "name": "部署简单Web服务器",
+  "description": "创建一个基本的Web服务器，包括VPC网络和ECS实例",
+  "variables": {
+    "vpc_name": "web-server-vpc",
+    "vpc_cidr": "192.168.0.0/16",
+    "subnet_name": "web-server-subnet",
+    "subnet_cidr": "192.168.1.0/24",
+    "ecs_name": "web-server",
+    "ecs_flavor": "s6.large.2",
+    "image_ref": "Standard_CentOS_7_latest"
+  },
+  "tasks": [
+    {
+      "name": "create_vpc",
+      "type": "huaweicloud_api",
+      "service": "vpc",
+      "operation": "create_vpc",
+      "parameter...

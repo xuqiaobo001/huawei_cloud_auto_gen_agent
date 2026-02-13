@@ -1,0 +1,884 @@
+2026-01-29 11:38:53,423 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:38:53,423 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:38:53,423 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:39:54,399 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:39:54,399 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:39:54,399 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:40:22,735 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:40:22,735 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:40:22,735 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:42:45,274 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:42:45,274 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:42:45,274 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:42:45,319 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:42:45,319 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:42:45,319 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:42:45,319 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:42:45,319 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:42:45,319 - orchestrator - WARNING - 未找到华为云认证信息，请在环境变量中设置HUAWEICLOUD_SDK_AK和HUAWEICLOUD_SDK_SK
+2026-01-29 11:42:45,325 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:45,325 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:45,325 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:45,325 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:45,325 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:45,325 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:45,325 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:45,325 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:45,325 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:45,325 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:45,325 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:45,325 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:45,325 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:45,325 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:45,325 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:45,325 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:45,325 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:45,325 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:57,740 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:42:57,740 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:42:57,740 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:42:57,783 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:42:57,783 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:42:57,783 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:42:57,783 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:42:57,783 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:42:57,783 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:42:57,789 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:57,789 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:57,789 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:57,789 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:57,789 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:57,789 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:42:57,789 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:57,789 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:57,789 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:57,789 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:57,789 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:57,789 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:42:57,789 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:57,789 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:57,789 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:57,789 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:57,789 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:57,789 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:42:57,790 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:42:57,790 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:42:57,790 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:42:57,790 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:42:57,790 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:42:57,790 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:43:38,386 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:43:38,386 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:43:38,386 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:43:38,428 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:43:38,428 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:43:38,428 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:43:38,428 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:43:38,428 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:43:38,428 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:43:38,434 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:43:38,434 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:43:38,434 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:43:38,434 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:43:38,434 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:43:38,434 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:43:38,434 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:43:38,434 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:43:38,434 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:43:38,434 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:43:38,434 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:43:38,434 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:43:38,434 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:43:38,434 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:43:38,434 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:43:38,434 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:43:38,434 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:43:38,434 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:43:38,435 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:43:38,435 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:43:38,435 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:43:38,435 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:43:38,435 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:43:38,435 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:44:00,942 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:44:00,942 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:44:00,942 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:44:00,983 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:44:00,983 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:44:00,983 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:44:00,983 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:44:00,983 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:44:00,983 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:44:00,989 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:44:00,989 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:44:00,989 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:44:00,989 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:44:00,989 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:44:00,989 - orchestrator - INFO - 启动华为云Agent编排系统...
+2026-01-29 11:44:00,989 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:44:00,989 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:44:00,989 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:44:00,989 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:44:00,989 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:44:00,989 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:44:00,989 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:44:00,989 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:44:00,989 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:44:00,989 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:44:00,989 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:44:00,989 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:44:39,398 - orchestrator - INFO - 收到工作流生成请求: 给我创建一个数据库
+2026-01-29 11:44:39,398 - orchestrator - INFO - 收到工作流生成请求: 给我创建一个数据库
+2026-01-29 11:44:39,398 - orchestrator - INFO - 收到工作流生成请求: 给我创建一个数据库
+2026-01-29 11:44:39,398 - orchestrator - INFO - 收到工作流生成请求: 给我创建一个数据库
+2026-01-29 11:44:39,398 - orchestrator - INFO - 收到工作流生成请求: 给我创建一个数据库
+2026-01-29 11:44:39,398 - orchestrator - INFO - 收到工作流生成请求: 给我创建一个数据库
+2026-01-29 11:44:39,401 - orchestrator - ERROR - 工作流生成失败: cannot import name 'PARAMETER_TEMPLATES' from 'models.workflow' (/root/huawei-service-agent/huawei-cloud-agent-orchestrator/models/workflow.py)
+2026-01-29 11:44:39,401 - orchestrator - ERROR - 工作流生成失败: cannot import name 'PARAMETER_TEMPLATES' from 'models.workflow' (/root/huawei-service-agent/huawei-cloud-agent-orchestrator/models/workflow.py)
+2026-01-29 11:44:39,401 - orchestrator - ERROR - 工作流生成失败: cannot import name 'PARAMETER_TEMPLATES' from 'models.workflow' (/root/huawei-service-agent/huawei-cloud-agent-orchestrator/models/workflow.py)
+2026-01-29 11:44:39,401 - orchestrator - ERROR - 工作流生成失败: cannot import name 'PARAMETER_TEMPLATES' from 'models.workflow' (/root/huawei-service-agent/huawei-cloud-agent-orchestrator/models/workflow.py)
+2026-01-29 11:44:39,401 - orchestrator - ERROR - 工作流生成失败: cannot import name 'PARAMETER_TEMPLATES' from 'models.workflow' (/root/huawei-service-agent/huawei-cloud-agent-orchestrator/models/workflow.py)
+2026-01-29 11:44:39,401 - orchestrator - ERROR - 工作流生成失败: cannot import name 'PARAMETER_TEMPLATES' from 'models.workflow' (/root/huawei-service-agent/huawei-cloud-agent-orchestrator/models/workflow.py)
+2026-01-29 11:46:35,277 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:46:35,277 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:46:35,277 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:46:35,277 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:46:35,277 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:46:35,277 - orchestrator - INFO - 系统正在关闭...
+2026-01-29 11:57:32,627 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:57:32,627 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:57:32,627 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:57:32,678 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,678 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,678 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,678 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,710 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,710 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,710 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,710 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,710 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,788 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:57:32,788 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:57:32,788 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:57:32,788 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:57:32,788 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:57:32,788 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:57:32,788 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:57:32,788 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 11:57:32,820 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,820 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,820 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,820 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,820 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,820 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,820 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,820 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,820 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,853 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,853 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,853 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,853 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,853 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,853 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,853 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,853 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,853 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,853 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 11:57:32,860 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 11:57:32,860 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 11:57:32,860 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 11:57:32,860 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 11:57:32,860 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 11:57:32,860 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 11:57:32,860 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 11:57:32,860 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 11:57:32,860 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - ============================================================
+2026-01-29 11:57:32,860 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 11:57:32,860 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 11:57:32,860 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 11:57:32,860 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 11:57:32,860 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 11:57:32,860 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 11:57:32,860 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 11:57:32,860 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 11:57:32,860 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 11:57:32,860 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 11:57:32,860 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 11:57:32,860 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 11:57:32,860 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 11:57:32,860 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 11:57:32,860 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 11:57:32,860 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 11:57:32,860 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 11:57:32,860 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 11:57:32,860 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 11:57:32,860 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 11:57:32,861 - orchestrator - INFO - LLM可用: True
+2026-01-29 11:57:32,861 - orchestrator - INFO - LLM可用: True
+2026-01-29 11:57:32,861 - orchestrator - INFO - LLM可用: True
+2026-01-29 11:57:32,861 - orchestrator - INFO - LLM可用: True
+2026-01-29 11:57:32,861 - orchestrator - INFO - LLM可用: True
+2026-01-29 11:57:32,861 - orchestrator - INFO - LLM可用: True
+2026-01-29 11:57:32,861 - orchestrator - INFO - LLM可用: True
+2026-01-29 11:57:32,861 - orchestrator - INFO - LLM可用: True
+2026-01-29 11:57:32,861 - orchestrator - INFO - LLM可用: True
+2026-01-29 11:57:32,861 - orchestrator - INFO - LLM可用: True
+2026-01-29 11:57:32,861 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 11:57:32,861 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 11:57:32,861 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 11:57:32,861 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 11:57:32,861 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 11:57:32,861 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 11:57:32,861 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 11:57:32,861 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 11:57:32,861 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 11:57:32,861 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 11:57:32,861 - orchestrator - INFO - AK已配置: 是
+2026-01-29 11:57:32,861 - orchestrator - INFO - AK已配置: 是
+2026-01-29 11:57:32,861 - orchestrator - INFO - AK已配置: 是
+2026-01-29 11:57:32,861 - orchestrator - INFO - AK已配置: 是
+2026-01-29 11:57:32,861 - orchestrator - INFO - AK已配置: 是
+2026-01-29 11:57:32,861 - orchestrator - INFO - AK已配置: 是
+2026-01-29 11:57:32,861 - orchestrator - INFO - AK已配置: 是
+2026-01-29 11:57:32,861 - orchestrator - INFO - AK已配置: 是
+2026-01-29 11:57:32,861 - orchestrator - INFO - AK已配置: 是
+2026-01-29 11:57:32,861 - orchestrator - INFO - AK已配置: 是
+2026-01-29 11:57:32,861 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:57:32,861 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:57:32,861 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:57:32,861 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:57:32,861 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:57:32,861 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:57:32,861 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:57:32,861 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:57:32,861 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:57:32,861 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 11:57:32,861 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:57:32,861 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:57:32,861 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:57:32,861 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:57:32,861 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:57:32,861 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:57:32,861 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:57:32,861 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:57:32,861 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:57:32,861 - orchestrator - INFO - 系统启动完成
+2026-01-29 11:58:06,042 - orchestrator - INFO - 收到工作流生成请求: 我要部署一个web应用请给我准备基础的云服务
+2026-01-29 11:58:06,042 - orchestrator - INFO - 收到工作流生成请求: 我要部署一个web应用请给我准备基础的云服务
+2026-01-29 11:58:06,042 - orchestrator - INFO - 收到工作流生成请求: 我要部署一个web应用请给我准备基础的云服务
+2026-01-29 11:58:06,042 - orchestrator - INFO - 收到工作流生成请求: 我要部署一个web应用请给我准备基础的云服务
+2026-01-29 11:58:06,042 - orchestrator - INFO - 收到工作流生成请求: 我要部署一个web应用请给我准备基础的云服务
+2026-01-29 11:58:06,042 - orchestrator - INFO - 收到工作流生成请求: 我要部署一个web应用请给我准备基础的云服务
+2026-01-29 11:58:06,042 - orchestrator - INFO - 收到工作流生成请求: 我要部署一个web应用请给我准备基础的云服务
+2026-01-29 11:58:06,042 - orchestrator - INFO - 收到工作流生成请求: 我要部署一个web应用请给我准备基础的云服务
+2026-01-29 11:58:06,042 - orchestrator - INFO - 收到工作流生成请求: 我要部署一个web应用请给我准备基础的云服务
+2026-01-29 11:58:06,042 - orchestrator - INFO - 收到工作流生成请求: 我要部署一个web应用请给我准备基础的云服务
+2026-01-29 11:58:27,728 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 11:58:27,728 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 11:58:27,728 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 11:58:27,728 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 11:58:27,728 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 11:58:27,728 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 11:58:27,728 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 11:58:27,728 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 11:58:27,728 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 11:58:27,728 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 11:58:27,729 - orchestrator - ERROR - 工作流生成失败: name 'WorkflowStatus' is not defined
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 66, in plan
+    workflow = self._parse_workflow_from_llm(workflow_dict)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 113, in _parse_workflow_from_llm
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/main.py", line 144, in generate_workflow
+    workflow = agent.plan(requirement)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 71, in plan
+    workflow = self._generate_with_rules(user_requirement, context)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 171, in _generate_with_rules
+    return self._create_web_application_workflow(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 201, in _create_web_application_workflow
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+2026-01-29 11:58:27,729 - orchestrator - ERROR - 工作流生成失败: name 'WorkflowStatus' is not defined
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 66, in plan
+    workflow = self._parse_workflow_from_llm(workflow_dict)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 113, in _parse_workflow_from_llm
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/main.py", line 144, in generate_workflow
+    workflow = agent.plan(requirement)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 71, in plan
+    workflow = self._generate_with_rules(user_requirement, context)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 171, in _generate_with_rules
+    return self._create_web_application_workflow(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 201, in _create_web_application_workflow
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+2026-01-29 11:58:27,729 - orchestrator - ERROR - 工作流生成失败: name 'WorkflowStatus' is not defined
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 66, in plan
+    workflow = self._parse_workflow_from_llm(workflow_dict)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 113, in _parse_workflow_from_llm
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/main.py", line 144, in generate_workflow
+    workflow = agent.plan(requirement)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 71, in plan
+    workflow = self._generate_with_rules(user_requirement, context)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 171, in _generate_with_rules
+    return self._create_web_application_workflow(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 201, in _create_web_application_workflow
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+2026-01-29 11:58:27,729 - orchestrator - ERROR - 工作流生成失败: name 'WorkflowStatus' is not defined
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 66, in plan
+    workflow = self._parse_workflow_from_llm(workflow_dict)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 113, in _parse_workflow_from_llm
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/main.py", line 144, in generate_workflow
+    workflow = agent.plan(requirement)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 71, in plan
+    workflow = self._generate_with_rules(user_requirement, context)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 171, in _generate_with_rules
+    return self._create_web_application_workflow(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 201, in _create_web_application_workflow
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+2026-01-29 11:58:27,729 - orchestrator - ERROR - 工作流生成失败: name 'WorkflowStatus' is not defined
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 66, in plan
+    workflow = self._parse_workflow_from_llm(workflow_dict)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 113, in _parse_workflow_from_llm
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/main.py", line 144, in generate_workflow
+    workflow = agent.plan(requirement)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 71, in plan
+    workflow = self._generate_with_rules(user_requirement, context)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 171, in _generate_with_rules
+    return self._create_web_application_workflow(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 201, in _create_web_application_workflow
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+2026-01-29 11:58:27,729 - orchestrator - ERROR - 工作流生成失败: name 'WorkflowStatus' is not defined
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 66, in plan
+    workflow = self._parse_workflow_from_llm(workflow_dict)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 113, in _parse_workflow_from_llm
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/main.py", line 144, in generate_workflow
+    workflow = agent.plan(requirement)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 71, in plan
+    workflow = self._generate_with_rules(user_requirement, context)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 171, in _generate_with_rules
+    return self._create_web_application_workflow(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 201, in _create_web_application_workflow
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+2026-01-29 11:58:27,729 - orchestrator - ERROR - 工作流生成失败: name 'WorkflowStatus' is not defined
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 66, in plan
+    workflow = self._parse_workflow_from_llm(workflow_dict)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 113, in _parse_workflow_from_llm
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/main.py", line 144, in generate_workflow
+    workflow = agent.plan(requirement)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 71, in plan
+    workflow = self._generate_with_rules(user_requirement, context)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 171, in _generate_with_rules
+    return self._create_web_application_workflow(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 201, in _create_web_application_workflow
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+2026-01-29 11:58:27,729 - orchestrator - ERROR - 工作流生成失败: name 'WorkflowStatus' is not defined
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 66, in plan
+    workflow = self._parse_workflow_from_llm(workflow_dict)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 113, in _parse_workflow_from_llm
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/main.py", line 144, in generate_workflow
+    workflow = agent.plan(requirement)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 71, in plan
+    workflow = self._generate_with_rules(user_requirement, context)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 171, in _generate_with_rules
+    return self._create_web_application_workflow(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 201, in _create_web_application_workflow
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+2026-01-29 11:58:27,729 - orchestrator - ERROR - 工作流生成失败: name 'WorkflowStatus' is not defined
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 66, in plan
+    workflow = self._parse_workflow_from_llm(workflow_dict)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 113, in _parse_workflow_from_llm
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/main.py", line 144, in generate_workflow
+    workflow = agent.plan(requirement)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 71, in plan
+    workflow = self._generate_with_rules(user_requirement, context)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 171, in _generate_with_rules
+    return self._create_web_application_workflow(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 201, in _create_web_application_workflow
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+2026-01-29 11:58:27,729 - orchestrator - ERROR - 工作流生成失败: name 'WorkflowStatus' is not defined
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 66, in plan
+    workflow = self._parse_workflow_from_llm(workflow_dict)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 113, in _parse_workflow_from_llm
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/main.py", line 144, in generate_workflow
+    workflow = agent.plan(requirement)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 71, in plan
+    workflow = self._generate_with_rules(user_requirement, context)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 171, in _generate_with_rules
+    return self._create_web_application_workflow(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/huawei-service-agent/huawei-cloud-agent-orchestrator/agents/llm_orchestration_agent.py", line 201, in _create_web_application_workflow
+    status=WorkflowStatus.READY
+           ^^^^^^^^^^^^^^
+NameError: name 'WorkflowStatus' is not defined
+2026-01-29 12:00:24,952 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:00:24,952 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:00:24,952 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:00:25,006 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,006 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,006 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,006 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,039 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,039 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,039 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,039 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,039 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,117 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:00:25,117 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:00:25,117 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:00:25,117 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:00:25,117 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:00:25,117 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:00:25,117 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:00:25,117 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:00:25,150 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,150 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,150 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,150 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,150 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,150 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,150 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,150 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,150 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,182 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,182 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,182 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,182 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,182 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,182 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,182 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,182 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,182 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,182 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:00:25,189 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:00:25,189 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:00:25,189 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:00:25,189 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:00:25,189 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:00:25,189 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:00:25,189 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:00:25,189 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:00:25,189 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,189 - orchestrator - INFO - ============================================================
+2026-01-29 12:00:25,190 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:00:25,190 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:00:25,190 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:00:25,190 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:00:25,190 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:00:25,190 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:00:25,190 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:00:25,190 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:00:25,190 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:00:25,190 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:00:25,190 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:00:25,190 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:00:25,190 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:00:25,190 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:00:25,190 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:00:25,190 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:00:25,190 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:00:25,190 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:00:25,190 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:00:25,190 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:00:25,191 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:00:25,191 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:00:25,191 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:00:25,191 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:00:25,191 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:00:25,191 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:00:25,191 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:00:25,191 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:00:25,191 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:00:25,191 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:00:25,191 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:00:25,191 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:00:25,191 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:00:25,191 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:00:25,191 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:00:25,191 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:00:25,191 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:00:25,191 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:00:25,191 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:00:25,191 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:00:25,191 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:00:25,191 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:00:25,191 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:00:25,191 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:00:25,191 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:00:25,191 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:00:25,191 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:00:25,191 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:00:25,191 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:00:25,191 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:00:25,192 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:00:25,192 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:00:25,192 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:00:25,192 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:00:25,192 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:00:25,192 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:00:25,192 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:00:25,192 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:00:25,192 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:00:25,192 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:00:25,192 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:00:25,192 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:00:25,192 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:00:25,192 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:00:25,192 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:00:25,192 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:00:25,192 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:00:25,192 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:00:25,192 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:00:25,192 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:00:45,750 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备需要的云资源
+2026-01-29 12:00:45,750 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备需要的云资源
+2026-01-29 12:00:45,750 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备需要的云资源
+2026-01-29 12:00:45,750 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备需要的云资源
+2026-01-29 12:00:45,750 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备需要的云资源
+2026-01-29 12:00:45,750 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备需要的云资源
+2026-01-29 12:00:45,750 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备需要的云资源
+2026-01-29 12:00:45,750 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备需要的云资源
+2026-01-29 12:00:45,750 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备需要的云资源
+2026-01-29 12:00:45,750 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备需要的云资源
+2026-01-29 12:01:09,081 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:01:09,081 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:01:09,081 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:01:09,081 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:01:09,081 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:01:09,081 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:01:09,081 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:01:09,081 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:01:09,081 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:01:09,081 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:30:09,419 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:30:09,419 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:30:09,419 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:30:09,471 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,471 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,471 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,471 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,504 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,504 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,504 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,504 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,504 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,587 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:30:09,587 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:30:09,587 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:30:09,587 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:30:09,587 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:30:09,587 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:30:09,587 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:30:09,587 - orchestrator - INFO - 已配置华为云认证信息
+2026-01-29 12:30:09,620 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,620 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,620 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,620 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,620 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,620 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,620 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,620 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,620 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,653 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,653 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,653 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,653 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,653 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,653 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,653 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,653 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,653 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,653 - orchestrator - INFO - LLM客户端初始化成功: custom - deepseek-v3.2-exp
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:30:09,660 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:30:09,660 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:30:09,660 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:30:09,660 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:30:09,660 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:30:09,660 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:30:09,660 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:30:09,660 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:30:09,660 - orchestrator - INFO - 启动华为云Agent编排系统
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - ============================================================
+2026-01-29 12:30:09,660 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:30:09,660 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:30:09,660 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:30:09,660 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:30:09,660 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:30:09,660 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:30:09,660 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:30:09,660 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:30:09,660 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:30:09,660 - orchestrator - INFO - LLM提供商: custom
+2026-01-29 12:30:09,661 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:30:09,661 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:30:09,661 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:30:09,661 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:30:09,661 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:30:09,661 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:30:09,661 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:30:09,661 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:30:09,661 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:30:09,661 - orchestrator - INFO - 模型: deepseek-v3.2-exp
+2026-01-29 12:30:09,661 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:30:09,661 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:30:09,661 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:30:09,661 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:30:09,661 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:30:09,661 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:30:09,661 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:30:09,661 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:30:09,661 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:30:09,661 - orchestrator - INFO - LLM可用: True
+2026-01-29 12:30:09,661 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:30:09,661 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:30:09,661 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:30:09,661 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:30:09,661 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:30:09,661 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:30:09,661 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:30:09,661 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:30:09,661 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:30:09,661 - orchestrator - INFO - 华为云区域: cn-north-4
+2026-01-29 12:30:09,661 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:30:09,661 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:30:09,661 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:30:09,661 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:30:09,661 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:30:09,661 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:30:09,661 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:30:09,661 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:30:09,661 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:30:09,661 - orchestrator - INFO - AK已配置: 是
+2026-01-29 12:30:09,661 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:30:09,661 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:30:09,661 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:30:09,661 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:30:09,661 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:30:09,661 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:30:09,661 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:30:09,661 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:30:09,661 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:30:09,661 - orchestrator - INFO - 已注册 6 个云服务
+2026-01-29 12:30:09,662 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:30:09,662 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:30:09,662 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:30:09,662 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:30:09,662 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:30:09,662 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:30:09,662 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:30:09,662 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:30:09,662 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:30:09,662 - orchestrator - INFO - 系统启动完成
+2026-01-29 12:30:57,644 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备对应的云服务资源
+2026-01-29 12:30:57,644 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备对应的云服务资源
+2026-01-29 12:30:57,644 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备对应的云服务资源
+2026-01-29 12:30:57,644 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备对应的云服务资源
+2026-01-29 12:30:57,644 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备对应的云服务资源
+2026-01-29 12:30:57,644 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备对应的云服务资源
+2026-01-29 12:30:57,644 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备对应的云服务资源
+2026-01-29 12:30:57,644 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备对应的云服务资源
+2026-01-29 12:30:57,644 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备对应的云服务资源
+2026-01-29 12:30:57,644 - orchestrator - INFO - 收到工作流生成请求: 我需要部署一个web应用，请给我准备对应的云服务资源
+2026-01-29 12:31:24,209 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:31:24,209 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:31:24,209 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:31:24,209 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:31:24,209 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:31:24,209 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:31:24,209 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:31:24,209 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:31:24,209 - orchestrator - INFO - 成功从LLM响应解析工作流JSON
+2026-01-29 12:31:24,209 - orchestrator - INFO - 成功从LLM响应解析工作流JSON

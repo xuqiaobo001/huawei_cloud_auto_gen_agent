@@ -1,0 +1,2 @@
+2026-02-03 11:15:12,266 - utils.vector_store - INFO - 创建新集合: huawei_cloud_operations
+2026-02-03 11:15:12,266 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db

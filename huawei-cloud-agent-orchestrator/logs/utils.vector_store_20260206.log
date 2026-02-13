@@ -1,0 +1,9 @@
+2026-02-06 07:16:45,527 - utils.vector_store - INFO - 已存在集合，当前文档数: 0
+2026-02-06 07:16:45,527 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db
+2026-02-06 07:16:45,544 - utils.vector_store - INFO - 创建新集合: huawei_cloud_operations
+2026-02-06 07:16:45,544 - utils.vector_store - INFO - 清空所有数据成功
+2026-02-06 07:18:17,863 - utils.vector_store - INFO - 批量添加操作成功: 3685 条
+2026-02-06 07:31:02,803 - utils.vector_store - INFO - 已存在集合，当前文档数: 3685
+2026-02-06 07:31:02,803 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db
+2026-02-07 01:08:16,124 - utils.vector_store - INFO - 已存在集合，当前文档数: 3685
+2026-02-07 01:08:16,124 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db

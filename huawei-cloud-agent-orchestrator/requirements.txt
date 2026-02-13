@@ -1,0 +1,37 @@
+# Web框架
+fastapi>=0.100.0
+uvicorn[standard]>=0.22.0
+jinja2>=3.1.0
+
+# 数据模型
+pydantic>=2.0.0
+
+# 数据库
+sqlalchemy>=2.0.0
+aiosqlite>=0.19.0
+
+# HTTP客户端
+httpx>=0.24.0
+aiohttp>=3.8.0
+
+# 异步支持
+asyncio-mqtt>=0.11.0
+
+# 华为云SDK
+huaweicloudsdkcore>=3.0.0
+huaweicloudsdkecs>=3.0.0
+huaweicloudsdkvpc>=3.0.0
+huaweicloudsdkrds>=3.0.0
+huaweicloudsdkobs>=3.0.0
+huaweicloudsdkcce>=3.0.0
+
+# Session签名
+itsdangerous>=2.0.0
+
+# 其他工具
+python-dotenv>=1.0.0
+pyyaml>=6.0
+
+# 向量数据库
+chromadb>=0.4.0
+sentence-transformers>=2.2.0

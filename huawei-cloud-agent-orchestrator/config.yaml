@@ -1,0 +1,2269 @@
+# 华为云Agent编排系统配置文件
+
+# LLM配置
+llm:
+  provider: "custom"  # 支持: anthropic, openai, huggingface, custom
+  api_key: "MUP1Fg3Z9v_gtP7sWOTERUCvQyFQVErjDcDqtLdKjl0YWgm5QXjqzJ7Wt_PJEijiwrmgbD-ZfU1mZRwP6Ot_4w"            # LLM API密钥
+  endpoint: "https://api.modelarts-maas.com/v1"           # 自定义endpoint（可选）
+  model: "deepseek-v3.2-exp"  # 模型名称
+  max_tokens: 8192
+  temperature: 0.1
+  # 其他特定提供商的配置
+  anthropic:
+    version: "2024-08-01-preview"
+  openai:
+    organization: ""
+    project: ""
+
+# 华为云认证配置
+huaweicloud:
+  ak: "HPUA433ZTOWXWM7L3QSU"                 # 华为云Access Key
+  sk: "94g0afKcPFotqlaLXqzOS5Zkk8N6F1stwvZmK7nw"                 # 华为云Secret Key
+  region: "cn-north-4"   # 默认区域
+  project_id: ""         # 项目ID（可选）
+
+# 服务配置
+services:
+  # 启用/禁用特定服务
+  enabled_services:
+    # 基础资源类（原有）
+    - ecs          # 弹性云服务器
+    - vpc          # 虚拟私有云
+    - rds          # 关系型数据库
+    - obs          # 对象存储
+    - cce          # 云容器引擎
+    - elb          # 弹性负载均衡
+    - eip          # 弹性公网IP
+    - dcs          # 分布式缓存(Redis)
+    - evs          # 云硬盘
+    # DFR 可靠性
+    - as           # 弹性伸缩
+    - csbs         # 云服务器备份
+    # DFS 安全性
+    - waf          # Web应用防火墙
+    - kms          # 密钥管理
+    - cts          # 云审计
+    - iam          # 身份认证与访问管理
+    - scm          # SSL证书管理
+    # DFO 可运维性
+    - ces          # 云监控
+    - lts          # 云日志
+    - smn          # 消息通知
+    - apm          # 应用性能管理
+    # DFP 性能 & DFA 可用性
+    - cdn          # 内容分发网络
+    - nat          # NAT网关
+    - dns          # 云解析
+
+# 工作流配置
+workflow:
+  max_concurrent_tasks: 10       # 最大并发任务数
+  default_timeout: 600           # 默认超时时间（秒）
+  retry_policy:
+    max_attempts: 3              # 最大重试次数
+    backoff_type: "exponential"  # 退避策略: exponential, linear
+    initial_delay: 1             # 初始延迟（秒）
+
+# Agent配置
+agent:
+  # 系统提示词
+  system_prompt: |
+    # 角色
+
+    你是华为云资源编排专家。你的唯一职责是：接收用户的自然语言需求，输出一个严格合规的华为云资源部署工作流JSON。
+
+    # 核心能力
+
+    - 精通华为云全栈服务（计算、网络、存储、数据库、容器、Serverless、AI、中间件）
+    - 熟悉云资源之间的依赖拓扑（VPC → Subnet → SecurityGroup → ECS/RDS/...）
+    - 能根据场景选择最优架构模式（单机、高可用、容器化、Serverless）
+
+    # 输出格式（严格JSON Schema）
+
+    你必须且只能返回以下JSON结构，不得包含任何额外文字、解释或markdown标记：
+
+    ```json
+    {
+      "name": "工作流英文短名，snake_case格式",
+      "description": "一句话中文描述，说明架构组成",
+      "variables": {
+        "变量名": "默认值（字符串类型）"
+      },
+      "tasks": [
+        {
+          "name": "全局唯一任务名，snake_case，格式为 动作_资源[_序号]，如 create_vpc、create_ecs_1",
+          "type": "huaweicloud_api",
+          "description": "一句话中文说明该任务的目的",
+          "service": "服务名（小写，如 vpc、ecs、rds、elb、cce、obs、eip、dcs、fgs、apig）",
+          "operation": "操作名（与API注册表中一致，如 create_vpc、create_servers、create_instance）",
+          "parameters": { "严格按照该API的请求体结构填写" },
+          "depends_on": ["前置任务的name，无依赖则为空数组"],
+          "retry_policy": { "max_attempts": 3 }
+        }
+      ]
+    }
+    ```
+
+    # 变量与引用规则
+
+    - 将用户可能需要修改的值提取为 variables（如名称、CIDR、规格、密码、镜像ID、可用区）
+    - 在 parameters 中通过 `{{ variables.xxx }}` 引用变量
+    - 通过 `{{ outputs.任务name.响应路径 }}` 引用上游任务的输出（如 `{{ outputs.create_vpc.vpc.id }}`）
+    - 密码类变量必须使用占位符格式，如 "YourPass@123"
+
+    # 依赖编排规则
+
+    1. 网络层优先：VPC → Subnet → SecurityGroup → SecurityGroupRule
+    2. 基础设施层：依赖网络层完成后才能创建 ECS / RDS / ELB / CCE / DCS 等
+    3. 应用层：ELB Listener → Pool → HealthMonitor → Member；CCE Cluster → NodePool
+    4. 接入层：EIP 绑定到 ELB 或 ECS 的 port_id
+    5. 并行优化：无依赖关系的任务不要人为串行化（如 RDS 和 OBS 可并行创建）
+    6. 安全组规则：数据库端口（3306/5432/6379/8000/9092）仅允许子网CIDR访问；Web端口（80/443/8080）可开放公网
+
+    # 质量检查清单
+
+    - 每个 task.name 全局唯一且为 snake_case
+    - 每个 task 的 service 和 operation 必须与系统注册的API一致
+    - depends_on 中引用的任务名必须存在于 tasks 列表中
+    - outputs 引用路径必须与上游API的实际响应结构匹配
+    - 不得出现循环依赖
+    - 高可用场景必须跨可用区部署（az1 / az2）
+    - 所有资源必须在同一 VPC 内
+
+    # DFX 编排规则
+
+    ## DFR 可靠性设计（分层原则）
+
+    当用户需求包含"高可用"/"生产环境"/"多实例"/"容灾"关键词时，必须按以下分层策略编排：
+
+    1. 无状态应用层（Agent服务、Web服务、API服务）：
+       - 优先使用 CCE Deployment，replicas >= 2
+       - 必须配置 podAntiAffinity，将 Pod 分散到不同可用区节点
+       - 必须配置 livenessProbe 和 readinessProbe 健康检查
+       - 必须配置 HPA（HorizontalPodAutoscaler），基于 CPU/内存自动扩缩
+       - 若用户未选择容器化，则使用 ECS + AS弹性伸缩组（min_instance >= 2）
+
+    2. 有状态数据层（数据库、缓存、消息队列）：
+       - 禁止在 K8s 中自建数据库，必须使用托管服务的 HA 模式
+       - RDS：ha.mode = "Ha"，replication_mode = "semisync"，跨 AZ 部署
+       - DCS Redis：使用主备或集群版（spec_code 含 ".ha."），跨 AZ available_zones
+       - Kafka：broker 数 >= 3，跨 AZ 部署
+       - 所有数据服务必须配置 backup_strategy（keep_days >= 7）
+
+    3. 流量入口层：
+       - ELB 必须跨 AZ（availability_zone_list 含至少 2 个 AZ）
+       - 必须配置 HealthMonitor（delay=5, timeout=3, max_retries=3）
+       - EIP 绑定到 ELB，禁止直接绑定单台 ECS
+
+    4. 备份与恢复：
+       - 生产环境必须创建 CSBS 备份策略（云服务器整机备份）
+       - RDS/GaussDB 备份保留天数 >= 7，备份窗口避开业务高峰（推荐 02:00-04:00）
+       - OBS 桶开启版本控制（用于关键数据防误删）
+
+    ## DFS 安全性设计
+
+    所有生产环境工作流必须包含以下安全基线，开发/测试环境可按需裁剪：
+
+    1. 网络安全：
+       - 安全组遵循最小开放原则：数据库/缓存/中间件端口仅允许子网 CIDR 访问
+       - 对外暴露 Web 服务时，必须在 ELB 前部署 WAF（Web应用防火墙）
+       - 内部服务出公网统一走 NAT 网关（SNAT），禁止每台 ECS 单独绑 EIP
+
+    2. 数据加密：
+       - RDS / GaussDB 开启存储加密（disk_encryption_id 引用 KMS 密钥）
+       - OBS 桶开启服务端加密（SSE-KMS）
+       - ELB HTTPS 监听器必须绑定 SCM 托管的 SSL 证书
+
+    3. 身份与访问控制：
+       - 为工作流执行创建专用 IAM 委托（agency），遵循最小权限原则
+       - 密码类变量必须满足复杂度要求：长度>=12，含大小写+数字+特殊字符
+
+    4. 审计与合规：
+       - 生产环境必须开启 CTS 云审计（记录所有资源操作）
+       - CTS 审计日志转储到独立 OBS 桶，保留 >= 180 天
+
+    ## DFO 可运维性设计
+
+    所有工作流必须包含"可观测性三件套"（监控 + 日志 + 告警通知）：
+
+    1. 监控告警（CES 云监控）：
+       - 为每个核心资源创建 CES 告警规则：
+         - ECS / CCE 节点：CPU > 80% 持续 5 分钟
+         - RDS：连接数 > 80%、存储使用率 > 85%
+         - DCS Redis：内存使用率 > 80%
+         - ELB：5xx 错误率 > 1%、后端健康主机数 < 期望值
+       - 告警动作关联 SMN 主题，通知运维人员
+
+    2. 日志采集（LTS 云日志）：
+       - 创建 LTS 日志组和日志流
+       - ECS / CCE 应用日志接入 LTS
+       - ELB 访问日志转储到 OBS
+
+    3. 消息通知（SMN）：
+       - 创建告警通知主题（SMN Topic）
+       - 作为 CES 告警动作的通知目标
+
+    4. 资源标签规范：
+       - 所有资源必须打标签：env（环境）、project（项目）、owner（负责人）
+       - 标签格式：env=prod/staging/dev，project=项目名
+
+    ## DFP 性能设计
+
+    1. 弹性伸缩：
+       - 容器化应用：CCE 必须配置 HPA（targetCPUUtilizationPercentage=70，minReplicas=2）
+       - ECS 应用：创建 AS 弹性伸缩组（min_instance=2, max_instance 按需求设定）
+       - AS 伸缩策略：CPU > 70% 扩容，CPU < 30% 缩容
+
+    2. 缓存与加速：
+       - 有数据库读多写少场景时，必须部署 DCS Redis 作为缓存层
+       - 有静态资源对外服务时，部署 CDN 加速
+       - CDN 回源到 OBS 或 ELB，禁止直接回源到单台 ECS
+
+    3. 网络性能：
+       - 生产环境 ELB 带宽 >= 10Mbps，按流量计费
+       - 内部服务出公网统一使用 NAT 网关（SNAT），带宽按业务峰值 1.5 倍预留
+       - 数据库选用 CLOUDSSD 磁盘类型，IO 密集场景选用 ESSD
+
+    ## DFA 可用性等级映射
+
+    根据用户需求关键词自动匹配可用性等级，决定 DFX 资源的裁剪程度：
+
+    | 用户关键词 | 等级 | 策略 |
+    |-----------|------|------|
+    | "测试"/"开发"/"试用" | 基础级 | 单 AZ、单实例、无 WAF/CTS、备份 keep_days=3 |
+    | "生产"/"线上"/"正式" | 生产级 | 跨 AZ、多实例、WAF + CTS + CES 告警、备份 keep_days=7 |
+    | "高可用"/"容灾"/"金融级" | 高可用级 | 跨 AZ 全冗余、CCE 多副本 + HPA、RDS Ha + 异地备份、WAF + CTS + CES + LTS 全量、备份 keep_days=30 |
+
+    未明确指定时，默认按"生产级"编排。
+
+  # 示例工作流
+  examples:
+    - name: "高可用Web应用"
+      description: "完整的高可用Web架构：VPC、子网、安全组、双ECS(跨AZ)、ELB(含健康检查)、EIP、RDS"
+      user_requirement: "部署一个高可用的Web应用，包含VPC、子网、安全组（放通80/443端口）、2台ECS云服务器、ELB负载均衡器（含监听器和后端服务器组）、弹性公网IP绑定到ELB、以及RDS MySQL数据库"
+      workflow: |
+        {
+          "name": "高可用Web应用部署",
+          "description": "VPC+子网+安全组+ECS×2(跨AZ)+ELB+健康检查+EIP+RDS的高可用架构",
+          "variables": {
+            "vpc_name": "ha-web-vpc",
+            "vpc_cidr": "192.168.0.0/16",
+            "subnet_name": "ha-web-subnet",
+            "subnet_cidr": "192.168.1.0/24",
+            "subnet_gateway": "192.168.1.1",
+            "ecs_flavor": "s6.large.2",
+            "ecs_image_id": "your-image-id",
+            "az1": "cn-north-4a",
+            "az2": "cn-north-4b",
+            "db_name": "ha-web-db",
+            "db_password": "YourDbPass@123"
+          },
+          "tasks": [
+            {
+              "name": "create_vpc",
+              "type": "huaweicloud_api",
+              "description": "创建虚拟私有云",
+              "service": "vpc",
+              "operation": "create_vpc",
+              "parameters": {
+                "vpc": {"name": "{{ variables.vpc_name }}", "cidr": "{{ variables.vpc_cidr }}"}
+              }
+            },
+            {
+              "name": "create_subnet",
+              "type": "huaweicloud_api",
+              "description": "创建子网",
+              "service": "vpc",
+              "operation": "create_subnet",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "subnet": {
+                  "name": "{{ variables.subnet_name }}",
+                  "cidr": "{{ variables.subnet_cidr }}",
+                  "gateway_ip": "{{ variables.subnet_gateway }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "primary_dns": "100.125.1.250",
+                  "secondary_dns": "100.125.21.250"
+                }
+              }
+            },
+            {
+              "name": "create_security_group",
+              "type": "huaweicloud_api",
+              "description": "创建安全组",
+              "service": "vpc",
+              "operation": "create_security_group",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "security_group": {"name": "ha-web-sg", "vpc_id": "{{ outputs.create_vpc.vpc.id }}"}
+              }
+            },
+            {
+              "name": "create_sg_rule_http",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通HTTP 80",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress", "ethertype": "IPv4", "protocol": "tcp",
+                  "port_range_min": 80, "port_range_max": 80,
+                  "remote_ip_prefix": "0.0.0.0/0"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_https",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通HTTPS 443",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress", "ethertype": "IPv4", "protocol": "tcp",
+                  "port_range_min": 443, "port_range_max": 443,
+                  "remote_ip_prefix": "0.0.0.0/0"
+                }
+              }
+            },
+            {
+              "name": "create_ecs_1",
+              "type": "huaweicloud_api",
+              "description": "创建Web服务器1(AZ1)",
+              "service": "ecs",
+              "operation": "create_servers",
+              "depends_on": ["create_subnet", "create_sg_rule_http", "create_sg_rule_https"],
+              "parameters": {
+                "server": {
+                  "name": "ha-web-server-1",
+                  "availability_zone": "{{ variables.az1 }}",
+                  "flavorRef": "{{ variables.ecs_flavor }}",
+                  "imageRef": "{{ variables.ecs_image_id }}",
+                  "vpcid": "{{ outputs.create_vpc.vpc.id }}",
+                  "nics": [{"subnet_id": "{{ outputs.create_subnet.subnet.id }}"}],
+                  "security_groups": [{"id": "{{ outputs.create_security_group.security_group.id }}"}],
+                  "root_volume": {"volumetype": "SAS", "size": 40},
+                  "count": 1
+                }
+              }
+            },
+            {
+              "name": "create_ecs_2",
+              "type": "huaweicloud_api",
+              "description": "创建Web服务器2(AZ2)",
+              "service": "ecs",
+              "operation": "create_servers",
+              "depends_on": ["create_subnet", "create_sg_rule_http", "create_sg_rule_https"],
+              "parameters": {
+                "server": {
+                  "name": "ha-web-server-2",
+                  "availability_zone": "{{ variables.az2 }}",
+                  "flavorRef": "{{ variables.ecs_flavor }}",
+                  "imageRef": "{{ variables.ecs_image_id }}",
+                  "vpcid": "{{ outputs.create_vpc.vpc.id }}",
+                  "nics": [{"subnet_id": "{{ outputs.create_subnet.subnet.id }}"}],
+                  "security_groups": [{"id": "{{ outputs.create_security_group.security_group.id }}"}],
+                  "root_volume": {"volumetype": "SAS", "size": 40},
+                  "count": 1
+                }
+              }
+            },
+            {
+              "name": "create_elb",
+              "type": "huaweicloud_api",
+              "description": "创建弹性负载均衡器",
+              "service": "elb",
+              "operation": "create_loadbalancer",
+              "depends_on": ["create_subnet"],
+              "parameters": {
+                "loadbalancer": {
+                  "name": "ha-web-elb",
+                  "vip_subnet_cidr_id": "{{ outputs.create_subnet.subnet.neutron_subnet_id }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "availability_zone_list": ["{{ variables.az1 }}", "{{ variables.az2 }}"]
+                }
+              }
+            },
+            {
+              "name": "create_listener",
+              "type": "huaweicloud_api",
+              "description": "创建ELB监听器(HTTP:80)",
+              "service": "elb",
+              "operation": "create_listener",
+              "depends_on": ["create_elb"],
+              "parameters": {
+                "listener": {
+                  "name": "ha-web-listener",
+                  "protocol": "HTTP", "protocol_port": 80,
+                  "loadbalancer_id": "{{ outputs.create_elb.loadbalancer.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_pool",
+              "type": "huaweicloud_api",
+              "description": "创建后端服务器组",
+              "service": "elb",
+              "operation": "create_pool",
+              "depends_on": ["create_listener"],
+              "parameters": {
+                "pool": {
+                  "name": "ha-web-pool",
+                  "protocol": "HTTP", "lb_algorithm": "ROUND_ROBIN",
+                  "listener_id": "{{ outputs.create_listener.listener.id }}",
+                  "loadbalancer_id": "{{ outputs.create_elb.loadbalancer.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_healthmonitor",
+              "type": "huaweicloud_api",
+              "description": "创建健康检查",
+              "service": "elb",
+              "operation": "create_healthmonitor",
+              "depends_on": ["create_pool"],
+              "parameters": {
+                "healthmonitor": {
+                  "name": "ha-web-hm",
+                  "pool_id": "{{ outputs.create_pool.pool.id }}",
+                  "type": "HTTP", "delay": 5, "timeout": 3, "max_retries": 3,
+                  "url_path": "/", "expected_codes": "200"
+                }
+              }
+            },
+            {
+              "name": "add_member_1",
+              "type": "huaweicloud_api",
+              "description": "将Web服务器1加入后端服务器组",
+              "service": "elb",
+              "operation": "create_member",
+              "depends_on": ["create_pool", "create_ecs_1"],
+              "parameters": {
+                "pool_id": "{{ outputs.create_pool.pool.id }}",
+                "member": {
+                  "name": "ha-web-member-1",
+                  "address": "{{ outputs.create_ecs_1.server.addresses[0].addr }}",
+                  "protocol_port": 80,
+                  "subnet_cidr_id": "{{ outputs.create_subnet.subnet.neutron_subnet_id }}"
+                }
+              }
+            },
+            {
+              "name": "add_member_2",
+              "type": "huaweicloud_api",
+              "description": "将Web服务器2加入后端服务器组",
+              "service": "elb",
+              "operation": "create_member",
+              "depends_on": ["create_pool", "create_ecs_2"],
+              "parameters": {
+                "pool_id": "{{ outputs.create_pool.pool.id }}",
+                "member": {
+                  "name": "ha-web-member-2",
+                  "address": "{{ outputs.create_ecs_2.server.addresses[0].addr }}",
+                  "protocol_port": 80,
+                  "subnet_cidr_id": "{{ outputs.create_subnet.subnet.neutron_subnet_id }}"
+                }
+              }
+            },
+            {
+              "name": "create_eip",
+              "type": "huaweicloud_api",
+              "description": "创建弹性公网IP绑定到ELB",
+              "service": "eip",
+              "operation": "create_publicip",
+              "depends_on": ["create_elb"],
+              "parameters": {
+                "publicip": {"type": "5_bgp", "port_id": "{{ outputs.create_elb.loadbalancer.vip_port_id }}"},
+                "bandwidth": {"name": "ha-web-bw", "size": 10, "share_type": "PER", "charge_mode": "traffic"}
+              }
+            },
+            {
+              "name": "create_rds",
+              "type": "huaweicloud_api",
+              "description": "创建RDS MySQL数据库",
+              "service": "rds",
+              "operation": "create_instance",
+              "depends_on": ["create_subnet", "create_security_group"],
+              "parameters": {
+                "name": "{{ variables.db_name }}",
+                "datastore": {"type": "MySQL", "version": "8.0"},
+                "flavor_ref": "rds.mysql.s1.large",
+                "volume": {"type": "CLOUDSSD", "size": 100},
+                "availability_zone": "{{ variables.az1 }},{{ variables.az2 }}",
+                "ha": {"mode": "Ha", "replication_mode": "semisync"},
+                "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                "subnet_id": "{{ outputs.create_subnet.subnet.id }}",
+                "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                "password": "{{ variables.db_password }}",
+                "backup_strategy": {"start_time": "02:00-03:00", "keep_days": 7}
+              }
+            }
+          ]
+        }
+
+    - name: "简单Web服务器"
+      description: "单台Web服务器：VPC、子网、安全组（80/443）、ECS、EIP"
+      user_requirement: "创建一个简单的Web服务器，包含VPC、子网、安全组（放通80/443端口）、1台ECS云服务器和弹性公网IP"
+      workflow: |
+        {
+          "name": "简单Web服务器部署",
+          "description": "VPC+子网+安全组+ECS+EIP的单机Web架构",
+          "variables": {
+            "vpc_name": "web-vpc",
+            "vpc_cidr": "192.168.0.0/16",
+            "subnet_name": "web-subnet",
+            "subnet_cidr": "192.168.1.0/24",
+            "subnet_gateway": "192.168.1.1",
+            "ecs_flavor": "s6.large.2",
+            "ecs_image_id": "your-image-id",
+            "az": "cn-north-4a"
+          },
+          "tasks": [
+            {
+              "name": "create_vpc",
+              "type": "huaweicloud_api",
+              "description": "创建虚拟私有云",
+              "service": "vpc",
+              "operation": "create_vpc",
+              "parameters": {
+                "vpc": {"name": "{{ variables.vpc_name }}", "cidr": "{{ variables.vpc_cidr }}"}
+              }
+            },
+            {
+              "name": "create_subnet",
+              "type": "huaweicloud_api",
+              "description": "创建子网",
+              "service": "vpc",
+              "operation": "create_subnet",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "subnet": {
+                  "name": "{{ variables.subnet_name }}",
+                  "cidr": "{{ variables.subnet_cidr }}",
+                  "gateway_ip": "{{ variables.subnet_gateway }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "primary_dns": "100.125.1.250",
+                  "secondary_dns": "100.125.21.250"
+                }
+              }
+            },
+            {
+              "name": "create_security_group",
+              "type": "huaweicloud_api",
+              "description": "创建安全组",
+              "service": "vpc",
+              "operation": "create_security_group",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "security_group": {"name": "web-sg", "vpc_id": "{{ outputs.create_vpc.vpc.id }}"}
+              }
+            },
+            {
+              "name": "create_sg_rule_http",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通HTTP 80",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress", "ethertype": "IPv4", "protocol": "tcp",
+                  "port_range_min": 80, "port_range_max": 80,
+                  "remote_ip_prefix": "0.0.0.0/0"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_https",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通HTTPS 443",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress", "ethertype": "IPv4", "protocol": "tcp",
+                  "port_range_min": 443, "port_range_max": 443,
+                  "remote_ip_prefix": "0.0.0.0/0"
+                }
+              }
+            },
+            {
+              "name": "create_ecs",
+              "type": "huaweicloud_api",
+              "description": "创建Web服务器",
+              "service": "ecs",
+              "operation": "create_servers",
+              "depends_on": ["create_subnet", "create_sg_rule_http", "create_sg_rule_https"],
+              "parameters": {
+                "server": {
+                  "name": "web-server",
+                  "availability_zone": "{{ variables.az }}",
+                  "flavorRef": "{{ variables.ecs_flavor }}",
+                  "imageRef": "{{ variables.ecs_image_id }}",
+                  "vpcid": "{{ outputs.create_vpc.vpc.id }}",
+                  "nics": [{"subnet_id": "{{ outputs.create_subnet.subnet.id }}"}],
+                  "security_groups": [{"id": "{{ outputs.create_security_group.security_group.id }}"}],
+                  "root_volume": {"volumetype": "SAS", "size": 40},
+                  "count": 1
+                }
+              }
+            },
+            {
+              "name": "create_eip",
+              "type": "huaweicloud_api",
+              "description": "创建弹性公网IP",
+              "service": "eip",
+              "operation": "create_publicip",
+              "depends_on": ["create_ecs"],
+              "parameters": {
+                "publicip": {"type": "5_bgp", "port_id": "{{ outputs.create_ecs.server.nics[0].port_id }}"},
+                "bandwidth": {"name": "web-bw", "size": 5, "share_type": "PER", "charge_mode": "traffic"}
+              }
+            }
+          ]
+        }
+
+    - name: "开发环境"
+      description: "完整开发环境：VPC、子网、安全组（22/3306/8080）、ECS、RDS、OBS、EIP"
+      user_requirement: "创建一个完整的开发环境，包含VPC、子网、安全组（放通22/3306/8080端口）、1台ECS开发服务器、RDS MySQL数据库、OBS对象存储桶和弹性公网IP"
+      workflow: |
+        {
+          "name": "开发环境部署",
+          "description": "VPC+子网+安全组+ECS+RDS+OBS+EIP的开发环境",
+          "variables": {
+            "vpc_name": "dev-vpc",
+            "vpc_cidr": "172.16.0.0/16",
+            "subnet_name": "dev-subnet",
+            "subnet_cidr": "172.16.1.0/24",
+            "subnet_gateway": "172.16.1.1",
+            "ecs_flavor": "s6.large.4",
+            "ecs_image_id": "your-image-id",
+            "az": "cn-north-4a",
+            "db_name": "dev-db",
+            "db_password": "YourDbPass@123",
+            "obs_bucket": "dev-storage-unique-id"
+          },
+          "tasks": [
+            {
+              "name": "create_vpc",
+              "type": "huaweicloud_api",
+              "description": "创建虚拟私有云",
+              "service": "vpc",
+              "operation": "create_vpc",
+              "parameters": {
+                "vpc": {"name": "{{ variables.vpc_name }}", "cidr": "{{ variables.vpc_cidr }}"}
+              }
+            },
+            {
+              "name": "create_subnet",
+              "type": "huaweicloud_api",
+              "description": "创建子网",
+              "service": "vpc",
+              "operation": "create_subnet",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "subnet": {
+                  "name": "{{ variables.subnet_name }}",
+                  "cidr": "{{ variables.subnet_cidr }}",
+                  "gateway_ip": "{{ variables.subnet_gateway }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "primary_dns": "100.125.1.250",
+                  "secondary_dns": "100.125.21.250"
+                }
+              }
+            },
+            {
+              "name": "create_security_group",
+              "type": "huaweicloud_api",
+              "description": "创建安全组",
+              "service": "vpc",
+              "operation": "create_security_group",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "security_group": {"name": "dev-sg", "vpc_id": "{{ outputs.create_vpc.vpc.id }}"}
+              }
+            },
+            {
+              "name": "create_sg_rule_ssh",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通SSH 22",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress", "ethertype": "IPv4", "protocol": "tcp",
+                  "port_range_min": 22, "port_range_max": 22,
+                  "remote_ip_prefix": "0.0.0.0/0"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_mysql",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通MySQL 3306(仅子网内)",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress", "ethertype": "IPv4", "protocol": "tcp",
+                  "port_range_min": 3306, "port_range_max": 3306,
+                  "remote_ip_prefix": "{{ variables.subnet_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_app",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通应用端口 8080",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress", "ethertype": "IPv4", "protocol": "tcp",
+                  "port_range_min": 8080, "port_range_max": 8080,
+                  "remote_ip_prefix": "0.0.0.0/0"
+                }
+              }
+            },
+            {
+              "name": "create_ecs",
+              "type": "huaweicloud_api",
+              "description": "创建开发服务器",
+              "service": "ecs",
+              "operation": "create_servers",
+              "depends_on": ["create_subnet", "create_sg_rule_ssh", "create_sg_rule_app"],
+              "parameters": {
+                "server": {
+                  "name": "dev-server",
+                  "availability_zone": "{{ variables.az }}",
+                  "flavorRef": "{{ variables.ecs_flavor }}",
+                  "imageRef": "{{ variables.ecs_image_id }}",
+                  "vpcid": "{{ outputs.create_vpc.vpc.id }}",
+                  "nics": [{"subnet_id": "{{ outputs.create_subnet.subnet.id }}"}],
+                  "security_groups": [{"id": "{{ outputs.create_security_group.security_group.id }}"}],
+                  "root_volume": {"volumetype": "SAS", "size": 40},
+                  "data_volumes": [{"volumetype": "SAS", "size": 100}],
+                  "count": 1
+                }
+              }
+            },
+            {
+              "name": "create_rds",
+              "type": "huaweicloud_api",
+              "description": "创建RDS MySQL数据库",
+              "service": "rds",
+              "operation": "create_instance",
+              "depends_on": ["create_subnet", "create_security_group"],
+              "parameters": {
+                "name": "{{ variables.db_name }}",
+                "datastore": {"type": "MySQL", "version": "8.0"},
+                "flavor_ref": "rds.mysql.s1.medium",
+                "volume": {"type": "CLOUDSSD", "size": 40},
+                "availability_zone": "{{ variables.az }}",
+                "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                "subnet_id": "{{ outputs.create_subnet.subnet.id }}",
+                "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                "password": "{{ variables.db_password }}",
+                "backup_strategy": {"start_time": "02:00-03:00", "keep_days": 3}
+              }
+            },
+            {
+              "name": "create_obs_bucket",
+              "type": "huaweicloud_api",
+              "description": "创建OBS对象存储桶",
+              "service": "obs",
+              "operation": "create_bucket",
+              "parameters": {
+                "bucket": "{{ variables.obs_bucket }}",
+                "storage_class": "STANDARD",
+                "acl": "private",
+                "location": "cn-north-4"
+              }
+            },
+            {
+              "name": "create_eip",
+              "type": "huaweicloud_api",
+              "description": "创建弹性公网IP绑定到ECS",
+              "service": "eip",
+              "operation": "create_publicip",
+              "depends_on": ["create_ecs"],
+              "parameters": {
+                "publicip": {"type": "5_bgp", "port_id": "{{ outputs.create_ecs.server.nics[0].port_id }}"},
+                "bandwidth": {"name": "dev-bw", "size": 5, "share_type": "PER", "charge_mode": "traffic"}
+              }
+            }
+          ]
+        }
+
+    - name: "容器化应用"
+      description: "容器化环境：VPC、子网、安全组、CCE集群、节点池、ELB、EIP"
+      user_requirement: "创建容器化应用环境，包含VPC、子网、安全组、CCE Kubernetes集群（含节点池）、ELB负载均衡和弹性公网IP"
+      workflow: |
+        {
+          "name": "容器化应用部署",
+          "description": "VPC+子网+安全组+CCE集群+节点池+ELB+EIP的容器化架构",
+          "variables": {
+            "vpc_name": "cce-vpc",
+            "vpc_cidr": "10.0.0.0/16",
+            "subnet_name": "cce-subnet",
+            "subnet_cidr": "10.0.1.0/24",
+            "subnet_gateway": "10.0.1.1",
+            "cluster_name": "app-cluster",
+            "node_flavor": "s6.large.2",
+            "az": "cn-north-4a"
+          },
+          "tasks": [
+            {
+              "name": "create_vpc",
+              "type": "huaweicloud_api",
+              "description": "创建虚拟私有云",
+              "service": "vpc",
+              "operation": "create_vpc",
+              "parameters": {
+                "vpc": {
+                  "name": "{{ variables.vpc_name }}",
+                  "cidr": "{{ variables.vpc_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_subnet",
+              "type": "huaweicloud_api",
+              "description": "创建子网",
+              "service": "vpc",
+              "operation": "create_subnet",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "subnet": {
+                  "name": "{{ variables.subnet_name }}",
+                  "cidr": "{{ variables.subnet_cidr }}",
+                  "gateway_ip": "{{ variables.subnet_gateway }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "primary_dns": "100.125.1.250",
+                  "secondary_dns": "100.125.21.250"
+                }
+              }
+            },
+            {
+              "name": "create_security_group",
+              "type": "huaweicloud_api",
+              "description": "创建安全组",
+              "service": "vpc",
+              "operation": "create_security_group",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "security_group": {
+                  "name": "cce-sg",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_cluster",
+              "type": "huaweicloud_api",
+              "description": "创建CCE Kubernetes集群",
+              "service": "cce",
+              "operation": "create_cluster",
+              "depends_on": ["create_subnet", "create_security_group"],
+              "parameters": {
+                "kind": "Cluster",
+                "apiVersion": "v3",
+                "metadata": {"name": "{{ variables.cluster_name }}"},
+                "spec": {
+                  "flavor": "cce.s2.small",
+                  "type": "VirtualMachine",
+                  "hostNetwork": {
+                    "vpc": "{{ outputs.create_vpc.vpc.id }}",
+                    "subnet": "{{ outputs.create_subnet.subnet.id }}",
+                    "securityGroup": "{{ outputs.create_security_group.security_group.id }}"
+                  },
+                  "containerNetwork": {
+                    "mode": "overlay_l2",
+                    "cidr": "172.16.0.0/16"
+                  },
+                  "kubernetesSvcIpRange": "10.247.0.0/16",
+                  "authentication": {
+                    "mode": "rbac"
+                  }
+                }
+              }
+            },
+            {
+              "name": "create_node_pool",
+              "type": "huaweicloud_api",
+              "description": "创建节点池",
+              "service": "cce",
+              "operation": "create_node_pool",
+              "depends_on": ["create_cluster"],
+              "parameters": {
+                "kind": "NodePool",
+                "apiVersion": "v3",
+                "metadata": {"name": "app-node-pool"},
+                "spec": {
+                  "initialNodeCount": 2,
+                  "nodeTemplate": {
+                    "flavor": "{{ variables.node_flavor }}",
+                    "az": "{{ variables.az }}",
+                    "os": "EulerOS 2.9",
+                    "rootVolume": {"volumetype": "SAS", "size": 50},
+                    "dataVolumes": [{"volumetype": "SAS", "size": 100}],
+                    "login": {
+                      "sshKey": "keypair-cce"
+                    }
+                  }
+                },
+                "cluster_id": "{{ outputs.create_cluster.metadata.uid }}"
+              }
+            },
+            {
+              "name": "create_elb",
+              "type": "huaweicloud_api",
+              "description": "创建弹性负载均衡器",
+              "service": "elb",
+              "operation": "create_loadbalancer",
+              "depends_on": ["create_subnet"],
+              "parameters": {
+                "loadbalancer": {
+                  "name": "cce-elb",
+                  "vip_subnet_cidr_id": "{{ outputs.create_subnet.subnet.neutron_subnet_id }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "availability_zone_list": ["{{ variables.az }}"]
+                }
+              }
+            },
+            {
+              "name": "create_eip",
+              "type": "huaweicloud_api",
+              "description": "创建弹性公网IP绑定到ELB",
+              "service": "eip",
+              "operation": "create_publicip",
+              "depends_on": ["create_elb"],
+              "parameters": {
+                "publicip": {
+                  "type": "5_bgp",
+                  "port_id": "{{ outputs.create_elb.loadbalancer.vip_port_id }}"
+                },
+                "bandwidth": {
+                  "name": "cce-bw",
+                  "size": 10,
+                  "share_type": "PER",
+                  "charge_mode": "traffic"
+                }
+              }
+            }
+          ]
+        }
+
+    - name: "AI Agent标准部署"
+      description: "AI Agent平台：VPC、子网、安全组、CCE集群、节点池、DCS Redis、RDS MySQL、OBS、APIG、ELB、EIP"
+      user_requirement: "部署一个AI Agent应用平台，包含VPC、子网、安全组、CCE容器集群（运行Agent服务）、DCS Redis（会话缓存和消息队列）、RDS MySQL（存储Agent配置和对话历史）、OBS（存储模型文件和知识文档）、APIG API网关（对外暴露Agent API）、ELB负载均衡和弹性公网IP"
+      workflow: |
+        {
+          "name": "AI Agent标准部署",
+          "description": "VPC+子网+安全组+CCE+DCS Redis+RDS MySQL+OBS+APIG+ELB+EIP的AI Agent平台架构",
+          "variables": {
+            "vpc_name": "agent-vpc",
+            "vpc_cidr": "10.0.0.0/16",
+            "subnet_name": "agent-subnet",
+            "subnet_cidr": "10.0.1.0/24",
+            "subnet_gateway": "10.0.1.1",
+            "az1": "cn-north-4a",
+            "az2": "cn-north-4b",
+            "cluster_name": "agent-cluster",
+            "node_flavor": "s6.xlarge.2",
+            "redis_password": "AgentRedis@123",
+            "db_password": "AgentDB@123",
+            "ecs_image_id": "your-image-id"
+          },
+          "tasks": [
+            {
+              "name": "create_vpc",
+              "type": "huaweicloud_api",
+              "description": "创建虚拟私有云",
+              "service": "vpc",
+              "operation": "create_vpc",
+              "parameters": {
+                "vpc": {
+                  "name": "{{ variables.vpc_name }}",
+                  "cidr": "{{ variables.vpc_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_subnet",
+              "type": "huaweicloud_api",
+              "description": "创建子网",
+              "service": "vpc",
+              "operation": "create_subnet",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "subnet": {
+                  "name": "{{ variables.subnet_name }}",
+                  "cidr": "{{ variables.subnet_cidr }}",
+                  "gateway_ip": "{{ variables.subnet_gateway }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "primary_dns": "100.125.1.250",
+                  "secondary_dns": "100.125.21.250"
+                }
+              }
+            },
+            {
+              "name": "create_security_group",
+              "type": "huaweicloud_api",
+              "description": "创建安全组",
+              "service": "vpc",
+              "operation": "create_security_group",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "security_group": {
+                  "name": "agent-sg",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_https",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通HTTPS 443",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress",
+                  "ethertype": "IPv4",
+                  "protocol": "tcp",
+                  "port_range_min": 443,
+                  "port_range_max": 443,
+                  "remote_ip_prefix": "0.0.0.0/0"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_redis",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通Redis 6379（仅子网内）",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress",
+                  "ethertype": "IPv4",
+                  "protocol": "tcp",
+                  "port_range_min": 6379,
+                  "port_range_max": 6379,
+                  "remote_ip_prefix": "{{ variables.subnet_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_mysql",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通MySQL 3306（仅子网内）",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress",
+                  "ethertype": "IPv4",
+                  "protocol": "tcp",
+                  "port_range_min": 3306,
+                  "port_range_max": 3306,
+                  "remote_ip_prefix": "{{ variables.subnet_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_cce_cluster",
+              "type": "huaweicloud_api",
+              "description": "创建CCE集群-运行Agent容器服务",
+              "service": "cce",
+              "operation": "create_cluster",
+              "depends_on": ["create_subnet", "create_security_group"],
+              "parameters": {
+                "kind": "Cluster",
+                "apiVersion": "v3",
+                "metadata": {"name": "{{ variables.cluster_name }}"},
+                "spec": {
+                  "flavor": "cce.s2.small",
+                  "type": "VirtualMachine",
+                  "hostNetwork": {
+                    "vpc": "{{ outputs.create_vpc.vpc.id }}",
+                    "subnet": "{{ outputs.create_subnet.subnet.id }}",
+                    "securityGroup": "{{ outputs.create_security_group.security_group.id }}"
+                  },
+                  "containerNetwork": {
+                    "mode": "overlay_l2",
+                    "cidr": "172.16.0.0/16"
+                  },
+                  "kubernetesSvcIpRange": "10.247.0.0/16",
+                  "authentication": {"mode": "rbac"}
+                }
+              }
+            },
+            {
+              "name": "create_node_pool",
+              "type": "huaweicloud_api",
+              "description": "创建节点池-Agent工作负载节点",
+              "service": "cce",
+              "operation": "create_node_pool",
+              "depends_on": ["create_cce_cluster"],
+              "parameters": {
+                "kind": "NodePool",
+                "apiVersion": "v3",
+                "metadata": {"name": "agent-node-pool"},
+                "spec": {
+                  "initialNodeCount": 3,
+                  "nodeTemplate": {
+                    "flavor": "{{ variables.node_flavor }}",
+                    "az": "{{ variables.az1 }}",
+                    "os": "EulerOS 2.9",
+                    "rootVolume": {"volumetype": "SAS", "size": 50},
+                    "dataVolumes": [{"volumetype": "SAS", "size": 200}],
+                    "login": {"sshKey": "keypair-agent"}
+                  }
+                },
+                "cluster_id": "{{ outputs.create_cce_cluster.metadata.uid }}"
+              }
+            },
+            {
+              "name": "create_redis",
+              "type": "huaweicloud_api",
+              "description": "创建DCS Redis-Agent会话缓存和消息队列",
+              "service": "dcs",
+              "operation": "create_instance",
+              "depends_on": ["create_subnet", "create_security_group"],
+              "parameters": {
+                "name": "agent-redis",
+                "engine": "Redis",
+                "engine_version": "6.0",
+                "capacity": 4,
+                "spec_code": "redis.ha.xu1.large.r2.4",
+                "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                "subnet_id": "{{ outputs.create_subnet.subnet.id }}",
+                "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                "available_zones": ["{{ variables.az1 }}", "{{ variables.az2 }}"],
+                "password": "{{ variables.redis_password }}",
+                "no_password_access": false
+              }
+            },
+            {
+              "name": "create_rds",
+              "type": "huaweicloud_api",
+              "description": "创建RDS MySQL-存储Agent配置和对话历史",
+              "service": "rds",
+              "operation": "create_instance",
+              "depends_on": ["create_subnet", "create_security_group"],
+              "parameters": {
+                "name": "agent-mysql",
+                "datastore": {"type": "MySQL", "version": "8.0"},
+                "flavor_ref": "rds.mysql.s1.large.ha",
+                "volume": {"type": "CLOUDSSD", "size": 100},
+                "availability_zone": "{{ variables.az1 }},{{ variables.az2 }}",
+                "ha": {"mode": "Ha", "replication_mode": "semisync"},
+                "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                "subnet_id": "{{ outputs.create_subnet.subnet.id }}",
+                "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                "password": "{{ variables.db_password }}",
+                "backup_strategy": {"start_time": "02:00-03:00", "keep_days": 7}
+              }
+            },
+            {
+              "name": "create_obs_bucket",
+              "type": "huaweicloud_api",
+              "description": "创建OBS桶-存储模型文件和知识文档",
+              "service": "obs",
+              "operation": "create_bucket",
+              "parameters": {
+                "bucket_name": "agent-models-unique-id",
+                "location": "cn-north-4",
+                "storage_class": "STANDARD",
+                "acl": "private"
+              }
+            },
+            {
+              "name": "create_apig_group",
+              "type": "huaweicloud_api",
+              "description": "创建APIG API分组-Agent对外API入口",
+              "service": "apig",
+              "operation": "create_api_group",
+              "parameters": {
+                "name": "agent-api-group",
+                "remark": "AI Agent对外API接口分组"
+              }
+            },
+            {
+              "name": "create_elb",
+              "type": "huaweicloud_api",
+              "description": "创建ELB负载均衡器",
+              "service": "elb",
+              "operation": "create_loadbalancer",
+              "depends_on": ["create_subnet"],
+              "parameters": {
+                "loadbalancer": {
+                  "name": "agent-elb",
+                  "vip_subnet_cidr_id": "{{ outputs.create_subnet.subnet.neutron_subnet_id }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "availability_zone_list": ["{{ variables.az1 }}", "{{ variables.az2 }}"]
+                }
+              }
+            },
+            {
+              "name": "create_elb_listener",
+              "type": "huaweicloud_api",
+              "description": "创建HTTPS监听器",
+              "service": "elb",
+              "operation": "create_listener",
+              "depends_on": ["create_elb"],
+              "parameters": {
+                "listener": {
+                  "name": "agent-https-listener",
+                  "protocol": "HTTPS",
+                  "protocol_port": 443,
+                  "loadbalancer_id": "{{ outputs.create_elb.loadbalancer.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_elb_pool",
+              "type": "huaweicloud_api",
+              "description": "创建后端服务器组",
+              "service": "elb",
+              "operation": "create_pool",
+              "depends_on": ["create_elb_listener"],
+              "parameters": {
+                "pool": {
+                  "name": "agent-pool",
+                  "protocol": "HTTP",
+                  "lb_algorithm": "ROUND_ROBIN",
+                  "listener_id": "{{ outputs.create_elb_listener.listener.id }}",
+                  "loadbalancer_id": "{{ outputs.create_elb.loadbalancer.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_elb_healthmonitor",
+              "type": "huaweicloud_api",
+              "description": "创建健康检查-Agent服务健康探测",
+              "service": "elb",
+              "operation": "create_healthmonitor",
+              "depends_on": ["create_elb_pool"],
+              "parameters": {
+                "healthmonitor": {
+                  "pool_id": "{{ outputs.create_elb_pool.pool.id }}",
+                  "type": "HTTP",
+                  "url_path": "/health",
+                  "delay": 10,
+                  "timeout": 5,
+                  "max_retries": 3
+                }
+              }
+            },
+            {
+              "name": "create_eip",
+              "type": "huaweicloud_api",
+              "description": "创建弹性公网IP绑定到ELB",
+              "service": "eip",
+              "operation": "create_publicip",
+              "depends_on": ["create_elb"],
+              "parameters": {
+                "publicip": {
+                  "type": "5_bgp",
+                  "port_id": "{{ outputs.create_elb.loadbalancer.vip_port_id }}"
+                },
+                "bandwidth": {
+                  "name": "agent-bw",
+                  "size": 50,
+                  "share_type": "PER",
+                  "charge_mode": "traffic"
+                }
+              }
+            }
+          ]
+        }
+
+    - name: "RAG知识库系统"
+      description: "RAG检索增强生成：VPC、子网、安全组、ECS、GaussDB(向量检索)、SFS共享文件、OBS、ELB、EIP"
+      user_requirement: "部署一个RAG知识库系统，包含VPC、子网、安全组、ECS应用服务器（运行Embedding和检索服务）、GaussDB数据库（存储向量索引和结构化数据）、SFS弹性文件服务（共享知识文档存储）、OBS对象存储（原始文档归档）、ELB负载均衡和弹性公网IP"
+      workflow: |
+        {
+          "name": "RAG知识库系统部署",
+          "description": "VPC+子网+安全组+ECS+GaussDB+SFS+OBS+ELB+EIP的RAG检索增强架构",
+          "variables": {
+            "vpc_name": "rag-vpc",
+            "vpc_cidr": "10.0.0.0/16",
+            "subnet_name": "rag-subnet",
+            "subnet_cidr": "10.0.1.0/24",
+            "subnet_gateway": "10.0.1.1",
+            "az1": "cn-north-4a",
+            "az2": "cn-north-4b",
+            "ecs_flavor": "s6.xlarge.4",
+            "ecs_image_id": "your-image-id",
+            "db_password": "RagDB@123"
+          },
+          "tasks": [
+            {
+              "name": "create_vpc",
+              "type": "huaweicloud_api",
+              "description": "创建虚拟私有云",
+              "service": "vpc",
+              "operation": "create_vpc",
+              "parameters": {
+                "vpc": {
+                  "name": "{{ variables.vpc_name }}",
+                  "cidr": "{{ variables.vpc_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_subnet",
+              "type": "huaweicloud_api",
+              "description": "创建子网",
+              "service": "vpc",
+              "operation": "create_subnet",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "subnet": {
+                  "name": "{{ variables.subnet_name }}",
+                  "cidr": "{{ variables.subnet_cidr }}",
+                  "gateway_ip": "{{ variables.subnet_gateway }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "primary_dns": "100.125.1.250",
+                  "secondary_dns": "100.125.21.250"
+                }
+              }
+            },
+            {
+              "name": "create_security_group",
+              "type": "huaweicloud_api",
+              "description": "创建安全组",
+              "service": "vpc",
+              "operation": "create_security_group",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "security_group": {
+                  "name": "rag-sg",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_http",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通HTTP 8080（API服务端口）",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress",
+                  "ethertype": "IPv4",
+                  "protocol": "tcp",
+                  "port_range_min": 8080,
+                  "port_range_max": 8080,
+                  "remote_ip_prefix": "0.0.0.0/0"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_gaussdb",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通GaussDB 8000（仅子网内）",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress",
+                  "ethertype": "IPv4",
+                  "protocol": "tcp",
+                  "port_range_min": 8000,
+                  "port_range_max": 8000,
+                  "remote_ip_prefix": "{{ variables.subnet_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_ecs",
+              "type": "huaweicloud_api",
+              "description": "创建ECS-运行Embedding和检索服务",
+              "service": "ecs",
+              "operation": "create_servers",
+              "depends_on": ["create_subnet", "create_sg_rule_http"],
+              "parameters": {
+                "server": {
+                  "name": "rag-server",
+                  "flavorRef": "{{ variables.ecs_flavor }}",
+                  "imageRef": "{{ variables.ecs_image_id }}",
+                  "vpcid": "{{ outputs.create_vpc.vpc.id }}",
+                  "nics": [{"subnet_id": "{{ outputs.create_subnet.subnet.id }}"}],
+                  "security_groups": [{"id": "{{ outputs.create_security_group.security_group.id }}"}],
+                  "availability_zone": "{{ variables.az1 }}",
+                  "root_volume": {"volumetype": "SAS", "size": 40},
+                  "data_volumes": [{"volumetype": "SAS", "size": 200}],
+                  "count": 2
+                }
+              }
+            },
+            {
+              "name": "create_gaussdb",
+              "type": "huaweicloud_api",
+              "description": "创建GaussDB-存储向量索引和结构化数据",
+              "service": "gaussdb",
+              "operation": "create_instance",
+              "depends_on": ["create_subnet", "create_sg_rule_gaussdb"],
+              "parameters": {
+                "name": "rag-gaussdb",
+                "datastore": {"type": "GaussDB", "version": "2.0-8.201"},
+                "flavor_ref": "gaussdb.opengauss.ee.m6.2xlarge.8.in",
+                "volume": {"type": "CLOUDSSD", "size": 200},
+                "availability_zone": "{{ variables.az1 }},{{ variables.az2 }}",
+                "ha": {"mode": "Ha", "replication_mode": "sync", "consistency": "strong"},
+                "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                "subnet_id": "{{ outputs.create_subnet.subnet.id }}",
+                "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                "password": "{{ variables.db_password }}",
+                "backup_strategy": {"start_time": "02:00-03:00", "keep_days": 7}
+              }
+            },
+            {
+              "name": "create_sfs",
+              "type": "huaweicloud_api",
+              "description": "创建SFS Turbo-多节点共享知识文档存储",
+              "service": "sfsturbo",
+              "operation": "create_share",
+              "depends_on": ["create_subnet", "create_security_group"],
+              "parameters": {
+                "share": {
+                  "name": "rag-knowledge-store",
+                  "share_proto": "NFS",
+                  "share_type": "STANDARD",
+                  "size": 500,
+                  "availability_zone": "{{ variables.az1 }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "subnet_id": "{{ outputs.create_subnet.subnet.id }}",
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_obs_bucket",
+              "type": "huaweicloud_api",
+              "description": "创建OBS桶-原始文档归档存储",
+              "service": "obs",
+              "operation": "create_bucket",
+              "parameters": {
+                "bucket_name": "rag-documents-unique-id",
+                "location": "cn-north-4",
+                "storage_class": "STANDARD",
+                "acl": "private"
+              }
+            },
+            {
+              "name": "create_elb",
+              "type": "huaweicloud_api",
+              "description": "创建ELB负载均衡器",
+              "service": "elb",
+              "operation": "create_loadbalancer",
+              "depends_on": ["create_subnet"],
+              "parameters": {
+                "loadbalancer": {
+                  "name": "rag-elb",
+                  "vip_subnet_cidr_id": "{{ outputs.create_subnet.subnet.neutron_subnet_id }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "availability_zone_list": ["{{ variables.az1 }}"]
+                }
+              }
+            },
+            {
+              "name": "create_elb_listener",
+              "type": "huaweicloud_api",
+              "description": "创建HTTP监听器",
+              "service": "elb",
+              "operation": "create_listener",
+              "depends_on": ["create_elb"],
+              "parameters": {
+                "listener": {
+                  "name": "rag-http-listener",
+                  "protocol": "HTTP",
+                  "protocol_port": 8080,
+                  "loadbalancer_id": "{{ outputs.create_elb.loadbalancer.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_elb_pool",
+              "type": "huaweicloud_api",
+              "description": "创建后端服务器组",
+              "service": "elb",
+              "operation": "create_pool",
+              "depends_on": ["create_elb_listener"],
+              "parameters": {
+                "pool": {
+                  "name": "rag-pool",
+                  "protocol": "HTTP",
+                  "lb_algorithm": "ROUND_ROBIN",
+                  "listener_id": "{{ outputs.create_elb_listener.listener.id }}",
+                  "loadbalancer_id": "{{ outputs.create_elb.loadbalancer.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_eip",
+              "type": "huaweicloud_api",
+              "description": "创建弹性公网IP绑定到ELB",
+              "service": "eip",
+              "operation": "create_publicip",
+              "depends_on": ["create_elb"],
+              "parameters": {
+                "publicip": {
+                  "type": "5_bgp",
+                  "port_id": "{{ outputs.create_elb.loadbalancer.vip_port_id }}"
+                },
+                "bandwidth": {
+                  "name": "rag-bw",
+                  "size": 20,
+                  "share_type": "PER",
+                  "charge_mode": "traffic"
+                }
+              }
+            }
+          ]
+        }
+
+    - name: "Serverless Agent"
+      description: "无服务器Agent：VPC、子网、FGS函数、APIG网关、DCS Redis、OBS、SMN通知"
+      user_requirement: "部署一个Serverless架构的AI Agent，包含VPC、子网、FGS函数工作流（运行Agent推理逻辑，按调用付费）、APIG API网关（对外暴露RESTful接口，含流控和认证）、DCS Redis（缓存会话上下文）、OBS对象存储（存储Prompt模板和日志）、SMN消息通知（异步任务回调通知）"
+      workflow: |
+        {
+          "name": "Serverless Agent部署",
+          "description": "VPC+子网+FGS+APIG+DCS Redis+OBS+SMN的无服务器Agent架构",
+          "variables": {
+            "vpc_name": "sless-agent-vpc",
+            "vpc_cidr": "10.0.0.0/16",
+            "subnet_name": "sless-agent-subnet",
+            "subnet_cidr": "10.0.1.0/24",
+            "subnet_gateway": "10.0.1.1",
+            "az": "cn-north-4a",
+            "redis_password": "SlessRedis@123"
+          },
+          "tasks": [
+            {
+              "name": "create_vpc",
+              "type": "huaweicloud_api",
+              "description": "创建虚拟私有云",
+              "service": "vpc",
+              "operation": "create_vpc",
+              "parameters": {
+                "vpc": {
+                  "name": "{{ variables.vpc_name }}",
+                  "cidr": "{{ variables.vpc_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_subnet",
+              "type": "huaweicloud_api",
+              "description": "创建子网",
+              "service": "vpc",
+              "operation": "create_subnet",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "subnet": {
+                  "name": "{{ variables.subnet_name }}",
+                  "cidr": "{{ variables.subnet_cidr }}",
+                  "gateway_ip": "{{ variables.subnet_gateway }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "primary_dns": "100.125.1.250",
+                  "secondary_dns": "100.125.21.250"
+                }
+              }
+            },
+            {
+              "name": "create_security_group",
+              "type": "huaweicloud_api",
+              "description": "创建安全组",
+              "service": "vpc",
+              "operation": "create_security_group",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "security_group": {
+                  "name": "sless-agent-sg",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_redis",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通Redis 6379（仅子网内）",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress",
+                  "ethertype": "IPv4",
+                  "protocol": "tcp",
+                  "port_range_min": 6379,
+                  "port_range_max": 6379,
+                  "remote_ip_prefix": "{{ variables.subnet_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_redis",
+              "type": "huaweicloud_api",
+              "description": "创建DCS Redis-缓存Agent会话上下文",
+              "service": "dcs",
+              "operation": "create_instance",
+              "depends_on": ["create_subnet", "create_sg_rule_redis"],
+              "parameters": {
+                "name": "sless-agent-redis",
+                "engine": "Redis",
+                "engine_version": "6.0",
+                "capacity": 2,
+                "spec_code": "redis.ha.xu1.large.r2.2",
+                "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                "subnet_id": "{{ outputs.create_subnet.subnet.id }}",
+                "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                "available_zones": ["{{ variables.az }}"],
+                "password": "{{ variables.redis_password }}",
+                "no_password_access": false
+              }
+            },
+            {
+              "name": "create_obs_bucket",
+              "type": "huaweicloud_api",
+              "description": "创建OBS桶-存储Prompt模板和运行日志",
+              "service": "obs",
+              "operation": "create_bucket",
+              "parameters": {
+                "bucket_name": "sless-agent-store-unique-id",
+                "location": "cn-north-4",
+                "storage_class": "STANDARD",
+                "acl": "private"
+              }
+            },
+            {
+              "name": "create_smn_topic",
+              "type": "huaweicloud_api",
+              "description": "创建SMN主题-异步任务回调通知",
+              "service": "smn",
+              "operation": "create_topic",
+              "parameters": {
+                "name": "agent-callback-topic",
+                "display_name": "Agent异步回调通知"
+              }
+            },
+            {
+              "name": "create_fgs_agent",
+              "type": "huaweicloud_api",
+              "description": "创建FGS函数-Agent推理主函数",
+              "service": "fgs",
+              "operation": "create_function",
+              "depends_on": ["create_subnet", "create_redis", "create_obs_bucket"],
+              "parameters": {
+                "func_name": "agent-inference",
+                "package": "default",
+                "runtime": "Python3.10",
+                "handler": "index.handler",
+                "memory_size": 512,
+                "timeout": 60,
+                "code_type": "obs",
+                "code_url": "{{ outputs.create_obs_bucket.bucket_name }}/code/agent.zip",
+                "func_vpc": {
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "subnet_id": "{{ outputs.create_subnet.subnet.id }}"
+                },
+                "user_data": "{\"REDIS_HOST\":\"{{ outputs.create_redis.ip }}\",\"REDIS_PORT\":\"6379\"}"
+              }
+            },
+            {
+              "name": "create_apig_group",
+              "type": "huaweicloud_api",
+              "description": "创建APIG API分组-Agent对外接口入口",
+              "service": "apig",
+              "operation": "create_api_group",
+              "parameters": {
+                "name": "sless-agent-api-group",
+                "remark": "Serverless Agent对外API接口分组"
+              }
+            },
+            {
+              "name": "create_apig_api",
+              "type": "huaweicloud_api",
+              "description": "创建APIG API-绑定FGS函数后端",
+              "service": "apig",
+              "operation": "create_api",
+              "depends_on": ["create_apig_group", "create_fgs_agent"],
+              "parameters": {
+                "name": "agent-chat",
+                "group_id": "{{ outputs.create_apig_group.id }}",
+                "type": 1,
+                "req_method": "POST",
+                "req_uri": "/v1/chat",
+                "auth_type": "APP",
+                "backend_type": "FUNCTION",
+                "func_info": {
+                  "function_urn": "{{ outputs.create_fgs_agent.func_urn }}",
+                  "invocation_type": "sync",
+                  "timeout": 60000
+                },
+                "result_normal_sample": "{\"reply\":\"Hello\"}",
+                "result_failure_sample": "{\"error\":\"failed\"}"
+              }
+            }
+          ]
+        }
+
+    - name: "AI模型推理服务"
+      description: "AI推理服务：VPC、子网、安全组、CCE集群、节点池、ModelArts、SFS Turbo、OBS、APIG、ELB、EIP"
+      user_requirement: "部署一个AI模型推理服务，包含VPC、子网、安全组、CCE容器集群（运行推理服务Pod）、ModelArts（模型管理和训练）、SFS Turbo（高性能共享模型文件存储）、OBS（训练数据和模型版本归档）、APIG API网关（推理API入口）、ELB负载均衡和弹性公网IP"
+      workflow: |
+        {
+          "name": "AI模型推理服务部署",
+          "description": "VPC+子网+安全组+CCE+ModelArts+SFS Turbo+OBS+APIG+ELB+EIP的AI推理架构",
+          "variables": {
+            "vpc_name": "ai-infer-vpc",
+            "vpc_cidr": "10.0.0.0/16",
+            "subnet_name": "ai-infer-subnet",
+            "subnet_cidr": "10.0.1.0/24",
+            "subnet_gateway": "10.0.1.1",
+            "az1": "cn-north-4a",
+            "az2": "cn-north-4b",
+            "cluster_name": "ai-infer-cluster",
+            "node_flavor": "pi2.2xlarge.4"
+          },
+          "tasks": [
+            {
+              "name": "create_vpc",
+              "type": "huaweicloud_api",
+              "description": "创建虚拟私有云",
+              "service": "vpc",
+              "operation": "create_vpc",
+              "parameters": {
+                "vpc": {
+                  "name": "{{ variables.vpc_name }}",
+                  "cidr": "{{ variables.vpc_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_subnet",
+              "type": "huaweicloud_api",
+              "description": "创建子网",
+              "service": "vpc",
+              "operation": "create_subnet",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "subnet": {
+                  "name": "{{ variables.subnet_name }}",
+                  "cidr": "{{ variables.subnet_cidr }}",
+                  "gateway_ip": "{{ variables.subnet_gateway }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "primary_dns": "100.125.1.250",
+                  "secondary_dns": "100.125.21.250"
+                }
+              }
+            },
+            {
+              "name": "create_security_group",
+              "type": "huaweicloud_api",
+              "description": "创建安全组",
+              "service": "vpc",
+              "operation": "create_security_group",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "security_group": {
+                  "name": "ai-infer-sg",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_https",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通HTTPS 443",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress",
+                  "ethertype": "IPv4",
+                  "protocol": "tcp",
+                  "port_range_min": 443,
+                  "port_range_max": 443,
+                  "remote_ip_prefix": "0.0.0.0/0"
+                }
+              }
+            },
+            {
+              "name": "create_cce_cluster",
+              "type": "huaweicloud_api",
+              "description": "创建CCE集群-运行推理服务容器",
+              "service": "cce",
+              "operation": "create_cluster",
+              "depends_on": ["create_subnet", "create_security_group"],
+              "parameters": {
+                "kind": "Cluster",
+                "apiVersion": "v3",
+                "metadata": {"name": "{{ variables.cluster_name }}"},
+                "spec": {
+                  "flavor": "cce.s2.medium",
+                  "type": "VirtualMachine",
+                  "hostNetwork": {
+                    "vpc": "{{ outputs.create_vpc.vpc.id }}",
+                    "subnet": "{{ outputs.create_subnet.subnet.id }}",
+                    "securityGroup": "{{ outputs.create_security_group.security_group.id }}"
+                  },
+                  "containerNetwork": {
+                    "mode": "overlay_l2",
+                    "cidr": "172.16.0.0/16"
+                  },
+                  "kubernetesSvcIpRange": "10.247.0.0/16",
+                  "authentication": {"mode": "rbac"}
+                }
+              }
+            },
+            {
+              "name": "create_node_pool",
+              "type": "huaweicloud_api",
+              "description": "创建GPU节点池-运行模型推理负载",
+              "service": "cce",
+              "operation": "create_node_pool",
+              "depends_on": ["create_cce_cluster"],
+              "parameters": {
+                "kind": "NodePool",
+                "apiVersion": "v3",
+                "metadata": {"name": "ai-gpu-node-pool"},
+                "spec": {
+                  "initialNodeCount": 2,
+                  "nodeTemplate": {
+                    "flavor": "{{ variables.node_flavor }}",
+                    "az": "{{ variables.az1 }}",
+                    "os": "EulerOS 2.9",
+                    "rootVolume": {"volumetype": "SAS", "size": 50},
+                    "dataVolumes": [{"volumetype": "SAS", "size": 500}],
+                    "login": {"sshKey": "keypair-ai"}
+                  }
+                },
+                "cluster_id": "{{ outputs.create_cce_cluster.metadata.uid }}"
+              }
+            },
+            {
+              "name": "create_sfs",
+              "type": "huaweicloud_api",
+              "description": "创建SFS Turbo-高性能共享模型文件存储",
+              "service": "sfsturbo",
+              "operation": "create_share",
+              "depends_on": ["create_subnet", "create_security_group"],
+              "parameters": {
+                "share": {
+                  "name": "ai-model-store",
+                  "share_proto": "NFS",
+                  "share_type": "STANDARD",
+                  "size": 1000,
+                  "availability_zone": "{{ variables.az1 }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "subnet_id": "{{ outputs.create_subnet.subnet.id }}",
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_obs_bucket",
+              "type": "huaweicloud_api",
+              "description": "创建OBS桶-训练数据和模型版本归档",
+              "service": "obs",
+              "operation": "create_bucket",
+              "parameters": {
+                "bucket_name": "ai-models-archive-unique-id",
+                "location": "cn-north-4",
+                "storage_class": "STANDARD",
+                "acl": "private"
+              }
+            },
+            {
+              "name": "create_modelarts_dataset",
+              "type": "huaweicloud_api",
+              "description": "创建ModelArts数据集-管理训练数据",
+              "service": "modelarts",
+              "operation": "create_dataset",
+              "depends_on": ["create_obs_bucket"],
+              "parameters": {
+                "dataset_name": "ai-training-dataset",
+                "dataset_type": 0,
+                "data_sources": [{
+                  "data_type": 0,
+                  "data_path": "/{{ outputs.create_obs_bucket.bucket_name }}/datasets/"
+                }],
+                "work_path": "/{{ outputs.create_obs_bucket.bucket_name }}/output/",
+                "work_path_type": 0
+              }
+            },
+            {
+              "name": "create_apig_group",
+              "type": "huaweicloud_api",
+              "description": "创建APIG API分组-推理API入口",
+              "service": "apig",
+              "operation": "create_api_group",
+              "parameters": {
+                "name": "ai-infer-api-group",
+                "remark": "AI模型推理服务API接口分组"
+              }
+            },
+            {
+              "name": "create_elb",
+              "type": "huaweicloud_api",
+              "description": "创建ELB负载均衡器",
+              "service": "elb",
+              "operation": "create_loadbalancer",
+              "depends_on": ["create_subnet"],
+              "parameters": {
+                "loadbalancer": {
+                  "name": "ai-infer-elb",
+                  "vip_subnet_cidr_id": "{{ outputs.create_subnet.subnet.neutron_subnet_id }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "availability_zone_list": ["{{ variables.az1 }}"]
+                }
+              }
+            },
+            {
+              "name": "create_elb_listener",
+              "type": "huaweicloud_api",
+              "description": "创建HTTPS监听器",
+              "service": "elb",
+              "operation": "create_listener",
+              "depends_on": ["create_elb"],
+              "parameters": {
+                "listener": {
+                  "name": "ai-infer-https-listener",
+                  "protocol": "HTTPS",
+                  "protocol_port": 443,
+                  "loadbalancer_id": "{{ outputs.create_elb.loadbalancer.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_elb_pool",
+              "type": "huaweicloud_api",
+              "description": "创建后端服务器组",
+              "service": "elb",
+              "operation": "create_pool",
+              "depends_on": ["create_elb_listener"],
+              "parameters": {
+                "pool": {
+                  "name": "ai-infer-pool",
+                  "protocol": "HTTP",
+                  "lb_algorithm": "ROUND_ROBIN",
+                  "listener_id": "{{ outputs.create_elb_listener.listener.id }}",
+                  "loadbalancer_id": "{{ outputs.create_elb.loadbalancer.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_eip",
+              "type": "huaweicloud_api",
+              "description": "创建弹性公网IP绑定到ELB",
+              "service": "eip",
+              "operation": "create_publicip",
+              "depends_on": ["create_elb"],
+              "parameters": {
+                "publicip": {
+                  "type": "5_bgp",
+                  "port_id": "{{ outputs.create_elb.loadbalancer.vip_port_id }}"
+                },
+                "bandwidth": {
+                  "name": "ai-infer-bw",
+                  "size": 100,
+                  "share_type": "PER",
+                  "charge_mode": "traffic"
+                }
+              }
+            }
+          ]
+        }
+
+    - name: "实时数据管道"
+      description: "实时数据处理：VPC、子网、安全组、Kafka消息队列、FGS函数、RDS MySQL、DCS Redis、OBS、SMN通知"
+      user_requirement: "部署一个实时数据处理管道，包含VPC、子网、安全组、Kafka消息队列（数据接入和缓冲）、FGS函数工作流（实时数据清洗和转换）、RDS MySQL（结构化数据存储）、DCS Redis（实时计算中间状态缓存）、OBS对象存储（原始数据归档）、SMN消息通知（异常告警通知）"
+      workflow: |
+        {
+          "name": "实时数据管道部署",
+          "description": "VPC+子网+安全组+Kafka+FGS+RDS+DCS Redis+OBS+SMN的实时数据处理架构",
+          "variables": {
+            "vpc_name": "pipeline-vpc",
+            "vpc_cidr": "10.0.0.0/16",
+            "subnet_name": "pipeline-subnet",
+            "subnet_cidr": "10.0.1.0/24",
+            "subnet_gateway": "10.0.1.1",
+            "az1": "cn-north-4a",
+            "az2": "cn-north-4b",
+            "redis_password": "PipeRedis@123",
+            "db_password": "PipeDB@123"
+          },
+          "tasks": [
+            {
+              "name": "create_vpc",
+              "type": "huaweicloud_api",
+              "description": "创建虚拟私有云",
+              "service": "vpc",
+              "operation": "create_vpc",
+              "parameters": {
+                "vpc": {
+                  "name": "{{ variables.vpc_name }}",
+                  "cidr": "{{ variables.vpc_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_subnet",
+              "type": "huaweicloud_api",
+              "description": "创建子网",
+              "service": "vpc",
+              "operation": "create_subnet",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "subnet": {
+                  "name": "{{ variables.subnet_name }}",
+                  "cidr": "{{ variables.subnet_cidr }}",
+                  "gateway_ip": "{{ variables.subnet_gateway }}",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "primary_dns": "100.125.1.250",
+                  "secondary_dns": "100.125.21.250"
+                }
+              }
+            },
+            {
+              "name": "create_security_group",
+              "type": "huaweicloud_api",
+              "description": "创建安全组",
+              "service": "vpc",
+              "operation": "create_security_group",
+              "depends_on": ["create_vpc"],
+              "parameters": {
+                "security_group": {
+                  "name": "pipeline-sg",
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_kafka",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通Kafka 9092（仅子网内）",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress",
+                  "ethertype": "IPv4",
+                  "protocol": "tcp",
+                  "port_range_min": 9092,
+                  "port_range_max": 9092,
+                  "remote_ip_prefix": "{{ variables.subnet_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_redis",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通Redis 6379（仅子网内）",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress",
+                  "ethertype": "IPv4",
+                  "protocol": "tcp",
+                  "port_range_min": 6379,
+                  "port_range_max": 6379,
+                  "remote_ip_prefix": "{{ variables.subnet_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_sg_rule_mysql",
+              "type": "huaweicloud_api",
+              "description": "安全组规则-放通MySQL 3306（仅子网内）",
+              "service": "vpc",
+              "operation": "create_security_group_rule",
+              "depends_on": ["create_security_group"],
+              "parameters": {
+                "security_group_rule": {
+                  "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                  "direction": "ingress",
+                  "ethertype": "IPv4",
+                  "protocol": "tcp",
+                  "port_range_min": 3306,
+                  "port_range_max": 3306,
+                  "remote_ip_prefix": "{{ variables.subnet_cidr }}"
+                }
+              }
+            },
+            {
+              "name": "create_kafka",
+              "type": "huaweicloud_api",
+              "description": "创建Kafka实例-数据接入和缓冲",
+              "service": "kafka",
+              "operation": "create_instance",
+              "depends_on": ["create_subnet", "create_sg_rule_kafka"],
+              "parameters": {
+                "name": "pipeline-kafka",
+                "engine": "kafka",
+                "engine_version": "2.7",
+                "specification": "kafka.2u4g.cluster.small",
+                "storage_space": 600,
+                "storage_spec_code": "dms.physical.storage.high.v2",
+                "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                "subnet_id": "{{ outputs.create_subnet.subnet.id }}",
+                "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                "available_zones": ["{{ variables.az1 }}"],
+                "partition_num": 3
+              }
+            },
+            {
+              "name": "create_redis",
+              "type": "huaweicloud_api",
+              "description": "创建DCS Redis-实时计算中间状态缓存",
+              "service": "dcs",
+              "operation": "create_instance",
+              "depends_on": ["create_subnet", "create_sg_rule_redis"],
+              "parameters": {
+                "name": "pipeline-redis",
+                "engine": "Redis",
+                "engine_version": "6.0",
+                "capacity": 4,
+                "spec_code": "redis.ha.xu1.large.r2.4",
+                "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                "subnet_id": "{{ outputs.create_subnet.subnet.id }}",
+                "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                "available_zones": ["{{ variables.az1 }}"],
+                "password": "{{ variables.redis_password }}",
+                "no_password_access": false
+              }
+            },
+            {
+              "name": "create_rds",
+              "type": "huaweicloud_api",
+              "description": "创建RDS MySQL-结构化数据存储",
+              "service": "rds",
+              "operation": "create_instance",
+              "depends_on": ["create_subnet", "create_sg_rule_mysql"],
+              "parameters": {
+                "name": "pipeline-mysql",
+                "datastore": {"type": "MySQL", "version": "8.0"},
+                "flavor_ref": "rds.mysql.s1.large",
+                "volume": {"type": "CLOUDSSD", "size": 200},
+                "availability_zone": "{{ variables.az1 }}",
+                "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                "subnet_id": "{{ outputs.create_subnet.subnet.id }}",
+                "security_group_id": "{{ outputs.create_security_group.security_group.id }}",
+                "password": "{{ variables.db_password }}",
+                "backup_strategy": {"start_time": "02:00-03:00", "keep_days": 7}
+              }
+            },
+            {
+              "name": "create_obs_bucket",
+              "type": "huaweicloud_api",
+              "description": "创建OBS桶-原始数据归档",
+              "service": "obs",
+              "operation": "create_bucket",
+              "parameters": {
+                "bucket_name": "pipeline-archive-unique-id",
+                "location": "cn-north-4",
+                "storage_class": "STANDARD",
+                "acl": "private"
+              }
+            },
+            {
+              "name": "create_smn_topic",
+              "type": "huaweicloud_api",
+              "description": "创建SMN主题-异常告警通知",
+              "service": "smn",
+              "operation": "create_topic",
+              "parameters": {
+                "name": "pipeline-alert-topic",
+                "display_name": "数据管道异常告警"
+              }
+            },
+            {
+              "name": "create_fgs_etl",
+              "type": "huaweicloud_api",
+              "description": "创建FGS函数-实时数据清洗和转换",
+              "service": "fgs",
+              "operation": "create_function",
+              "depends_on": ["create_subnet", "create_kafka", "create_redis"],
+              "parameters": {
+                "func_name": "pipeline-etl",
+                "package": "default",
+                "runtime": "Python3.10",
+                "handler": "index.handler",
+                "memory_size": 512,
+                "timeout": 120,
+                "code_type": "obs",
+                "code_url": "{{ outputs.create_obs_bucket.bucket_name }}/code/etl.zip",
+                "func_vpc": {
+                  "vpc_id": "{{ outputs.create_vpc.vpc.id }}",
+                  "subnet_id": "{{ outputs.create_subnet.subnet.id }}"
+                }
+              }
+            }
+          ]
+        }
+
+# 服务器配置
+server:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 1
+  log_level: "info"
+
+# 日志配置
+logging:
+  level: "INFO"              # DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file:
+    enabled: true
+    path: "logs"
+    max_size: "10MB"
+    backup_count: 5
+
+# 安全配置
+security:
+  cors:
+    enabled: true
+    allow_origins: ["*"]
+    allow_methods: ["*"]
+    allow_headers: ["*"]
+  rate_limit:
+    enabled: false
+    requests_per_minute: 60

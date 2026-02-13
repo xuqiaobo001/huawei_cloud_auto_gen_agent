@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <title>登录 - 华为云Agent编排系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .login-card { width: 100%; max-width: 400px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.2); }
+        .login-header { background: #fff; border-radius: 12px 12px 0 0; padding: 32px 32px 16px; text-align: center; }
+        .login-header i { font-size: 2.5rem; color: #0d6efd; }
+        .login-body { padding: 16px 32px 32px; }
+        #errorMsg { display: none; }
+    </style>
+</head>
+<body>
+    <div class="card login-card">
+        <div class="login-header">
+            <i class="fas fa-cloud"></i>
+            <h4 class="mt-2 mb-0">华为云编排系统</h4>
+            <small class="text-muted">请登录以继续</small>
+        </div>
+        <div class="login-body">
+            <div class="alert alert-danger py-2" id="errorMsg" role="alert"></div>
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label for="username" class="form-label">用户名</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="text" class="form-control" id="username" name="username" required autofocus>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">密码</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> 登录
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const errEl = document.getElementById('errorMsg');
+        const btn = document.getElementById('loginBtn');
+        errEl.style.display = 'none';
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> 登录中...';
+
+        try {
+            const resp = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value
+                })
+            });
+            const data = await resp.json();
+            if (data.success) {
+                window.location.href = '/';
+            } else {
+                errEl.textContent = data.error || '登录失败';
+                errEl.style.display = 'block';
+            }
+        } catch (err) {
+            errEl.textContent = '网络错误，请重试';
+            errEl.style.display = 'block';
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> 登录';
+        }
+    });
+    </script>
+</body>
+</html>
