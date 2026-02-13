@@ -1,6 +1,0 @@
-2026-02-04 01:24:04,811 - utils.vector_store - INFO - 已存在集合，当前文档数: 0
-2026-02-04 01:24:04,811 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db
-2026-02-04 06:10:26,900 - utils.vector_store - INFO - 已存在集合，当前文档数: 0
-2026-02-04 06:10:26,900 - utils.vector_store - INFO - 向量存储初始化完成，目录: ./data/vector_db
-2026-02-06 07:19:27,345 - utils.vector_store - ERROR - 获取所有操作失败: Collection [1ac43b2f-a362-4498-b97f-87f219e878bb] does not exist.
-2026-02-06 07:19:32,998 - utils.vector_store - ERROR - 获取所有操作失败: Collection [1ac43b2f-a362-4498-b97f-87f219e878bb] does not exist.
