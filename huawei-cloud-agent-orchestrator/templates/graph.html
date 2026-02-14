@@ -7,12 +7,13 @@
     <title>服务依赖图 - 华为云Agent编排系统</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/layout.css" rel="stylesheet">
     <style>
-        body { overflow: hidden; }
+        body { overflow: hidden; margin: 0; }
         #graph-container {
             position: relative;
             width: 100%;
-            height: calc(100vh - 56px);
+            height: 100%;
             background: #f8f9fa;
         }
         #graph-svg {
@@ -156,78 +157,41 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <i class="fas fa-cloud"></i>
-                华为云编排系统
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/" id="nav-home">
-                            <i class="fas fa-home"></i> 首页
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auto" id="nav-auto">
-                            <i class="fas fa-robot"></i> AI自动生成
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/history" id="nav-history">
-                            <i class="fas fa-history"></i> 历史记录
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/designer" id="nav-designer">
-                            <i class="fas fa-project-diagram"></i> 工作流设计器
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/monitor" id="nav-monitor">
-                            <i class="fas fa-chart-line"></i> 监控中心
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/services" id="nav-services">
-                            <i class="fas fa-cogs"></i> 服务管理
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/graph" id="nav-graph">
-                            <i class="fas fa-share-alt"></i> 服务依赖图
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/ascend" id="nav-ascend">
-                            <i class="fas fa-microchip"></i> 昇腾云业务
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/settings" id="nav-settings">
-                            <i class="fas fa-sliders-h"></i> 设置
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav align-items-center">
-                    <li class="nav-item">
-                        <span class="badge {{ 'bg-success' if llm_available else 'bg-warning text-dark' }}">
-                            <i class="fas fa-brain"></i> LLM: {{ '已启用' if llm_available else '未配置' }}
-                        </span>
-                    </li>
-                    <li class="nav-item ms-3 border-start border-light ps-3">
-                        <span class="navbar-text text-white"><i class="fas fa-user-circle"></i> {{ username }}</span>
-                        <a class="text-white-50 ms-2 text-decoration-none small" href="/logout"><i class="fas fa-sign-out-alt"></i> 登出</a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-cloud"></i>
+            <span class="brand-text">华为云编排系统</span>
         </div>
-    </nav>
+        <ul class="sidebar-nav">
+            <li class="sidebar-item"><a href="/"><i class="fas fa-home"></i><span class="nav-text">首页</span></a></li>
+            <li class="sidebar-item"><a href="/auto"><i class="fas fa-robot"></i><span class="nav-text">AI自动生成</span></a></li>
+            <li class="sidebar-item"><a href="/history"><i class="fas fa-history"></i><span class="nav-text">历史记录</span></a></li>
+            <li class="sidebar-item"><a href="/designer"><i class="fas fa-project-diagram"></i><span class="nav-text">工作流设计器</span></a></li>
+            <li class="sidebar-item"><a href="/monitor"><i class="fas fa-chart-line"></i><span class="nav-text">监控中心</span></a></li>
+            <li class="sidebar-item"><a href="/services"><i class="fas fa-cogs"></i><span class="nav-text">服务管理</span></a></li>
+            <li class="sidebar-item active"><a href="/graph"><i class="fas fa-share-alt"></i><span class="nav-text">服务依赖图</span></a></li>
+            <li class="sidebar-item"><a href="/ascend"><i class="fas fa-microchip"></i><span class="nav-text">昇腾云业务</span></a></li>
+            <li class="sidebar-item"><a href="/settings"><i class="fas fa-sliders-h"></i><span class="nav-text">设置</span></a></li>
+        </ul>
+        <div class="sidebar-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+    </div>
 
+    <!-- Topbar -->
+    <div class="topbar" id="topbar">
+        <button class="topbar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <div class="ms-auto d-flex align-items-center gap-3">
+            <span class="badge {{ 'bg-success' if llm_available else 'bg-warning text-dark' }}">
+                <i class="fas fa-brain"></i> LLM: {{ '已启用' if llm_available else '未配置' }}
+            </span>
+            <span class="text-muted"><i class="fas fa-user-circle"></i> {{ username }}</span>
+            <a class="text-muted text-decoration-none small" href="/logout"><i class="fas fa-sign-out-alt"></i> 登出</a>
+        </div>
+    </div>
+
+    <div class="main-content fullscreen" id="main-content">
     <div id="graph-container">
         <svg id="graph-svg"></svg>
 
@@ -304,8 +268,10 @@
         <!-- Tooltip -->
         <div class="node-tooltip" id="node-tooltip"></div>
     </div>
+    </div><!-- /main-content -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/layout.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="/static/js/graph.js"></script>
 </body>

@@ -1,0 +1,151 @@
+/* ===== Sidebar Layout ===== */
+:root {
+    --sidebar-width: 220px;
+    --sidebar-collapsed-width: 60px;
+    --topbar-height: 50px;
+    --sidebar-bg: #1e2a3a;
+    --sidebar-hover: rgba(255,255,255,0.08);
+    --sidebar-active: rgba(78,140,255,0.18);
+    --sidebar-active-border: #4e8cff;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--sidebar-bg);
+    color: #fff;
+    z-index: 1040;
+    transition: width 0.25s ease;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar.collapsed { width: var(--sidebar-collapsed-width); }
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    min-height: var(--topbar-height);
+}
+.sidebar-brand i { font-size: 1.25rem; min-width: 28px; text-align: center; }
+.sidebar-brand .brand-text { margin-left: 10px; }
+.sidebar.collapsed .brand-text { display: none; }
+
+.sidebar-nav {
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+    flex: 1;
+}
+
+.sidebar-item a {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s, background 0.2s;
+    border-left: 3px solid transparent;
+    font-size: 0.9rem;
+}
+.sidebar-item a:hover {
+    color: #fff;
+    background: var(--sidebar-hover);
+}
+.sidebar-item.active a {
+    color: #fff;
+    background: var(--sidebar-active);
+    border-left-color: var(--sidebar-active-border);
+}
+.sidebar-item a i {
+    min-width: 28px;
+    text-align: center;
+    font-size: 1rem;
+}
+.sidebar-item a .nav-text { margin-left: 8px; }
+.sidebar.collapsed .nav-text { display: none; }
+
+.sidebar-toggle {
+    padding: 12px 16px;
+    text-align: center;
+    cursor: pointer;
+    color: rgba(255,255,255,0.4);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    transition: color 0.2s;
+}
+.sidebar-toggle:hover { color: #fff; }
+.sidebar.collapsed .sidebar-toggle i { transform: rotate(180deg); }
+
+/* Topbar */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: var(--sidebar-width);
+    right: 0;
+    height: var(--topbar-height);
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1030;
+    transition: left 0.25s ease;
+}
+.sidebar.collapsed ~ .topbar { left: var(--sidebar-collapsed-width); }
+
+.topbar .topbar-toggle {
+    background: none;
+    border: none;
+    font-size: 1.15rem;
+    color: #555;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.topbar .topbar-toggle:hover { background: #f0f0f0; }
+
+/* Main content */
+.main-content {
+    margin-left: var(--sidebar-width);
+    margin-top: var(--topbar-height);
+    padding: 24px;
+    min-height: calc(100vh - var(--topbar-height));
+    transition: margin-left 0.25s ease;
+}
+.sidebar.collapsed ~ .main-content { margin-left: var(--sidebar-collapsed-width); }
+
+/* Full-screen variant (for graph page etc.) */
+.main-content.fullscreen {
+    padding: 0;
+    height: calc(100vh - var(--topbar-height));
+    overflow: hidden;
+}
+
+/* Sidebar scrollbar */
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+/* Responsive: mobile */
+@media (max-width: 991px) {
+    .sidebar { width: var(--sidebar-collapsed-width); }
+    .sidebar .brand-text,
+    .sidebar .nav-text { display: none; }
+    .topbar { left: var(--sidebar-collapsed-width); }
+    .main-content { margin-left: var(--sidebar-collapsed-width); }
+    .sidebar.expanded { width: var(--sidebar-width); }
+    .sidebar.expanded .brand-text,
+    .sidebar.expanded .nav-text { display: inline; }
+    .sidebar.expanded ~ .topbar { left: var(--sidebar-width); }
+    .sidebar.expanded ~ .main-content { margin-left: var(--sidebar-width); }
+}
