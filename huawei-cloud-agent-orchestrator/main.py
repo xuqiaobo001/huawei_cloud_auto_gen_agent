@@ -76,6 +76,13 @@ async def lifespan(app: FastAPI):
 
     logger.info("系统启动完成")
 
+    # 预热 ModelArts 知识库嵌入模型（避免首次搜索冷启动）
+    try:
+        store = get_modelarts_store()
+        store.warm_up()
+    except Exception as e:
+        logger.warning(f"ModelArts 知识库预热失败（不影响使用）: {e}")
+
     yield
 
     # 关闭时清理
