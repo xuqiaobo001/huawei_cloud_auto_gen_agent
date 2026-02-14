@@ -123,6 +123,7 @@
     min-height: calc(100vh - var(--topbar-height));
     transition: margin-left 0.25s ease;
 }
+.main-content .container { max-width: 100%; width: 100%; }
 .sidebar.collapsed ~ .main-content { margin-left: var(--sidebar-collapsed-width); }
 
 /* Full-screen variant (for graph page etc.) */
