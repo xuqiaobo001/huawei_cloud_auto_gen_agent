@@ -25,6 +25,7 @@ from utils.vector_store import get_vector_store
 from utils.auth import init_default_user, authenticate, get_current_user, AuthMiddleware
 from utils.graph_store import get_graph_store
 from services.service_dependency_analyzer import get_analyzer
+from utils.modelarts_knowledge_store import get_modelarts_store
 
 # 初始化配置
 config = get_config()
@@ -820,6 +821,64 @@ async def refresh_graph():
             return JSONResponse({"success": True, "message": "图数据已刷新（Analyzer内存模式）"})
     except Exception as e:
         logger.error(f"刷新图数据失败: {e}")
+        return JSONResponse({"success": False, "error": str(e)}, status_code=500)
+
+
+# ===== 昇腾云业务知识搜索 =====
+
+@app.get("/ascend", response_class=HTMLResponse)
+async def ascend_knowledge_page(request: Request):
+    """昇腾云业务知识搜索页面"""
+    return templates.TemplateResponse(
+        "ascend_knowledge.html",
+        {
+            "request": request,
+            "llm_available": agent.is_llm_available(),
+            "username": request.session.get("username", ""),
+        }
+    )
+
+
+@app.get("/api/ascend/search")
+async def ascend_search(query: str = "", n_results: int = 10, category_filter: str = "", tag_filter: str = ""):
+    """昇腾云知识语义搜索"""
+    try:
+        if not query.strip():
+            return JSONResponse({"success": False, "error": "查询内容不能为空"})
+        store = get_modelarts_store()
+        results = store.search(
+            query=query.strip(),
+            n_results=n_results,
+            category_filter=category_filter or None,
+            tag_filter=tag_filter or None
+        )
+        return JSONResponse({"success": True, "data": results})
+    except Exception as e:
+        logger.error(f"昇腾知识搜索失败: {e}")
+        return JSONResponse({"success": False, "error": str(e)}, status_code=500)
+
+
+@app.get("/api/ascend/stats")
+async def ascend_stats():
+    """昇腾云知识库统计"""
+    try:
+        store = get_modelarts_store()
+        stats = store.get_stats()
+        return JSONResponse({"success": True, "data": stats})
+    except Exception as e:
+        logger.error(f"获取昇腾知识库统计失败: {e}")
+        return JSONResponse({"success": False, "error": str(e)}, status_code=500)
+
+
+@app.get("/api/ascend/category/{category}")
+async def ascend_by_category(category: str):
+    """按分类浏览昇腾云知识"""
+    try:
+        store = get_modelarts_store()
+        docs = store.get_by_category(category)
+        return JSONResponse({"success": True, "data": docs})
+    except Exception as e:
+        logger.error(f"按分类获取昇腾知识失败: {e}")
         return JSONResponse({"success": False, "error": str(e)}, status_code=500)
 
 
